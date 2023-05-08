@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+alias adb='$ANDROID_SDK_PLATFORM_TOOLS_BIN_PATH/adb'
+alias android_emulator='emulator -avd P430 -gpu host'
+alias emulator='$EMULATOR_BIN_PATH/emulator -gpu host'

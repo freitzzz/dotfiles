@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -e
+
+alias_source=~/.bash_aliases
+source $alias_source
+
+alias_files=$(find . -type f -name "*.alias")
+
+while read -r file;
+do
+    source "$file";
+done < <( echo "$alias_files" ) 
+
+alias > $alias_source
