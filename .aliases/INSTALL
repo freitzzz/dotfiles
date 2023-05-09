@@ -2,14 +2,53 @@
 
 set -e
 
+script_dir_path=$(dirname "$0")
+
 alias_source=~/.bash_aliases
+dependencies_source="$script_dir_path/DEPENDENCIES"
+
 source $alias_source
 
+# 1. Install aliases
+
+echo "Installing aliases in $alias_source..."
+
 alias_files=$(find . -type f -name "*.alias")
+
+echo "~~~~~~~~"
 
 while read -r file;
 do
     source "$file";
+
+    echo "(+) Installed: $file"
 done < <( echo "$alias_files" ) 
 
+echo "~~~~~~~~"
+
 alias > $alias_source
+
+# 2. Check if all dependencies are set
+
+echo "Finished installing aliases, checking for missing dependencies..."
+
+echo "~~~~~~~~"
+
+has_dependencies_unset="false"
+
+while read -r dependency;
+do
+    if ! command -v "$dependency" >/dev/null 2>&1 && ([[ "$dependency" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]] && [ -z "${!dependency}" ]);
+    then
+        has_dependencies_unset="true"
+
+        echo "(-) Missing dependency: $dependency"
+    fi
+done < <( cat "$dependencies_source" )
+
+if [ $has_dependencies_unset == "true" ];
+then
+    echo "~~~~~~~~"
+fi
+
+echo "All done! Alias installation has completed."
