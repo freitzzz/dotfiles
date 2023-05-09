@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -e
+
+script_dir_path=$(dirname "$0")
+
+global_config_source="$script_dir_path/global-config"
+
+echo "º Configuring Git..."
+
+bash $global_config_source
+
+echo "º All done! Git configuration has completed."

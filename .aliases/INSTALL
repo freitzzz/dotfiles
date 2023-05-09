@@ -11,7 +11,7 @@ source $alias_source
 
 # 1. Install aliases
 
-echo "Installing aliases in $alias_source..."
+echo "º Installing aliases in $alias_source..."
 
 alias_files=$(find . -type f -name "*.alias")
 
@@ -30,7 +30,7 @@ alias > $alias_source
 
 # 2. Check if all dependencies are set
 
-echo "Finished installing aliases, checking for missing dependencies..."
+echo "º Finished installing aliases, checking for missing dependencies..."
 
 echo "~~~~~~~~"
 
@@ -51,4 +51,4 @@ then
     echo "~~~~~~~~"
 fi
 
-echo "All done! Alias installation has completed."
+echo "º All done! Alias installation has completed."
