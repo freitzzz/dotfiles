@@ -1,5 +1,5 @@
 wget
-gunzip
+gzip
 tar
 software-properties-common
 libc6:i386
