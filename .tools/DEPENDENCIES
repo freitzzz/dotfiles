@@ -1,6 +1,7 @@
 wget
 gunzip
 tar
+software-properties-common
 libc6:i386
 libncurses5:i386
 libstdc++6:i386
