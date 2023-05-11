@@ -7,9 +7,9 @@ script_dir_path=$(dirname "$0")
 alias_source=~/.bash_aliases
 dependencies_source="$script_dir_path/DEPENDENCIES"
 
-if [ ! -d $alias_source ];
+if [ ! -f $alias_source ];
 then
-    mkdir $alias_source
+    touch $alias_source
 fi
 
 source $alias_source
