@@ -12,7 +12,7 @@ then
     mkdir -p $jadx_dir_path
 fi
 
-unzip $jadx_zip_path -o $jadx_dir_path
+unzip $jadx_zip_path -d $jadx_dir_path
 
 echo "# Jadx" >> ~/.profile
 echo "" >> ~/.profile
