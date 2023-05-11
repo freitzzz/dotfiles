@@ -5,7 +5,7 @@ set -x
 jadx_zip_path=/tmp/jadx.zip
 jadx_dir_path=~/Documents/Tools/jadx
 
-wget https://github.com/skylot/jadx/releases/download/v1.4.7/jadx-1.4.7.zip -o $jadx_zip_path
+wget https://github.com/skylot/jadx/releases/download/v1.4.7/jadx-1.4.7.zip -O $jadx_zip_path
 
 if [ ! -d $jadx_dir_path ];
 then
