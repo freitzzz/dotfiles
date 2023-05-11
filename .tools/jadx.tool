@@ -17,4 +17,4 @@ unzip $jadx_zip_path -d $jadx_dir_path
 echo "# Jadx" >> ~/.profile
 echo "" >> ~/.profile
 echo "JADX_ROOT=$jadx_dir_path" >> ~/.profile
-echo 'export PATH="$PATH:$JADX_ROOT/bin"'
+echo 'export PATH="$PATH:$JADX_ROOT/bin"' >> ~/.profile
