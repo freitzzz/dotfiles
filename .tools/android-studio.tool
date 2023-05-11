@@ -10,7 +10,7 @@ wget https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2022.2.1.19/andr
 
 if [ ! -d $android_studio_dir_path ];
 then
-    mkdir $android_studio_path
+    mkdir -p $android_studio_path
 fi
 
 gunzip $android_studio_gz_path

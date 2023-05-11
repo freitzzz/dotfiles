@@ -9,7 +9,7 @@ wget https://github.com/skylot/jadx/releases/download/v1.4.7/jadx-1.4.7.zip -o $
 
 if [ ! -d $jadx_dir_path ];
 then
-    mkdir $jadx_dir_path
+    mkdir -p $jadx_dir_path
 fi
 
 unzip $jadx_zip_path -o $jadx_dir_path
