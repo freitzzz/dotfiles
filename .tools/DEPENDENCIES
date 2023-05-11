@@ -3,3 +3,4 @@ gzip
 tar
 software-properties-common
 autoconf
+make
