@@ -2,12 +2,15 @@
 
 set -e
 
+shopt -s expand_aliases
+
 script_dir_path=$(dirname "$0")
 
 dependencies_source="$script_dir_path/DEPENDENCIES"
 repositories_source="$script_dir_path/REPOSITORIES"
 
-sudo -v
+alias apt-get='sudo apt-get'
+alias add-apt-repository='sudo add-apt-repository'
 
 # 1. Install required dependencies
 
@@ -57,7 +60,7 @@ tools_files=$(find . -type f -name "*.tool")
 
 while read -r file;
 do
-    bash $file;
+    . $file;
 
     echo "(+) Installed: $file"
 done < <( echo "$tools_files" ) 
