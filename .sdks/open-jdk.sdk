@@ -1,0 +1,14 @@
+#!/usr/env/bin bash
+
+set -x
+
+open_jdk_version="11.0.18"
+
+function requires_sdkman() {
+    script_dir_path=$(dirname "$0")
+    . $script_dir_path/../tools/sdkman.sdk
+}
+
+requires_sdkman
+
+sdk install java $open_jdk_version
