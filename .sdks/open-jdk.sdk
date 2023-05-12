@@ -6,7 +6,7 @@ open_jdk_version="11.0.18"
 
 function requires_sdkman() {
     script_dir_path=$(dirname "$0")
-    . $script_dir_path/../tools/sdkman.tool
+    . $script_dir_path/../.tools/sdkman.tool
 }
 
 requires_sdkman
