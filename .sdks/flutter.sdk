@@ -17,7 +17,7 @@ flutter_tar_path=/tmp/flutter.tar.xz
 flutter_sdk_dir_path=~/Documents/SDK/flutter
 flutter_sdk_tmp_dir_path=/tmp/flutter
 flutter_bin_path="$flutter_sdk_dir_path/bin/flutter"
-flutter_bin_path="$flutter_sdk_dir_path/bin/dart"
+dart_bin_path="$flutter_sdk_dir_path/bin/dart"
 
 if [ -d $flutter_sdk_dir_path ];
 then
