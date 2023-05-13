@@ -18,6 +18,5 @@ gunzip $android_studio_gz_path
 tar -xf $android_studio_tar_path -C $android_studio_dir_path
 
 echo "# Android Studio" >> ~/.profile
-echo "" >> ~/.profile
-echo "ANDROID_STUDIO_ROOT=$android_studio_dir_path" >> ~/.profile
+echo "export ANDROID_STUDIO_ROOT=$android_studio_dir_path" >> ~/.profile
 echo 'export PATH="$PATH:$ANDROID_STUDIO_ROOT/bin"' >> ~/.profile

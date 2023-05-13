@@ -4,6 +4,13 @@ set -x
 
 shopt -s extglob
 
+function requires_openjdk() {
+    script_dir_path=$(dirname "$0")
+    . $script_dir_path/open-jdk.sdk
+}
+
+requires_openjdk
+
 flutter_version="3.10.0"
 
 if [ $FLUTTER_INSTALLED ];
@@ -34,6 +41,7 @@ $flutter_bin_path config --no-analytics
 $dart_bin_path --disable-analytics
 
 $flutter_bin_path config --android-studio-dir=$ANDROID_STUDIO_ROOT
+$flutter_bin_path config --android-sdk=$ANDROID_STUDIO_ROOT
 yes | $flutter_bin_path doctor --android-licenses
 
 echo "# Flutter" >> ~/.profile

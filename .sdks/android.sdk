@@ -34,7 +34,7 @@ yes | $sdkmanager --licenses
 
 echo "# Android SDK" >> ~/.profile
 echo "" >> ~/.profile
-echo "ANDROID_SDK_ROOT=$android_sdk_dir_path" >> ~/.profile
+echo "export ANDROID_SDK_ROOT=$android_sdk_dir_path" >> ~/.profile
 echo "ANDROID_CMDLINE_TOOLS_ROOT=$android_cmd_line_tools_latest_dir_path" >> ~/.profile
 echo "ANDROID_EMULATOR_ROOT=$android_sdk_dir_path/emulator" >> ~/.profile
 echo "ANDROID_EMULATOR_WAIT_TIME_BEFORE_KILL=5" >> ~/.profile
