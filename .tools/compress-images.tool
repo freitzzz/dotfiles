@@ -10,7 +10,7 @@ then
 fi
 
 compress_images_functions=$( cat << EOF
-export function compress_images() {
+export -f function compress_images() {
     images_path="*.png"
 
     if ! [[ -z "$1" ]];
@@ -24,15 +24,15 @@ export function compress_images() {
     done
 }
 
-export function compress_images_png() {
+export -f function compress_images_png() {
     compress_images ".png"
 }
 
-export function compress_images_jpg() {
+export -f function compress_images_jpg() {
     compress_images ".jpg"
 }
 
-export function compress_images_jpeg() {
+export -f function compress_images_jpeg() {
     compress_images ".jpeg"
 }
 EOF
@@ -40,6 +40,6 @@ EOF
 
 echo "# compress-images" >> ~/.profile
 
-echo $compress_images_functions >> ~/.profile
+echo "$compress_images_functions" >> ~/.profile
 
 echo "export COMPRESS_IMAGES_INSTALLED=1" >> ~/.profile

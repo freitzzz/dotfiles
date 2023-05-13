@@ -4,6 +4,8 @@ set -e
 
 shopt -s expand_aliases
 
+source ~/.profile
+
 script_dir_path=$(dirname "$0")
 
 dependencies_source="$script_dir_path/DEPENDENCIES"

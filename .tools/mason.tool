@@ -11,7 +11,7 @@ fi
 
 function requires_flutter() {
     script_dir_path=$(dirname "$0")
-    . $script_dir_path/../.sdks/flutter.sdk
+    $script_dir_path/../.sdks/flutter.sdk
 }
 
 requires_flutter

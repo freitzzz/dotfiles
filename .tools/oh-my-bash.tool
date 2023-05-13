@@ -9,7 +9,7 @@ then
     return 0
 fi
 
-bash -c "$(wget https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh -O -)"
+wget -qO- https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh | bash
 
 echo "source ~/.bash_aliases" >> ~/.bashrc
 echo 'OSH_THEME="rr"' >> ~/.bashrc
