@@ -18,8 +18,6 @@ echo "º Installing required dependencies..."
 
 echo "~~~~~~~~"
 
-#porque precisamos de libs x32? pesquisar sobre isso, em principio é para emular emuladores Android 32 bits, o que nao precisamos
-
 while read -r dependency;
 do
     apt-get install -y $dependency
