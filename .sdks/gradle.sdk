@@ -2,7 +2,7 @@
 
 set -x
 
-gradle_version="8.0.0"
+gradle_version="8.0"
 
 if [ $GRADLE_INSTALLED ];
 then
