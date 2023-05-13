@@ -10,10 +10,17 @@ then
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$SDKMAN_DIR_RAW"
 [[ -s "${SDKMAN_DIR_RAW}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR_RAW}/bin/sdkman-init.sh"
+
+function sdkman () {
+    sdk "$@"
+}
+
+export -f sdkman
+
+export SDKMAN_INSTALLED=1
 EOF
 )
     echo "$sdkman_init_snippet" >> ~/.profile
-    echo "export SDKMAN_INSTALLED=1" >> ~/.profile
 else
     echo "sdkman is already installed."
 fi
