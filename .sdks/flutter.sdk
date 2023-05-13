@@ -2,6 +2,8 @@
 
 set -x
 
+shopt -s extglob
+
 flutter_version="3.10.0"
 
 if [ $FLUTTER_INSTALLED ];
@@ -13,6 +15,7 @@ fi
 
 flutter_tar_path=/tmp/flutter.tar.xz
 flutter_sdk_dir_path=~/Documents/SDK/flutter
+flutter_sdk_tmp_dir_path=/tmp/flutter
 flutter_bin_path="$flutter_sdk_dir_path/bin/flutter"
 flutter_bin_path="$flutter_sdk_dir_path/bin/dart"
 
@@ -22,7 +25,8 @@ then
 fi
 
 wget "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_$flutter_version-stable.tar.xz" -O $flutter_tar_path
-tar xf -C $flutter_sdk_dir_path $flutter_tar_path
+tar xf $flutter_tar_path -C $flutter_sdk_tmp_dir_path
+mv "$flutter_sdk_tmp_dir_path/flutter" $flutter_sdk_dir_path
 
 $flutter_bin_path config --no-analytics
 $dart_bin_path --disable-analytics
