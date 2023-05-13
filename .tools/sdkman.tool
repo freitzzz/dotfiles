@@ -2,7 +2,7 @@
 
 set -x
 
-if [ $SDKMAN_INSTALLED ];
+if [ ! $SDKMAN_INSTALLED ];
 then
     wget -qO- https://get.sdkman.io | bash
 
