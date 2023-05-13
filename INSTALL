@@ -29,7 +29,7 @@ for install in ${INSTALL_ORDER[*]}
 do
     echo "> $install"
 
-    . $install/INSTALL
+    $install/INSTALL
 done
 
 echo "º All done! Your work environment is now tuned."
