@@ -28,7 +28,7 @@ mkdir -p $flutter_sdk_tmp_dir_path
 
 wget "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_$flutter_version-stable.tar.xz" -O $flutter_tar_path
 tar xf $flutter_tar_path -C $flutter_sdk_tmp_dir_path
-mv "$flutter_sdk_tmp_dir_path/flutter" $flutter_sdk_dir_path
+mv "$flutter_sdk_tmp_dir_path/flutter/*" $flutter_sdk_dir_path
 
 $flutter_bin_path config --no-analytics
 $dart_bin_path --disable-analytics
