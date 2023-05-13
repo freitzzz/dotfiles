@@ -1,0 +1,33 @@
+#!/usr/env/bin bash
+
+set -x
+
+flutter_version="3.10.0"
+
+if [ $FLUTTER_INSTALLED ];
+then
+    echo "Flutter is already installed."
+
+    return 0
+fi
+
+flutter_tar_path=/tmp/flutter.tar.xz
+flutter_sdk_dir_path=~/Documents/SDK/flutter
+flutter_bin_path="$flutter_sdk_dir_path/bin/flutter"
+flutter_bin_path="$flutter_sdk_dir_path/bin/dart"
+
+wget "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_$flutter_version-stable.tar.xz" -O $flutter_tar_path
+tar xf -C $flutter_sdk_dir_path $flutter_tar_path
+
+$flutter_bin_path config --no-analytics
+$dart_bin_path --disable-analytics
+
+$flutter_bin_path config --android-studio-dir=$ANDROID_STUDIO_ROOT
+yes | $flutter_bin_path doctor --android-licenses
+
+echo "# Flutter" >> ~/.profile
+
+echo "FLUTTER_SDK_ROOT_PATH=$flutter_sdk_dir_path" >> ~/.profile
+echo 'export PATH="$PATH:$FLUTTER_SDK_ROOT_PATH/bin"' >> ~/.profile
+
+echo "export FLUTTER_INSTALLED=1" >> ~/.profile
