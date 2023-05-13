@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+set -e
+
+banner=" _____              __            
+d8888b.  .d88b.  d8b   db d888888b  .d88b.         d88888b d888888b  .o88b. db   db d88888b d888888b d8888b.  .d88b.  .d8888. 
+88   8D .8P  Y8. 888o  88  ~~88~~' .8P  Y8.        88'        88'   d8P  Y8 88   88 88'        88'   88   8D .8P  Y8. 88'  YP 
+88oodD' 88    88 88V8o 88    88    88    88        88ooo      88    8P      88ooo88 88ooooo    88    88oobY' 88    88  8bo.   
+88~~~   88    88 88 V8o88    88    88    88 C8888D 88~~~      88    8b      88~~~88 88~~~~~    88    88 8b   88    88    Y8b. 
+88       8b  d8' 88  V888    88     8b  d8'        88        .88.   Y8b  d8 88   88 88.       .88.   88  88.  8b  d8' db   8D 
+88        Y88P'  VP   V8P    YP      Y88P'         YP      Y888888P   Y88P' YP   YP Y88888P Y888888P 88   YD   Y88P'   8888Y
+   
+A one-click install script to configure my working environment.
+"
+
+echo "$banner"
+
+shopt -s expand_aliases
+
+INSTALL_ORDER=(
+    .aliases
+    .sdks
+    .tools
+)
+
+for install in ${INSTALL_ORDER[*]} 
+do
+    echo "º Installing $install..."
+    
+    . $install
+    source ~/.profile
+done
+
+echo "º All done! Your work environment is now tuned."
