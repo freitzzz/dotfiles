@@ -15,7 +15,7 @@ fi
 
 function requires_openjdk() {
     script_dir_path=$(dirname "$0")
-    . $script_dir_path/open-jdk.sdk
+    . $script_dir_path/../sdk/open-jdk.sdk
 }
 
 requires_openjdk
