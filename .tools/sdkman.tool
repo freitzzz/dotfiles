@@ -2,7 +2,7 @@
 
 set -x
 
-if ! command -v sdk >/dev/null 2>&1;
+if [ $SDKMAN_INSTALLED ];
 then
     wget -qO- https://get.sdkman.io | bash
 
@@ -13,6 +13,7 @@ export SDKMAN_DIR="$SDKMAN_DIR_RAW"
 EOF
 )
     echo "$sdkman_init_snippet" >> ~/.profile
+    echo "SDKMAN_INSTALLED=1"
 else
     echo "sdkman is already installed."
 fi
