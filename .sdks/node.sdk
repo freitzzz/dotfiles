@@ -1,0 +1,20 @@
+#!/usr/env/bin bash
+
+set -x
+
+node_version="20.0.0"
+
+if [ $NODE_INSTALLED ];
+then
+    echo "Node is already installed."
+
+    return 0
+fi
+
+
+wget -qO- https://raw.githubusercontent.com/tj/n/master/bin/n | bash -s $node_version
+sudo npm install -g n
+
+echo "# Node" >> ~/.profile
+
+echo "export NODE_INSTALLED=1" >> ~/.profile
