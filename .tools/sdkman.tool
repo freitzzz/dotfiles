@@ -13,7 +13,7 @@ export SDKMAN_DIR="$SDKMAN_DIR_RAW"
 EOF
 )
     echo "$sdkman_init_snippet" >> ~/.profile
-    echo "SDKMAN_INSTALLED=1" >> ~/.profile
+    echo "export SDKMAN_INSTALLED=1" >> ~/.profile
 else
     echo "sdkman is already installed."
 fi
