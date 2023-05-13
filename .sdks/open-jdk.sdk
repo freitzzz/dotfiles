@@ -2,7 +2,7 @@
 
 set -x
 
-open_jdk_version="11.0.18"
+open_jdk_version="11.0.18-amzn"
 
 if [ $OPEN_JDK_INSTALLED ];
 then
