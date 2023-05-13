@@ -26,12 +26,12 @@ flutter_sdk_tmp_dir_path=/tmp/flutter
 flutter_bin_path="$flutter_sdk_dir_path/bin/flutter"
 dart_bin_path="$flutter_sdk_dir_path/bin/dart"
 
-if [ -d $flutter_sdk_dir_path ];
+if [ ! -d $flutter_sdk_dir_path ];
 then
-    rm -rf $flutter_sdk_dir_path
     mkdir $flutter_sdk_dir_path
-    rm -rf $flutter_sdk_dir_path
 fi
+
+rm -rf $flutter_sdk_dir_path
 
 mkdir -p $flutter_sdk_tmp_dir_path
 
