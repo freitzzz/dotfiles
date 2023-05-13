@@ -1,0 +1,22 @@
+#!/usr/env/bin bash
+
+set -x
+
+go_version="1.19.3"
+
+if [ $GO_INSTALLED ];
+then
+    echo "Go is already installed."
+
+    return 0
+fi
+
+go_tar_path=/tmp/go.tar.gz
+
+wget "https://go.dev/dl/go$go_version.linux-amd64.tar.gz" -O $go_tar_path
+rm -rf /usr/local/go && sudo tar -C /usr/local -xzf $go_tar_path
+
+echo "# Go" >> ~/.profile
+echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.profile
+
+echo "export GO_INSTALLED=1" >> ~/.profile

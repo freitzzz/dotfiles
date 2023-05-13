@@ -1,0 +1,42 @@
+#!/usr/env/bin bash
+
+set -x
+
+shopt -s extglob
+
+if [ $ANDROID_SDK_INSTALLED ];
+then
+    echo "Android SDK is already installed."
+
+    return 0
+fi
+
+android_cmd_line_tools_zip_path=/tmp/android_cmd_line.zip
+android_sdk_dir_path=~/Documents/SDK/android
+android_cmd_line_tools_dir_path="$android_sdk_dir_path/cmdline-tools"
+android_cmd_line_tools_latest_dir_path="$android_cmd_line_tools_dir_path/latest"
+
+wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip -O $android_cmd_line_tools_zip_path
+
+if [ ! -d $android_cmd_line_tools_latest_dir_path ];
+then
+    mkdir -p $android_cmd_line_tools_latest_dir_path
+fi
+
+unzip -o $android_cmd_line_tools_zip_path -d $android_sdk_dir_path
+
+mv $android_cmd_line_tools_dir_path/!(latest) $android_cmd_line_tools_latest_dir_path
+
+sdkmanager="$android_cmd_line_tools_latest_dir_path/bin/sdkmanager"
+
+$sdkmanager "platform-tools" "platforms;android-31" --sdk_root=$android_sdk_dir_path
+yes | $sdkmanager --licenses
+
+echo "# Android SDK" >> ~/.profile
+echo "" >> ~/.profile
+echo "export ANDROID_SDK_ROOT=$android_sdk_dir_path" >> ~/.profile
+echo "ANDROID_CMDLINE_TOOLS_ROOT=$android_cmd_line_tools_latest_dir_path" >> ~/.profile
+echo "ANDROID_EMULATOR_ROOT=$android_sdk_dir_path/emulator" >> ~/.profile
+echo "ANDROID_EMULATOR_WAIT_TIME_BEFORE_KILL=5" >> ~/.profile
+
+echo "export ANDROID_SDK_INSTALLED=1" >> ~/.profile

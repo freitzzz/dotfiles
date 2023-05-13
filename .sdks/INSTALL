@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source ~/.profile
+
 set -e
 
 shopt -s expand_aliases
@@ -48,21 +50,21 @@ apt-get update
 
 echo "~~~~~~~~"
 
-# 4. Install tools
+# 4. Install sdks
 
-echo "º Installing tools..."
+echo "º Installing sdks..."
 
 echo "~~~~~~~~"
 
-tools_files=$(find . -type f -name "*.tool")
+sdks_files=$(find . -type f -name "*.sdk")
 
 while read -r file;
 do
     . $file;
 
     echo "(+) Installed: $file"
-done < <( echo "$tools_files" ) 
+done < <( echo "$sdks_files" ) 
 
 echo "~~~~~~~~"
 
-echo "º All done! Tools installation has completed."
+echo "º All done! SDKs installation has completed."
