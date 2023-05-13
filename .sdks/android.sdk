@@ -25,8 +25,7 @@ fi
 
 unzip -o $android_cmd_line_tools_zip_path -d $android_sdk_dir_path
 
-rm -rf $android_cmd_line_tools_latest_dir_path
-mv $android_cmd_line_tools_dir_path/* $android_cmd_line_tools_latest_dir_path
+mv $android_cmd_line_tools_dir_path/!(latest) $android_cmd_line_tools_latest_dir_path
 
 sdkmanager="$android_cmd_line_tools_latest_dir_path/bin/sdkmanager"
 
