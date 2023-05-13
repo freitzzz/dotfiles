@@ -26,8 +26,8 @@ INSTALL_ORDER=(
 for install in ${INSTALL_ORDER[*]} 
 do
     echo "º Installing $install..."
-    
-    . $install
+
+    . $install/INSTALL
     source ~/.profile
 done
 
