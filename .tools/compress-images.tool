@@ -36,10 +36,10 @@ function compress_images_jpeg() {
     compress_images ".jpeg"
 }
 
-export -f function compress_images
-export -f function compress_images_png
-export -f function compress_images_jpg
-export -f function compress_images_jpeg
+export -f compress_images
+export -f compress_images_png
+export -f compress_images_jpg
+export -f compress_images_jpeg
 EOF
 )
 
