@@ -4,6 +4,13 @@ set -x
 
 open_jdk_version="11.0.18"
 
+if [ $OPEN_JDK_INSTALLED ];
+then
+    echo "OpenJDK is already installed."
+
+    return 0
+fi
+
 function requires_sdkman() {
     script_dir_path=$(dirname "$0")
     . $script_dir_path/../.tools/sdkman.tool
@@ -12,3 +19,5 @@ function requires_sdkman() {
 requires_sdkman
 
 sdk install java $open_jdk_version
+
+echo "export OPEN_JDK_INSTALLED=1" >> ~/.profile
