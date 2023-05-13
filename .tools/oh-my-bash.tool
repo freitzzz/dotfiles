@@ -11,9 +11,9 @@ fi
 
 wget -qO- https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh | bash
 
-echo "source ~/.bash_aliases" >> ~/.bashrc
 echo 'OSH_THEME="rr"' >> ~/.bashrc
 echo 'EDITOR="nano"' >> ~/.bashrc
+echo "source ~/.bash_aliases" >> ~/.bashrc
 
 echo "# Oh My Bash" >> ~/.profile
 
