@@ -1,5 +1,7 @@
 wget
 gzip
+curl
+git
 tar
 software-properties-common
 autoconf
