@@ -1,0 +1,23 @@
+#!/usr/env/bin bash
+
+set -x
+
+gradle_version="8.0.0"
+
+if [ $GRADLE_INSTALLED ];
+then
+    echo "Gradle is already installed."
+
+    return 0
+fi
+
+function requires_sdkman() {
+    script_dir_path=$(dirname "$0")
+    . $script_dir_path/../.tools/sdkman.tool
+}
+
+requires_sdkman
+
+yes | sdk install gradle $gradle_version
+
+echo "export GRADLE_INSTALLED=1" >> ~/.profile
