@@ -16,6 +16,11 @@ flutter_sdk_dir_path=~/Documents/SDK/flutter
 flutter_bin_path="$flutter_sdk_dir_path/bin/flutter"
 flutter_bin_path="$flutter_sdk_dir_path/bin/dart"
 
+if [ ! -d $flutter_sdk_dir_path ];
+then
+    mkdir -p $flutter_sdk_dir_path
+fi
+
 wget "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_$flutter_version-stable.tar.xz" -O $flutter_tar_path
 tar xf -C $flutter_sdk_dir_path $flutter_tar_path
 
