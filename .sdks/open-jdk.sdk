@@ -18,6 +18,8 @@ function requires_sdkman() {
 
 requires_sdkman
 
+source ~/.profile
+
 yes | sdk install java $open_jdk_version
 
 echo "export OPEN_JDK_INSTALLED=1" >> ~/.profile
