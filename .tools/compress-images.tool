@@ -10,7 +10,7 @@ then
 fi
 
 compress_images_functions=$( cat << EOF
-export -f function compress_images() {
+function compress_images() {
     images_path="*.png"
 
     if ! [[ -z "$1" ]];
@@ -24,17 +24,22 @@ export -f function compress_images() {
     done
 }
 
-export -f function compress_images_png() {
+function compress_images_png() {
     compress_images ".png"
 }
 
-export -f function compress_images_jpg() {
+function compress_images_jpg() {
     compress_images ".jpg"
 }
 
-export -f function compress_images_jpeg() {
+function compress_images_jpeg() {
     compress_images ".jpeg"
 }
+
+export -f function compress_images
+export -f function compress_images_png
+export -f function compress_images_jpg
+export -f function compress_images_jpeg
 EOF
 )
 
