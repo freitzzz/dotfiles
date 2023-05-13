@@ -12,7 +12,7 @@ then
 fi
 
 
-wget -qO- https://raw.githubusercontent.com/tj/n/master/bin/n | bash -s $node_version
+wget -qO- https://raw.githubusercontent.com/tj/n/master/bin/n | sudo bash -s $node_version
 sudo npm install -g n
 
 echo "# Node" >> ~/.profile
