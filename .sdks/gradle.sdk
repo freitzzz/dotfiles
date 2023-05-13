@@ -18,6 +18,8 @@ function requires_sdkman() {
 
 requires_sdkman
 
+source ~/.profile
+
 yes | sdk install gradle $gradle_version
 
 echo "export GRADLE_INSTALLED=1" >> ~/.profile
