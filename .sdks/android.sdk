@@ -12,7 +12,7 @@ then
 fi
 
 android_cmd_line_tools_zip_path=/tmp/android_cmd_line.zip
-android_sdk_dir_path=~"$HOME/Documents/SDK/android"
+android_sdk_dir_path="$HOME/Documents/SDK/android"
 android_cmd_line_tools_dir_path="$android_sdk_dir_path/cmdline-tools"
 android_cmd_line_tools_latest_dir_path="$android_cmd_line_tools_dir_path/latest"
 
