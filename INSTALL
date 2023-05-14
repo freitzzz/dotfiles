@@ -19,7 +19,7 @@ Run this script anytime over the Internet: wget -qO- \"https://raw.githubusercon
 
 echo "$banner"
 
-if [ ! -d .git || ! -f INSTALL ];
+if [ ! -d .git ] || [ ! -f INSTALL ];
 then
     sudo apt-get update
     sudo apt-get install git
