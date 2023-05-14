@@ -4,7 +4,7 @@ set -x
 
 shopt -s extglob
 
-flutter_version="3.10.0"
+flutter_version="3.0.5"
 
 if [ $FLUTTER_INSTALLED ];
 then
