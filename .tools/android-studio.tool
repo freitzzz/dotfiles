@@ -13,7 +13,7 @@ android_studio_version="2022.2.1.19"
 
 android_studio_gz_path=/tmp/studio.tar.gz
 android_studio_tar_path=/tmp/studio.tar
-android_studio_dir_path=/tmp/android-studio
+android_studio_tmp_dir_path=/tmp/android-studio
 android_studio_dir_path=~/Documents/Tools/android-studio
 
 wget https://redirector.gvt1.com/edgedl/android/studio/ide-zips/$android_studio_version/android-studio-$android_studio_version-linux.tar.gz -O $android_studio_gz_path
