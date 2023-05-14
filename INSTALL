@@ -23,6 +23,7 @@ INSTALL_ORDER=(
     .aliases
     .sdks
     .tools
+    .git-config
 )
 
 for install in ${INSTALL_ORDER[*]} 
