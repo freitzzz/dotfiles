@@ -6,9 +6,11 @@ if [ ! $SDKMAN_INSTALLED ];
 then
     wget -qO- https://get.sdkman.io | bash
 
+    SDKMAN_DIR="$HOME/.sdkman"
+
     sdkman_init_snippet=$( cat << EOF
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
+export SDKMAN_DIR="$SDKMAN_DIR"
 [[ -s $SDKMAN_DIR/bin/sdkman-init.sh ]] && source $SDKMAN_DIR/bin/sdkman-init.sh
 
 export SDKMAN_INSTALLED=1
