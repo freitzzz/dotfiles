@@ -13,12 +13,28 @@ then
     return 0
 fi
 
+source ~/.profile
+
+function requires_android_sdk() {
+    script_dir_path=$(dirname "$0")
+    . $script_dir_path/../sdk/android.sdk
+}
+
 function requires_openjdk() {
     script_dir_path=$(dirname "$0")
     . $script_dir_path/../sdk/open-jdk.sdk
 }
 
+function requires_android_studio() {
+    script_dir_path=$(dirname "$0")
+    . $script_dir_path/../tools/android-studio.tool
+}
+
 requires_openjdk
+requires_android_sdk
+requires_android_studio
+
+source ~/.profile
 
 flutter_tar_path=/tmp/flutter.tar.xz
 flutter_sdk_dir_path=~/Documents/SDK/flutter
