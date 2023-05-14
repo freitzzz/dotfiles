@@ -65,7 +65,7 @@ $flutter_bin_path config --no-analytics
 $dart_bin_path --disable-analytics
 
 $flutter_bin_path config --android-studio-dir=$ANDROID_STUDIO_ROOT
-$flutter_bin_path config --android-sdk=$ANDROID_STUDIO_ROOT
+$flutter_bin_path config --android-sdk=$ANDROID_SDK_ROOT
 yes | $flutter_bin_path doctor --android-licenses
 
 echo "# Flutter" >> ~/.profile
