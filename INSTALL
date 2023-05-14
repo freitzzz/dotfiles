@@ -13,9 +13,20 @@ banner="
 
    
 A one-click install script to configure my working environment.
+
+Run this script anytime over the Internet: wget -qO- \"https://raw.githubusercontent.com/freitzzz/ponto-ficheiros/master/INSTALL\" | bash
 "
 
 echo "$banner"
+
+if [ ! -d .git ];
+then
+    sudo apt-get update
+    sudo apt-get install git
+    sudo git clone https://github.com/freitzzz/ponto-ficheiros
+
+    cd ponto-ficheiros
+fi
 
 shopt -s expand_aliases
 
