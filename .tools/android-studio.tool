@@ -23,6 +23,8 @@ then
     mkdir -p $android_studio_dir_path
 fi
 
+mkdir -p $android_studio_tmp_dir_path
+
 rm -rf $android_studio_dir_path
 
 gunzip $android_studio_gz_path
