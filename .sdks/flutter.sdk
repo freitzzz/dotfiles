@@ -17,17 +17,17 @@ source ~/.profile
 
 function requires_android_sdk() {
     script_dir_path=$(dirname "$0")
-    . $script_dir_path/../sdk/android.sdk
+    . $script_dir_path/../.sdk/android.sdk
 }
 
 function requires_openjdk() {
     script_dir_path=$(dirname "$0")
-    . $script_dir_path/../sdk/open-jdk.sdk
+    . $script_dir_path/../.sdk/open-jdk.sdk
 }
 
 function requires_android_studio() {
     script_dir_path=$(dirname "$0")
-    . $script_dir_path/../tools/android-studio.tool
+    . $script_dir_path/../.tools/android-studio.tool
 }
 
 requires_openjdk
