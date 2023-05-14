@@ -3,6 +3,7 @@ gzip
 curl
 git
 tar
+net-tools
 software-properties-common
 autoconf
 make
