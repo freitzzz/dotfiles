@@ -23,7 +23,7 @@ if [ ! -d .git ] || [ ! -f INSTALL ];
 then
     sudo apt-get update
     sudo apt-get install git
-    sudo git clone https://github.com/freitzzz/ponto-ficheiros
+    git clone https://github.com/freitzzz/ponto-ficheiros
 
     cd ponto-ficheiros
 fi
