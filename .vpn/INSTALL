@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+
+source ~/.profile
+
+set -e
+
+shopt -s expand_aliases
+
+script_dir_path=$(dirname "$0")
+
+dependencies_source="$script_dir_path/DEPENDENCIES"
+repositories_source="$script_dir_path/REPOSITORIES"
+
+alias apt-get='sudo apt-get'
+alias add-apt-repository='sudo add-apt-repository'
+
+# 1. Install required dependencies
+
+echo "º Installing required dependencies..."
+
+echo "~~~~~~~~"
+
+while read -r dependency;
+do
+    apt-get install -y $dependency
+done < <( cat "$dependencies_source" )
+
+echo "~~~~~~~~"
+
+# 2. Add required PPA repositories
+
+echo "º Adding required PPA repositories..."
+
+echo "~~~~~~~~"
+
+while read -r repository;
+do
+    add-apt-repository $repository
+done < <( cat "$repositories_source" )
+
+echo "~~~~~~~~"
+
+# 3. Updating APT sources
+
+echo "º Updating APT sources..."
+
+echo "~~~~~~~~"
+
+apt-get update
+
+echo "~~~~~~~~"
+
+# 4. Install drivers
+
+echo "º Installing drivers..."
+
+echo "~~~~~~~~"
+
+drivers_files=$(find . -type f -name "*.driver")
+
+while read -r file;
+do
+    . $file;
+
+    echo "(+) Installed: $file"
+done < <( echo "$drivers_files" ) 
+
+echo "~~~~~~~~"
+
+echo "º All done! Drivers installation has completed."
