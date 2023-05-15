@@ -1,0 +1,19 @@
+#!/usr/env/bin bash
+
+set -x
+
+nvidia_drivers_version="530"
+
+if [ $NVIDIA_INSTALLED ];
+then
+    echo "nvidia drivers are already installed."
+
+    return 0
+fi
+
+apt-get install -y nvidia-driver-$nvidia_drivers_version
+apt-get install -y linux-headers-$(uname -r)
+
+echo "# nvidia" >> ~/.profile
+
+echo "export NVIDIA_INSTALLED=1" >> ~/.profile
