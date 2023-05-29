@@ -22,4 +22,6 @@ dart pub global activate mason_cli
 
 echo "# Mason" >> ~/.profile
 
+echo 'export PATH="$PATH":"$HOME"/.pub-cache/bin'
+
 echo "export MASON_INSTALLED=1" >> ~/.profile
