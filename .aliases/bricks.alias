@@ -1,5 +1,5 @@
-alias new_aplicacao='mason make aplicacao'
 alias new_aplicacao_web='mason make aplicacao_web'
+alias new_aplicacao='mason make aplicacao'
+alias new_pacote_web='mason make pacote_web'
 alias new_tijolo='mason make tijolo'
 alias new_worker='mason make worker'
-alias new_pacote_web='mason make pacote_web'
