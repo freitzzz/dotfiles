@@ -31,7 +31,7 @@ gunzip $mitm_proxy_gz_path
 
 tar -xf $mitm_proxy_tar_path -C $mitm_proxy_tmp_dir_path
 
-mv $mitm_proxy_tmp_dir_path/android-studio $mitm_proxy_dir_path
+mv $mitm_proxy_tmp_dir_path $mitm_proxy_dir_path
 
 echo "# mitm-proxy" >> ~/.profile
 
