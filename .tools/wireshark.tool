@@ -11,6 +11,6 @@ fi
 
 apt-get install -y wireshark
 
-echo "# webp" >> ~/.profile
+echo "# wireshark" >> ~/.profile
 
 echo "export WIRESHARK_INSTALLED=1" >> ~/.profile
