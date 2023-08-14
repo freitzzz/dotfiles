@@ -1,0 +1,31 @@
+#!/usr/env/bin bash
+
+set -x
+
+if [ $FUSE_INSTALLED ];
+then
+    echo "Fuse is already installed."
+
+    return 0
+fi
+
+ubuntu_version=$(lsb_release -r -s)
+
+add-apt-repository universe
+
+if [ $(echo "$ubuntu_version >= 22.04" | bc -l) -eq 1 ];
+then
+    add-apt-repository universe
+    apt-get install -y libfuse2
+else
+    apt-get install -y fuse libfuse2
+    sudo modprobe fuse
+    sudo groupadd fuse
+    
+    user="$(whoami)"
+    sudo usermod -a -G fuse $user
+fi
+
+echo "# Fuse" >> ~/.profile
+
+echo "export FUSE_INSTALLED=1" >> ~/.profile
