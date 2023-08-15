@@ -9,6 +9,15 @@ then
     return 0
 fi
 
+function requires_fuse() {
+    script_dir_path=$(dirname "$0")
+    . $script_dir_path/../.sdks/fuse.sdk
+}
+
+requires_fuse
+
+source ~/.profile
+
 jetbrains_tool_box_version="2.0.2.16660"
 
 jetbrains_tool_box_gz_path=/tmp/jetbrains-tool-box.tar.gz
