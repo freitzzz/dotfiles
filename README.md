@@ -13,3 +13,7 @@ Want to go ahead and try my launch-box? 🧰
 ```bash
 wget -qO- https://raw.githubusercontent.com/freitzzz/ponto-ficheiros/master/INSTALL | bash
 ```
+
+<p align="center">
+    <img style="height: 240px;" alt="dotfiles logo" src="https://raw.githubusercontent.com/freitzzz/cinderela/master/lagosta/dotfiles.webp">
+</p
