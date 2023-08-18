@@ -1,4 +1,0 @@
-alias adb='$ANDROID_SDK_ROOT/platform-tools/adb'
-alias emulator='$ANDROID_EMULATOR_ROOT/emulator -gpu host'
-alias android_emulator='emulator -avd P430 -gpu host'
-alias hackable_android_emulator='emulator -avd HP430'

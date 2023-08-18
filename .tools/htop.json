@@ -1,0 +1,8 @@
+{
+    "name": "htop",
+    "type": "tool",
+    "command": {
+        "type": "apt",
+        "package": "htop"
+    }
+}

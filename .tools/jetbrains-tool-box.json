@@ -1,0 +1,16 @@
+{
+    "name": "jetbrains-tool-box",
+    "type": "tool",
+    "dependencies": [
+        {
+            "type": "sdk",
+            "name": "fuse"
+        }
+    ],
+    "version": "2.0.2.16660",
+    "command": {
+        "type": "gunzip",
+        "url": "https://download-cdn.jetbrains.com/toolbox/jetbrains-toolbox-$version.tar.gz",
+        "export": true
+    }
+}

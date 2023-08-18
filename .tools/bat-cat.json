@@ -1,0 +1,8 @@
+{
+    "name": "bat-cat",
+    "type": "tool",
+    "command": {
+        "type": "apt",
+        "package": "bat"
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "name": "webp",
+    "type": "tool",
+    "command": {
+        "type": "apt",
+        "package": "webp"
+    }
+}

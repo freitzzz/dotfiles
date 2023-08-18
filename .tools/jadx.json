@@ -1,0 +1,11 @@
+{
+    "name": "jadx",
+    "type": "tool",
+    "version": "1.4.7",
+    "command": {
+        "type": "unzip",
+        "url": "https://github.com/skylot/jadx/releases/download/v$version/jadx-$version.zip",
+        "export": true,
+        "exportFolder": "bin"
+    }
+}

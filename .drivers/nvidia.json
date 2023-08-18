@@ -1,0 +1,9 @@
+{
+    "name": "nvidia",
+    "type": "driver",
+    "version": "535",
+    "command": {
+        "type": "apt",
+        "package": "nvidia-driver-$version"
+    }
+}

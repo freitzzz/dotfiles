@@ -1,0 +1,11 @@
+{
+    "name": "fuse",
+    "type": "sdk",
+    "command": {
+        "type": "apt",
+        "package": "libfuse2",
+        "repositories": [
+            "universe"
+        ]
+    }
+}

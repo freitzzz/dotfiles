@@ -1,0 +1,10 @@
+{
+    "name": "bricks",
+    "type": "alias",
+    "entries": {
+        "new_aplicacao": "mason make aplicacao",
+        "new_aplicacao_web": "mason make aplicacao_web",
+        "new_tijolo": "mason make tijolo",
+        "new_worker": "mason make worker"
+    }
+}

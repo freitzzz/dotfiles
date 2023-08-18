@@ -1,0 +1,8 @@
+{
+    "name": "vscode",
+    "type": "tool",
+    "command": {
+        "type": "apt",
+        "url": "https://go.microsoft.com/fwlink/?LinkID=760868"
+    }
+}

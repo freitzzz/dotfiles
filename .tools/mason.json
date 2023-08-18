@@ -1,0 +1,14 @@
+{
+    "name": "mason",
+    "type": "tool",
+    "dependencies": [
+        {
+            "type": "sdk",
+            "name": "flutter"
+        }
+    ],
+    "command": {
+        "type": "dart-pub",
+        "package": "mason_cli"
+    }
+}

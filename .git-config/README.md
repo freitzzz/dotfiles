@@ -1,9 +1,7 @@
 # .git-config
 
-Configures Git command line tool.
+Contains all Git configurations setup in my working environment.
 
-## Install
+## Add new configuration
 
-```bash
-./INSTALL
-```
+To add a new configuration, just create a new `.json` file and describe the configuration process. The `INSTALL` script loads all these files dynamically, configuring them on your system.

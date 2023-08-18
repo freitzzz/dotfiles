@@ -1,0 +1,17 @@
+{
+    "name": "keepass2",
+    "type": "tool",
+    "commands": [
+        {
+            "type": "apt",
+            "package": "keepass2",
+            "repositories": [
+                "ppa:ubuntuhandbook1/keepass2"
+            ]
+        },
+        {
+            "type": "apt",
+            "package": "xdotool"
+        }
+    ]
+}

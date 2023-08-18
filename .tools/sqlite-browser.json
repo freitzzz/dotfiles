@@ -1,0 +1,8 @@
+{
+    "name": "vscode",
+    "type": "tool",
+    "command": {
+        "type": "apt",
+        "package": "sqlitebrowser"
+    }
+}

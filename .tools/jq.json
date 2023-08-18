@@ -1,0 +1,8 @@
+{
+    "name": "jq",
+    "type": "tool",
+    "command": {
+        "type": "apt",
+        "package": "jq"
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "name": "wireshark",
+    "type": "tool",
+    "commands": {
+        "type": "apt",
+        "package": "wireshark",
+        "repositories": [
+            "ppa:wireshark-dev/stable"
+        ]
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "apktool",
+    "type": "tool",
+    "version": "2.7.0",
+    "commands": [
+        {
+            "type": "cp",
+            "url": "https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool",
+            "target": "/usr/local/bin"
+        },
+        {
+            "type": "cp",
+            "url": "https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_$version.jar",
+            "target": "/usr/local/bin"
+        }
+    ]
+}

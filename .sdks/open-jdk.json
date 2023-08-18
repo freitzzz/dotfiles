@@ -1,0 +1,15 @@
+{
+    "name": "open-jdk",
+    "type": "sdk",
+    "dependencies": [
+        {
+            "type": "tool",
+            "name": "sdkman"
+        }
+    ],
+    "version": "11.0.18-amzn",
+    "command": {
+        "type": "sdkman",
+        "package": "java"
+    }
+}

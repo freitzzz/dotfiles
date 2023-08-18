@@ -1,0 +1,14 @@
+{
+    "name": "github-upsert",
+    "type": "tool",
+    "dependencies": [
+        {
+            "type": "sdk",
+            "name": "node"
+        }
+    ],
+    "command": {
+        "type": "npm",
+        "package": "@web-pacotes/github-upsert"
+    }
+}

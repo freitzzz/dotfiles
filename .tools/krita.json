@@ -1,0 +1,8 @@
+{
+    "name": "krita",
+    "type": "tool",
+    "command": {
+        "type": "apt",
+        "package": "krita"
+    }
+}

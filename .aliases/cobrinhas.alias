@@ -1,2 +1,0 @@
-alias twitch_chat='twitch-doritos --with-notifications'
-alias update_cobrinhas='(cd $COBRINHAS_BIN_PATH; ./DOWNLOAD; exec run.bash)'

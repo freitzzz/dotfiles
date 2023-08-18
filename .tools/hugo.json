@@ -1,0 +1,8 @@
+{
+    "name": "hugo",
+    "type": "tool",
+    "command": {
+        "type": "apt",
+        "package": "hugo"
+    }
+}

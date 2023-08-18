@@ -1,0 +1,13 @@
+{
+    "name": "node",
+    "type": "sdk",
+    "version": "20.0.0",
+    "command": {
+        "type": "bash",
+        "url": "https://raw.githubusercontent.com/tj/n/master/bin/n",
+        "arguments": [
+            "-s",
+            "$version"
+        ]
+    }
+}
