@@ -1,7 +1,8 @@
 {
+    "$schema": "../modules-schema.json",
     "name": "wireshark",
     "type": "tool",
-    "commands": {
+    "command": {
         "type": "apt",
         "package": "wireshark",
         "repositories": [

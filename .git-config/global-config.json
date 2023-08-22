@@ -1,4 +1,5 @@
 {
+    "$schema": "../modules-schema.json",
     "name": "global-config",
     "type": "git-config",
     "global": true,

@@ -1,4 +1,5 @@
 {
+    "$schema": "../modules-schema.json",
     "name": "dlt-viewer",
     "type": "tool",
     "command": {

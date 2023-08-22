@@ -1,4 +1,5 @@
 {
+    "$schema": "../modules-schema.json",
     "name": "node",
     "type": "sdk",
     "version": "20.0.0",

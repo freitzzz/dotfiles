@@ -1,4 +1,5 @@
 {
+    "$schema": "../modules-schema.json",
     "name": "hugo",
     "type": "tool",
     "command": {

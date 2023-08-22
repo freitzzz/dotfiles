@@ -1,4 +1,5 @@
 {
+    "$schema": "../modules-schema.json",
     "name": "neofetch",
     "type": "tool",
     "command": {

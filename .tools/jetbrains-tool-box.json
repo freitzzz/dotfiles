@@ -1,4 +1,5 @@
 {
+    "$schema": "../modules-schema.json",
     "name": "jetbrains-tool-box",
     "type": "tool",
     "dependencies": [

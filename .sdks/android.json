@@ -1,7 +1,8 @@
 {
+    "$schema": "../modules-schema.json",
     "name": "android",
     "type": "sdk",
-    "command": [
+    "commands": [
         {
             "type": "unzip",
             "url": "https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip",

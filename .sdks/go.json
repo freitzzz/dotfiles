@@ -1,4 +1,5 @@
 {
+    "$schema": "../modules-schema.json",
     "name": "go",
     "type": "sdk",
     "version": "1.19.3",

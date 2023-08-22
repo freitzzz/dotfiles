@@ -1,4 +1,5 @@
 {
+    "$schema": "../modules-schema.json",
     "name": "mitm-proxy",
     "type": "tool",
     "version": "10.0.0",

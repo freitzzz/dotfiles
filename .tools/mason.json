@@ -1,4 +1,5 @@
 {
+    "$schema": "../modules-schema.json",
     "name": "mason",
     "type": "tool",
     "dependencies": [
@@ -8,7 +9,7 @@
         }
     ],
     "command": {
-        "type": "dart-pub",
+        "type": "pub",
         "package": "mason_cli"
     }
 }
