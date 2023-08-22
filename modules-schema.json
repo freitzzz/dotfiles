@@ -1,0 +1,527 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Launch-box modules schema",
+    "type": "object",
+    "definitions": {
+        "module_name": {
+            "type": "string",
+            "description": "Unique identifier among the modules"
+        },
+        "module_type": {
+            "type": "string",
+            "description": "Identifies the module type",
+            "enum": [
+                "alias",
+                "driver",
+                "git-config",
+                "sdk",
+                "tool",
+                "vpn"
+            ]
+        },
+        "module_dependency": {
+            "type": "object",
+            "description": "Identifies a module dependency",
+            "properties": {
+                "type": {
+                    "$ref": "#/definitions/module_type"
+                },
+                "name": {
+                    "$ref": "#/definitions/module_name"
+                }
+            },
+            "required": [
+                "type",
+                "name"
+            ]
+        },
+        "install_command": {
+            "type": "object",
+            "description": "Configures the installation process",
+            "definitions": {
+                "install_command_apt": {
+                    "type": "object",
+                    "description": "Configures the installation process using apt-get",
+                    "properties": {
+                        "type": {
+                            "$ref": "#/definitions/install_command/type",
+                            "const": "apt"
+                        },
+                        "package": {
+                            "description": "Identifies the package available in a PPA repository",
+                            "examples": [
+                                "htop",
+                                "curl",
+                                "neofetch"
+                            ],
+                            "type": "string"
+                        },
+                        "url": {
+                            "description": "URL that points to a .deb package file",
+                            "type": "string"
+                        },
+                        "repositories": {
+                            "description": "Set of PPA repositories required in order to install the package",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "default": []
+                        }
+                    },
+                    "oneOf": [
+                        {
+                            "required": [
+                                "package"
+                            ]
+                        },
+                        {
+                            "required": [
+                                "url"
+                            ]
+                        }
+                    ]
+                },
+                "install_command_bash": {
+                    "type": "object",
+                    "description": "Configures the installation process using bash",
+                    "properties": {
+                        "type": {
+                            "$ref": "#/definitions/install_command/type",
+                            "const": "bash"
+                        },
+                        "source": {
+                            "description": "Array of lines that when joined, specify a bash script",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "url": {
+                            "description": "URL that points to bash script",
+                            "type": "string"
+                        }
+                    },
+                    "oneOf": [
+                        {
+                            "required": [
+                                "url"
+                            ]
+                        },
+                        {
+                            "required": [
+                                "source"
+                            ]
+                        }
+                    ]
+                },
+                "install_command_cp": {
+                    "type": "object",
+                    "description": "Configures the installation process using copy",
+                    "properties": {
+                        "type": {
+                            "$ref": "#/definitions/install_command/type",
+                            "const": "cp"
+                        },
+                        "url": {
+                            "description": "URL that points to a file",
+                            "type": "string"
+                        },
+                        "target": {
+                            "description": "File path that locates where downloaded file will be copied",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "url",
+                        "target"
+                    ]
+                },
+                "install_command_pub": {
+                    "type": "object",
+                    "description": "Configures the installation process using Dart Pub",
+                    "properties": {
+                        "type": {
+                            "$ref": "#/definitions/install_command/type",
+                            "const": "pub"
+                        },
+                        "package": {
+                            "description": "Identifies the package available in pub.dev",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "package"
+                    ]
+                },
+                "install_command_gunzip": {
+                    "type": "object",
+                    "description": "Configures the installation process using gunzip tool",
+                    "properties": {
+                        "type": {
+                            "$ref": "#/definitions/install_command/type",
+                            "const": "gunzip"
+                        },
+                        "url": {
+                            "description": "URL that points to tar.gz file",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "url"
+                    ]
+                },
+                "install_command_npm": {
+                    "type": "object",
+                    "description": "Configures the installation process using Node NPM",
+                    "properties": {
+                        "type": {
+                            "$ref": "#/definitions/install_command/type",
+                            "const": "npm"
+                        },
+                        "package": {
+                            "description": "Identifies the package available in npmjs.com",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "package"
+                    ]
+                },
+                "install_command_unzip": {
+                    "type": "object",
+                    "description": "Configures the installation process using unzip",
+                    "properties": {
+                        "type": {
+                            "$ref": "#/definitions/install_command/type",
+                            "const": "unzip"
+                        },
+                        "url": {
+                            "description": "URL that points to .zip file",
+                            "type": "string"
+                        },
+                        "extract": {
+                            "description": "Set of files/folders to extract from the zipped folder. Defaults to extract everything.",
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "target": {
+                            "description": "File path that locates where extracted file will be copied. Defaults to /usr/local",
+                            "type": "string",
+                            "default": "/usr/local"
+                        }
+                    },
+                    "required": [
+                        "url"
+                    ]
+                },
+                "install_command_rm": {
+                    "type": "object",
+                    "description": "Configures the installation process using rm",
+                    "properties": {
+                        "type": {
+                            "$ref": "#/definitions/install_command/type",
+                            "const": "rm"
+                        },
+                        "target": {
+                            "description": "File path that locates which file will be removed",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "target"
+                    ]
+                },
+                "install_command_sdkman": {
+                    "type": "object",
+                    "description": "Configures the installation process using SDKMAN",
+                    "properties": {
+                        "type": {
+                            "$ref": "#/definitions/install_command/type",
+                            "const": "sdkman"
+                        },
+                        "package": {
+                            "description": "Identifies the package available in sdkman",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "package"
+                    ]
+                }
+            },
+            "properties": {
+                "type": {
+                    "description": "Identifies the installation tool",
+                    "enum": [
+                        "apt",
+                        "bash",
+                        "cp",
+                        "pub",
+                        "gunzip",
+                        "npm",
+                        "unzip",
+                        "rm",
+                        "sdkman"
+                    ]
+                },
+                "export": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "exportFolder": {
+                    "type": "string"
+                }
+            },
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/install_command/definitions/install_command_apt"
+                },
+                {
+                    "$ref": "#/definitions/install_command/definitions/install_command_bash"
+                },
+                {
+                    "$ref": "#/definitions/install_command/definitions/install_command_cp"
+                },
+                {
+                    "$ref": "#/definitions/install_command/definitions/install_command_pub"
+                },
+                {
+                    "$ref": "#/definitions/install_command/definitions/install_command_gunzip"
+                },
+                {
+                    "$ref": "#/definitions/install_command/definitions/install_command_npm"
+                },
+                {
+                    "$ref": "#/definitions/install_command/definitions/install_command_unzip"
+                },
+                {
+                    "$ref": "#/definitions/install_command/definitions/install_command_rm"
+                },
+                {
+                    "$ref": "#/definitions/install_command/definitions/install_command_sdkman"
+                }
+            ],
+            "required": [
+                "type"
+            ]
+        },
+        "alias_entries": {
+            "type": "object",
+            "description": "Set of key-value pairs that identify the aliases. The key is the alias identifier, the value the command"
+        },
+        "git_config": {
+            "type": "object",
+            "description": "Set of key-value pairs that identify the Git configuration. The key must match the config key and the value the config value."
+        }
+    },
+    "properties": {
+        "name": {
+            "$ref": "#/definitions/module_name"
+        },
+        "type": {
+            "$ref": "#/definitions/module_type"
+        }
+    },
+    "allOf": [
+        {
+            "if": {
+                "properties": {
+                    "type": {
+                        "const": "alias"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "entries": {
+                        "$ref": "#/definitions/alias_entries"
+                    }
+                },
+                "required": [
+                    "entries"
+                ]
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "type": {
+                        "const": "git-config"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "entries": {
+                        "$ref": "#/definitions/git_config"
+                    }
+                },
+                "required": [
+                    "entries"
+                ]
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "type": {
+                        "const": "tool"
+                    }
+                }
+            },
+            "then": {
+                "oneOf": [
+                    {
+                        "properties": {
+                            "command": {
+                                "$ref": "#/definitions/install_command"
+                            }
+                        },
+                        "required": [
+                            "command"
+                        ]
+                    },
+                    {
+                        "properties": {
+                            "commands": {
+                                "type": "array",
+                                "items": [
+                                    {
+                                        "$ref": "#/definitions/install_command"
+                                    }
+                                ]
+                            }
+                        },
+                        "required": [
+                            "commands"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "type": {
+                        "const": "sdk"
+                    }
+                }
+            },
+            "then": {
+                "oneOf": [
+                    {
+                        "properties": {
+                            "command": {
+                                "$ref": "#/definitions/install_command"
+                            }
+                        },
+                        "required": [
+                            "command"
+                        ]
+                    },
+                    {
+                        "properties": {
+                            "commands": {
+                                "type": "array",
+                                "items": [
+                                    {
+                                        "$ref": "#/definitions/install_command"
+                                    }
+                                ]
+                            }
+                        },
+                        "required": [
+                            "commands"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "type": {
+                        "const": "driver"
+                    }
+                }
+            },
+            "then": {
+                "oneOf": [
+                    {
+                        "properties": {
+                            "command": {
+                                "$ref": "#/definitions/install_command"
+                            }
+                        },
+                        "required": [
+                            "command"
+                        ]
+                    },
+                    {
+                        "properties": {
+                            "commands": {
+                                "type": "array",
+                                "items": [
+                                    {
+                                        "$ref": "#/definitions/install_command"
+                                    }
+                                ]
+                            }
+                        },
+                        "required": [
+                            "commands"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "type": {
+                        "const": "vpn"
+                    }
+                }
+            },
+            "then": {
+                "oneOf": [
+                    {
+                        "properties": {
+                            "command": {
+                                "$ref": "#/definitions/install_command"
+                            }
+                        },
+                        "required": [
+                            "command"
+                        ]
+                    },
+                    {
+                        "properties": {
+                            "commands": {
+                                "type": "array",
+                                "items": [
+                                    {
+                                        "$ref": "#/definitions/install_command"
+                                    }
+                                ]
+                            }
+                        },
+                        "required": [
+                            "commands"
+                        ]
+                    }
+                ]
+            }
+        }
+    ],
+    "required": [
+        "name",
+        "type"
+    ]
+}
