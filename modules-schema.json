@@ -326,6 +326,14 @@
         },
         "type": {
             "$ref": "#/definitions/module_type"
+        },
+        "dependencies": {
+            "type": "array",
+            "items": [
+                {
+                    "$ref": "#/definitions/module_dependency"
+                }
+            ]
         }
     },
     "allOf": [
