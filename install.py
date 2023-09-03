@@ -3,6 +3,19 @@
 import os
 import json
 
+from abc import abstractmethod
+
+from typing import Generic, TypeVar, Any
+
+JSON = dict[str, Any]
+
+
+def extract_commands(json: JSON) -> list[JSON]:
+    commands = json.get('command', json.get('commands'))
+
+    return commands if isinstance(commands, list) else [commands]
+
+
 module_types = [
     "alias",
     "driver",
@@ -99,17 +112,17 @@ class InstallationToolType(EnumElement):
 class InstallCommand(ObjectElement):
     type: InstallationToolType
     export: bool
-    exportFolder: str
+    export_folder: str
 
     def __init__(
         self,
         type: InstallationToolType,
         export: bool = False,
-        exportFolder: str = None
+        export_folder: str = None
     ) -> None:
         self.type = type
         self.export = export
-        self.exportFolder = exportFolder
+        self.export_folder = export_folder
 
 
 class InstallCommandAPT(InstallCommand):
@@ -120,7 +133,7 @@ class InstallCommandAPT(InstallCommand):
     def __init__(
         self,
         export: bool = False,
-        exportFolder: str = None,
+        export_folder: str = None,
         package: str = None,
         url: str = None,
         repositories: str = []
@@ -128,7 +141,7 @@ class InstallCommandAPT(InstallCommand):
         super().__init__(
             InstallationToolType("apt"),
             export,
-            exportFolder
+            export_folder
         )
 
         self.package = package
@@ -143,14 +156,14 @@ class InstallCommandBash(InstallCommand):
     def __init__(
         self,
         export: bool = False,
-        exportFolder: str = None,
+        export_folder: str = None,
         url: str = None,
         source: str = []
     ) -> None:
         super().__init__(
             InstallationToolType("bash"),
             export,
-            exportFolder
+            export_folder
         )
 
         self.url = url
@@ -166,12 +179,12 @@ class InstallCommandCopy(InstallCommand):
         url: str,
         target: str,
         export: bool = False,
-        exportFolder: str = None,
+        export_folder: str = None,
     ) -> None:
         super().__init__(
             InstallationToolType("cp"),
             export,
-            exportFolder
+            export_folder
         )
         self.url = url
         self.target = target
@@ -184,12 +197,12 @@ class InstallCommandDartPub(InstallCommand):
         self,
         package: str,
         export: bool = False,
-        exportFolder: str = None,
+        export_folder: str = None,
     ) -> None:
         super().__init__(
             InstallationToolType("pub"),
             export,
-            exportFolder
+            export_folder
         )
 
         self.package = package
@@ -202,12 +215,12 @@ class InstallCommandGunZip(InstallCommand):
         self,
         url: str,
         export: bool = False,
-        exportFolder: str = None,
+        export_folder: str = None,
     ) -> None:
         super().__init__(
             InstallationToolType("gz"),
             export,
-            exportFolder
+            export_folder
         )
 
         self.url = url
@@ -220,12 +233,12 @@ class InstallCommandNPM(InstallCommand):
         self,
         package: str,
         export: bool = False,
-        exportFolder: str = None,
+        export_folder: str = None,
     ) -> None:
         super().__init__(
             InstallationToolType("npm"),
             export,
-            exportFolder
+            export_folder
         )
 
         self.package = package
@@ -240,14 +253,14 @@ class InstallCommandUnZip(InstallCommand):
         self,
         url: str,
         export: bool = False,
-        exportFolder: str = None,
+        export_folder: str = None,
         extract: str = [],
         target: str = "/usr/local",
     ) -> None:
         super().__init__(
             InstallationToolType("unzip"),
             export,
-            exportFolder
+            export_folder
         )
 
         self.url = url
@@ -262,12 +275,12 @@ class InstallCommandRemove(InstallCommand):
         self,
         target: str,
         export: bool = False,
-        exportFolder: str = None,
+        export_folder: str = None,
     ) -> None:
         super().__init__(
             InstallationToolType("rm"),
             export,
-            exportFolder
+            export_folder
         )
 
         self.target = target
@@ -280,12 +293,12 @@ class InstallCommandSDKMan(InstallCommand):
         self,
         package: str,
         export: bool = False,
-        exportFolder: str = None,
+        export_folder: str = None,
     ) -> None:
         super().__init__(
             InstallationToolType("apt"),
             export,
-            exportFolder
+            export_folder
         )
 
         self.package = package
@@ -441,3 +454,356 @@ class VPNModule(CommandModule):
             name,
             dependencies,
         )
+
+
+I = TypeVar('I')
+O = TypeVar('O')
+M = TypeVar('M', bound=Module)
+IC = TypeVar('IC', bound=InstallCommand)
+
+
+class Converter(Generic[I, O]):
+
+    @abstractmethod
+    def accepts(self, input: I) -> bool:
+        ...
+
+    @abstractmethod
+    def convert(self, input: I) -> O:
+        ...
+
+
+class Factory(Generic[I, O]):
+    converters: set[Converter[I, O]]
+
+    def convert(self, input: I):
+        ...
+
+
+class JsonConverter(Converter[JSON, O], Generic[O]):
+
+    @abstractmethod
+    def accepts(self, input: JSON) -> bool:
+        ...
+
+    @abstractmethod
+    def convert(self, input: JSON) -> O:
+        ...
+
+
+class ModuleDependencyConverter(JsonConverter[ModuleDependency]):
+    def accepts(self, input: JSON) -> bool:
+        return True
+
+    def convert(self, input: JSON) -> ModuleDependency:
+        return ModuleDependency(
+            name=ModuleName(input.get('name')),
+            type=ModuleType(input.get('type'))
+        )
+
+    def convert_multiple(self, input: list[JSON]):
+        return list(map(lambda json: self.convert(json), input))
+
+
+class InstallCommandConverter(JsonConverter[IC], Generic[IC]):
+    @abstractmethod
+    def accepts(self, input: JSON) -> bool:
+        return True
+
+    @abstractmethod
+    def convert(self, input: JSON) -> IC:
+        ...
+
+    def convert_multiple(self, input: list[JSON]) -> set[IC]:
+        return list(map(lambda json: self.convert(json), input))
+
+
+class InstallCommandAPTConverter(InstallCommandConverter[InstallCommandAPT]):
+    def accepts(self, input: JSON) -> bool:
+        return input.get('type') == 'apt'
+
+    def convert(self, input: JSON) -> InstallCommandAPT:
+        return InstallCommandAPT(
+            package=input.get('package'),
+            url=input.get('url'),
+            repositories=input.get('repositories', []),
+            export=input.get('export', False),
+            export_folder=input.get('export_folder'),
+        )
+
+
+class InstallCommandBashConverter(InstallCommandConverter[InstallCommandBash]):
+    def accepts(self, input: JSON) -> bool:
+        return input.get('type') == 'bash'
+
+    def convert(self, input: JSON) -> InstallCommandBash:
+        return InstallCommandBash(
+            url=input.get('url'),
+            source=input.get('source', []),
+            export=input.get('export', False),
+            export_folder=input.get('export_folder'),
+        )
+
+
+class InstallCommandCopyConverter(InstallCommandConverter[InstallCommandCopy]):
+    def accepts(self, input: JSON) -> bool:
+        return input.get('type') == 'cp'
+
+    def convert(self, input: JSON) -> InstallCommandCopy:
+        return InstallCommandCopy(
+            url=input.get('url'),
+            target=input.get('target'),
+            export=input.get('export', False),
+            export_folder=input.get('export_folder'),
+        )
+
+
+class InstallCommandDartPubConverter(InstallCommandConverter[InstallCommandDartPub]):
+    def accepts(self, input: JSON) -> bool:
+        return input.get('type') == 'pub'
+
+    def convert(self, input: JSON) -> InstallCommandDartPub:
+        return InstallCommandDartPub(
+            package=input.get('package'),
+            export=input.get('export', False),
+            export_folder=input.get('export_folder'),
+        )
+
+
+class InstallCommandGunZipConverter(InstallCommandConverter[InstallCommandGunZip]):
+    def accepts(self, input: JSON) -> bool:
+        return input.get('type') == 'gunzip'
+
+    def convert(self, input: JSON) -> InstallCommandGunZip:
+        return InstallCommandGunZip(
+            url=input.get('url'),
+            export=input.get('export', False),
+            export_folder=input.get('export_folder'),
+        )
+
+
+class InstallCommandNPMConverter(InstallCommandConverter[InstallCommandNPM]):
+    def accepts(self, input: JSON) -> bool:
+        return input.get('type') == 'npm'
+
+    def convert(self, input: JSON) -> InstallCommandNPM:
+        return InstallCommandNPM(
+            package=input.get('package'),
+            export=input.get('export', False),
+            export_folder=input.get('export_folder'),
+        )
+
+
+class InstallCommandRemoveConverter(InstallCommandConverter[InstallCommandRemove]):
+    def accepts(self, input: JSON) -> bool:
+        return input.get('type') == 'rm'
+
+    def convert(self, input: JSON) -> InstallCommandRemove:
+        return InstallCommandRemove(
+            target=input.get('target'),
+            export=input.get('export', False),
+            export_folder=input.get('export_folder'),
+        )
+
+
+class InstallCommandSDKManConverter(InstallCommandConverter[InstallCommandSDKMan]):
+    def accepts(self, input: JSON) -> bool:
+        return input.get('type') == 'sdkman'
+
+    def convert(self, input: JSON) -> InstallCommandSDKMan:
+        return InstallCommandSDKMan(
+            package=input.get('package'),
+            export=input.get('export', False),
+            export_folder=input.get('export_folder'),
+        )
+
+
+class InstallCommandUnZipConverter(InstallCommandConverter[InstallCommandUnZip]):
+    def accepts(self, input: JSON) -> bool:
+        return input.get('type') == 'unzip'
+
+    def convert(self, input: JSON) -> InstallCommandUnZip:
+        return InstallCommandUnZip(
+            url=input.get('url'),
+            target=input.get('target'),
+            extract=input.get('extract', []),
+            export=input.get('export', False),
+            export_folder=input.get('export_folder'),
+        )
+
+
+class ModuleConverter(JsonConverter[M], Generic[M]):
+    dependency_converter: ModuleDependencyConverter
+
+    @abstractmethod
+    def accepts(self, input: JSON) -> bool:
+        ...
+
+    @abstractmethod
+    def convert(self, input: JSON) -> M:
+        ...
+
+    def __init__(self, dependency_converter: ModuleDependencyConverter) -> None:
+        self.dependency_converter = dependency_converter
+
+
+class CommandModuleConverter(ModuleConverter[CommandModule]):
+    command_converters: set[InstallCommandConverter]
+
+    def accepts(self, input: JSON) -> bool:
+        return input.get('command') != None or input.get('commands') != None
+
+    @abstractmethod
+    def convert(self, input: JSON) -> CommandModule:
+        ...
+
+    def convert_commands(self, input: JSON) -> set[InstallCommand]:
+        return set(
+            map(
+                lambda c: next(
+                    x for x in self.command_converters if x.accepts(c)).convert(c),
+                extract_commands(input)
+            ),
+        )
+
+    def __init__(
+            self,
+            dependency_converter: ModuleDependencyConverter,
+            command_converts: set[InstallCommandConverter]
+    ) -> None:
+        super().__init__(dependency_converter)
+
+        self.command_converters = command_converters
+
+
+class AliasModuleConverter(ModuleConverter[AliasModule]):
+    def accepts(self, input: JSON) -> bool:
+        return input.get('type') == 'alias'
+
+    def convert(self, input: JSON) -> AliasModule:
+        return AliasModule(
+            name=input.get('name'),
+            entries=AliasEntries(input.get('entries')),
+            dependencies=self.dependency_converter.convert_multiple(
+                input.get('dependencies', [])
+            )
+        )
+
+    def __init__(self, dependency_converter: ModuleDependencyConverter) -> None:
+        super().__init__(dependency_converter)
+
+
+class GitConfigModuleConverter(ModuleConverter[GitConfigModule]):
+    def accepts(self, input: JSON) -> bool:
+        return input.get('type') == 'git-config'
+
+    def convert(self, input: JSON) -> GitConfig:
+        return GitConfigModule(
+            name=input.get('name'),
+            entries=GitConfig(input.get('entries')),
+            dependencies=self.dependency_converter.convert_multiple(
+                input.get('dependencies', [])
+            )
+        )
+
+    def __init__(self, dependency_converter: ModuleDependencyConverter) -> None:
+        super().__init__(dependency_converter)
+
+
+class DriverModuleConverter(CommandModuleConverter):
+    def accepts(self, input: JSON) -> bool:
+        return super().accepts(input) and input.get('type') == 'driver'
+
+    def convert(self, input: JSON) -> DriverModule:
+        return DriverModule(
+            name=input.get('name'),
+            commands=self.convert_commands(input),
+            dependencies=self.dependency_converter.convert_multiple(
+                input.get('dependencies', [])
+            )
+        )
+
+    def __init__(self, dependency_converter: ModuleDependencyConverter, command_converts: set[InstallCommandConverter]) -> None:
+        super().__init__(dependency_converter, command_converts)
+
+
+class SDKModuleConverter(CommandModuleConverter):
+    def accepts(self, input: JSON) -> bool:
+        return super().accepts(input) and input.get('type') == 'sdk'
+
+    def convert(self, input: JSON) -> SDKModule:
+        return SDKModule(
+            name=input.get('name'),
+            commands=self.convert_commands(input),
+            dependencies=self.dependency_converter.convert_multiple(
+                input.get('dependencies', [])
+            )
+        )
+
+    def __init__(self, dependency_converter: ModuleDependencyConverter, command_converts: set[InstallCommandConverter]) -> None:
+        super().__init__(dependency_converter, command_converts)
+
+
+class ToolModuleConverter(CommandModuleConverter):
+    def accepts(self, input: JSON) -> bool:
+        return super().accepts(input) and input.get('type') == 'tool'
+
+    def convert(self, input: JSON) -> ToolModule:
+        return ToolModule(
+            name=input.get('name'),
+            commands=self.convert_commands(input),
+            dependencies=self.dependency_converter.convert_multiple(
+                input.get('dependencies', [])
+            )
+        )
+
+    def __init__(self, dependency_converter: ModuleDependencyConverter, command_converts: set[InstallCommandConverter]) -> None:
+        super().__init__(dependency_converter, command_converts)
+
+
+class VPNModuleConverter(CommandModuleConverter):
+    def accepts(self, input: JSON) -> bool:
+        return super().accepts(input) and input.get('type') == 'vpn'
+
+    def convert(self, input: JSON) -> VPNModule:
+        return VPNModule(
+            name=input.get('name'),
+            commands=self.convert_commands(input),
+            dependencies=self.dependency_converter.convert_multiple(
+                input.get('dependencies', [])
+            )
+        )
+
+    def __init__(self, dependency_converter: ModuleDependencyConverter, command_converts: set[InstallCommandConverter]) -> None:
+        super().__init__(dependency_converter, command_converts)
+
+
+command_converters = [
+    InstallCommandAPTConverter(),
+    InstallCommandBashConverter(),
+    InstallCommandCopyConverter(),
+    InstallCommandDartPubConverter(),
+    InstallCommandGunZipConverter(),
+    InstallCommandNPMConverter(),
+    InstallCommandRemoveConverter(),
+    InstallCommandSDKManConverter(),
+    InstallCommandUnZipConverter(),
+]
+
+dependency_converter = ModuleDependencyConverter()
+
+module_converters = [
+    AliasModuleConverter(dependency_converter),
+    GitConfigModuleConverter(dependency_converter),
+    DriverModuleConverter(dependency_converter, command_converters),
+    SDKModuleConverter(dependency_converter, command_converters),
+    ToolModuleConverter(dependency_converter, command_converters),
+    VPNModuleConverter(dependency_converter, command_converters),
+]
+
+modules = find_modules()
+
+for module in modules:
+    for converter in module_converters:
+        if (converter.accepts(module)):
+            print(converter.convert(module))
