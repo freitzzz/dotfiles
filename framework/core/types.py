@@ -106,7 +106,7 @@ class Converter(Generic[TI, TO]):
         :param _input: the input desired to convert.
         :return: the converted output.
         """
-        return list(map(lambda json: self.convert(json), _input))
+        return list(map(lambda json: self.convert(json), _input or []))
 
 
 class Factory(Generic[TI, TO]):
@@ -121,7 +121,7 @@ class Factory(Generic[TI, TO]):
     def __init__(self, converters: set[Converter[TI, TO]]):
         self.converters = converters
 
-    def convert(self, _input: TI):
+    def create(self, _input: TI):
         """
         Creates a value of type :class:`TO` based on an input of type :class:`TI`.
 
@@ -129,3 +129,12 @@ class Factory(Generic[TI, TO]):
         :return: the output created using the input.
         """
         return first(self.converters, lambda c: c.accepts(_input)).convert(_input)
+
+    def create_multiple(self, _input: list[TI]) -> list[TO] | set[TO]:
+        """
+        Applies the create function to a list of input :class:`TI`.
+
+        :param _input: the input desired to create.
+        :return: the created output.
+        """
+        return list(map(lambda json: self.create(json), _input))
