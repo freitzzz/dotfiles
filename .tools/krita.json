@@ -1,9 +1,9 @@
 {
-    "$schema": "../modules-schema.json",
-    "name": "krita",
-    "type": "tool",
-    "command": {
-        "type": "apt",
-        "package": "krita"
-    }
+  "$schema": "../modules-schema.json",
+  "name": "krita",
+  "type": "tool",
+  "command": {
+    "type": "apt",
+    "package": "krita"
+  }
 }

@@ -1,12 +1,12 @@
 {
-    "$schema": "../modules-schema.json",
-    "name": "fuse",
-    "type": "sdk",
-    "command": {
-        "type": "apt",
-        "package": "libfuse2",
-        "repositories": [
-            "universe"
-        ]
-    }
+  "$schema": "../modules-schema.json",
+  "name": "fuse",
+  "type": "sdk",
+  "command": {
+    "type": "apt",
+    "package": "libfuse2",
+    "repositories": [
+      "universe"
+    ]
+  }
 }

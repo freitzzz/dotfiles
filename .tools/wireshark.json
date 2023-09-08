@@ -1,12 +1,12 @@
 {
-    "$schema": "../modules-schema.json",
-    "name": "wireshark",
-    "type": "tool",
-    "command": {
-        "type": "apt",
-        "package": "wireshark",
-        "repositories": [
-            "ppa:wireshark-dev/stable"
-        ]
-    }
+  "$schema": "../modules-schema.json",
+  "name": "wireshark",
+  "type": "tool",
+  "command": {
+    "type": "apt",
+    "package": "wireshark",
+    "repositories": [
+      "ppa:wireshark-dev/stable"
+    ]
+  }
 }

@@ -1,9 +1,9 @@
 {
-    "$schema": "../modules-schema.json",
-    "name": "neofetch",
-    "type": "tool",
-    "command": {
-        "type": "apt",
-        "package": "neofetch"
-    }
+  "$schema": "../modules-schema.json",
+  "name": "neofetch",
+  "type": "tool",
+  "command": {
+    "type": "apt",
+    "package": "neofetch"
+  }
 }

@@ -1,41 +1,41 @@
 {
-    "$schema": "../modules-schema.json",
-    "name": "flutter",
-    "type": "sdk",
-    "version": "3.7.9",
-    "dependencies": [
-        {
-            "type": "sdk",
-            "name": "android"
-        },
-        {
-            "type": "sdk",
-            "name": "open-jdk"
-        }
-    ],
-    "commands": [
-        {
-            "type": "rm",
-            "target": "$target"
-        },
-        {
-            "type": "tar",
-            "url": "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_$version-stable.tar.xz",
-            "target": "$target",
-            "extract": [
-                "flutter"
-            ],
-            "export": true,
-            "exportFolder": "bin"
-        },
-        {
-            "type": "bash",
-            "source": [
-                "flutter config --no-analytics",
-                "dart --disable-analytics",
-                "flutter config --android-sdk=$ANDROID_SDK_ROOT",
-                "yes | flutter doctor --android-licenses"
-            ]
-        }
-    ]
+  "$schema": "../modules-schema.json",
+  "name": "flutter",
+  "type": "sdk",
+  "version": "3.7.9",
+  "dependencies": [
+    {
+      "type": "sdk",
+      "name": "android"
+    },
+    {
+      "type": "sdk",
+      "name": "open-jdk"
+    }
+  ],
+  "commands": [
+    {
+      "type": "rm",
+      "target": "$target"
+    },
+    {
+      "type": "tar",
+      "url": "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_$version-stable.tar.xz",
+      "target": "$target",
+      "extract": [
+        "flutter"
+      ],
+      "export": true,
+      "exportFolder": "bin"
+    },
+    {
+      "type": "bash",
+      "source": [
+        "flutter config --no-analytics",
+        "dart --disable-analytics",
+        "flutter config --android-sdk=$ANDROID_SDK_ROOT",
+        "yes | flutter doctor --android-licenses"
+      ]
+    }
+  ]
 }

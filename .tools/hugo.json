@@ -1,9 +1,9 @@
 {
-    "$schema": "../modules-schema.json",
-    "name": "hugo",
-    "type": "tool",
-    "command": {
-        "type": "apt",
-        "package": "hugo"
-    }
+  "$schema": "../modules-schema.json",
+  "name": "hugo",
+  "type": "tool",
+  "command": {
+    "type": "apt",
+    "package": "hugo"
+  }
 }

@@ -1,16 +1,16 @@
 {
-    "$schema": "../modules-schema.json",
-    "name": "gradle",
-    "type": "sdk",
-    "dependencies": [
-        {
-            "type": "tool",
-            "name": "sdkman"
-        }
-    ],
-    "version": "8.0",
-    "command": {
-        "type": "sdkman",
-        "package": "gradle"
+  "$schema": "../modules-schema.json",
+  "name": "gradle",
+  "type": "sdk",
+  "dependencies": [
+    {
+      "type": "tool",
+      "name": "sdkman"
     }
+  ],
+  "version": "8.0",
+  "command": {
+    "type": "sdkman",
+    "package": "gradle"
+  }
 }

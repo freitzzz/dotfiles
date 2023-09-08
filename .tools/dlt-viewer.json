@@ -1,9 +1,9 @@
 {
-    "$schema": "../modules-schema.json",
-    "name": "dlt-viewer",
-    "type": "tool",
-    "command": {
-        "type": "bash",
-        "url": "https://gist.githubusercontent.com/freitzzz/a36a60cd9cc923a30af9699e388bc061/raw/dlt_viewer_install.bash"
-    }
+  "$schema": "../modules-schema.json",
+  "name": "dlt-viewer",
+  "type": "tool",
+  "command": {
+    "type": "bash",
+    "url": "https://gist.githubusercontent.com/freitzzz/a36a60cd9cc923a30af9699e388bc061/raw/dlt_viewer_install.bash"
+  }
 }
