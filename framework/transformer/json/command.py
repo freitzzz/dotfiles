@@ -194,7 +194,7 @@ class CommandModuleConverter(ModuleConverter[CommandModule], ABC):
         return set(
             map(
                 lambda c: first(self.command_converters, lambda cc: cc.accepts(c)).convert(c),
-                _input.get('commands', list(_input.get('command')))
+                _input.get('commands', [_input.get('command')])
             ),
         )
 

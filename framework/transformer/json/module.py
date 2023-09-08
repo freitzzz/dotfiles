@@ -3,7 +3,7 @@ from typing import TypeVar, Generic
 
 from framework.core.types import JSON, Factory
 from framework.schema.module import ModuleDependency, ModuleName, ModuleType, Module
-from framework.transformer.json.transformer import JsonConverter
+from framework.transformer.json.transformer import JsonConverter, JsonFactory
 
 M = TypeVar('M', bound=Module)
 
@@ -44,7 +44,7 @@ class ModuleConverter(JsonConverter[M], Generic[M]):
         self.dependency_converter = dependency_converter
 
 
-class ModuleFactory(Factory[JSON, Module]):
+class ModuleFactory(JsonFactory[Module]):
     """
     Types a :class:`Factory` for :class:`Module`.
     """
