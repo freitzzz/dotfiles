@@ -22,7 +22,7 @@ def get_or_else(x: X | None, or_else: Callable[[], X]) -> X:
     :param or_else: the callback that must return a non None value
     :return: a non None value
     """
-    return x if (x is not None) else or_else()
+    return x or or_else()
 
 
 def safe_set(x: set[X] | None) -> set[X]:
