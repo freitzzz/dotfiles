@@ -18,7 +18,7 @@ class JsonConverter(Converter[JSON, TO], Generic[TO]):
         ...
 
 
-class JsonFactory(Factory[JSON, TO]):
+class JsonFactory(Factory[JSON, TO], Generic[TO]):
     """
     Types a :class:`Factory` that accepts JSON input and converts it in :class:`TO` output.
     """
