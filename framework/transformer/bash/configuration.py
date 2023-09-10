@@ -15,9 +15,7 @@ class AliasModuleConverter(ModuleConverter[AliasModule]):
             [
                 "alias_source=~/.bash_aliases",
                 "source $alias_source",
-                *map(lambda e: f"export {e[0]}='{e[1]}'", _input.entries.value.items()),
-                "a=$(alias)",
-                'echo "==== $a"',
+                *map(lambda e: f"alias {e[0]}='{e[1]}'", _input.entries.value.items()),
                 "alias > $alias_source"
             ]
         )
