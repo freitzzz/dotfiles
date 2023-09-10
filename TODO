@@ -1,0 +1,11 @@
+- missing tools
+- control installed modules
+- missing properties like scope in git-config
+- export
+- refactor gunzip, unzip and others (remove url)
+
+
+
+working:
+- alias
+- git-config
