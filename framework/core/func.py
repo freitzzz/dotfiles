@@ -1,6 +1,7 @@
-from typing import TypeVar, Callable
+from typing import TypeVar, Callable, Iterable
 
 X = TypeVar('X')
+Y = TypeVar('Y')
 
 
 def first(iterable: set[X] | list[X], where: Callable[[X], bool]) -> X:
@@ -12,6 +13,31 @@ def first(iterable: set[X] | list[X], where: Callable[[X], bool]) -> X:
     :return: the first value found that matches the predicate.
     """
     return next(filter(where, iterable))
+
+
+def fold(iterable: set[X] | list[X], combine: Callable[[Y, X], Y], initial: Y):
+    """
+    Folds all elements of a set/list in a single value.
+
+    :param iterable: the set/list to fold.
+    :param combine: the folding function, combining the previous value with the next item in the set/list.
+    :param initial: the initial value to be combined with the first item.
+    :return: the folded value.
+    """
+    value = initial
+    for item in iterable:
+        value = combine(value, item)
+    return value
+
+
+def join_lines(iterable: Iterable[str]):
+    """
+    Combines a group of lines in a single string.
+
+    :param iterable: the group of lines to combine.
+    :return: a single string that is the result of the line's combination.
+    """
+    return "\n".join(iterable)
 
 
 def get_or_else(x: X | None, or_else: Callable[[], X]) -> X:
