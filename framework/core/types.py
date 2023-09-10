@@ -9,6 +9,9 @@ ElementType = str | int | float | bool | object | list
 # Types a JSON object
 JSON = dict[str, ElementType]
 
+# Types a Bash script
+Bash = str
+
 # Input Type
 TI = TypeVar('TI')
 
