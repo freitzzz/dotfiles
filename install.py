@@ -32,7 +32,7 @@ scripts = bash_module_factory.create_multiple(modules)
 for script in scripts:
     temp = mktemp()
 
-    file = open(temp, "rw+")
+    file = open(temp, "w+")
     file.write(script)
     file.close()
 
