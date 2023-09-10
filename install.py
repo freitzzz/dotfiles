@@ -30,5 +30,10 @@ modules = json_module_factory.create_multiple(modules)
 scripts = bash_module_factory.create_multiple(modules)
 
 for script in scripts:
-    print(mktemp())
-    print(script)
+    temp = mktemp()
+
+    file = open(temp, "+")
+    file.write(script)
+    file.close()
+
+    os.system(f"cat {temp} | bash")
