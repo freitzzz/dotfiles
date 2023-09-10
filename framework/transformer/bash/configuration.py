@@ -17,7 +17,7 @@ class AliasModuleConverter(ModuleConverter[AliasModule]):
                 "source $alias_source",
                 *map(lambda e: f"export {e[0]}='{e[1]}'", _input.entries.value.items()),
                 "a=$(alias)",
-                'echo >>>> "$(a)"',
+                'echo "==== $(a)"',
                 "alias > $alias_source"
             ]
         )
