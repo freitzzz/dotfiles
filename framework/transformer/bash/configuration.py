@@ -11,7 +11,7 @@ class AliasModuleConverter(ModuleConverter[AliasModule]):
     """
 
     def convert(self, _input: AliasModule) -> Bash:
-        return join_lines(map(lambda e: f"export {e[0]}={e[1]}", _input.entries.value.items()))
+        return join_lines(map(lambda e: f"export {e[0]}='{e[1]}'", _input.entries.value.items()))
 
     def module_type(self) -> ModuleType:
         return ModuleType.alias
