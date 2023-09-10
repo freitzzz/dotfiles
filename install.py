@@ -30,6 +30,8 @@ modules = json_module_factory.create_multiple(modules)
 scripts = bash_module_factory.create_multiple(modules)
 
 for script in scripts:
+    print(script)
+    continue
     temp = mktemp()
 
     file = open(temp, "w+")
