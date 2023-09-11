@@ -27,8 +27,6 @@ def find_modules():
 
 modules = find_modules()
 
-print(len(modules))
-
 modules = json_module_factory.create_multiple(modules)
 modules = list(
     filter(
@@ -38,6 +36,9 @@ modules = list(
         modules
     )
 )
+
+print(len(modules))
+
 scripts = bash_module_factory.create_multiple(modules)
 
 for script in scripts:
