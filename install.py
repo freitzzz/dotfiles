@@ -5,6 +5,7 @@ import os
 from tempfile import mktemp
 from typing import Any
 
+from framework.schema.command import CommandModule, CommandAPT
 from framework.transformer.bash import bash_module_factory
 from framework.transformer.json import json_module_factory
 
@@ -18,8 +19,7 @@ def find_modules():
         for file in files:
             if file.endswith('.json'):
                 _json = json.load(open(os.path.join(current_path, file)))
-                if _json.get('definitions') is None and (
-                        _json.get('type') == 'tool' and _json.get('name') == 'google-chrome'):
+                if _json.get('definitions') is None and (_json.get('type') == 'tool'):
                     _modules.append(_json)
 
     return _modules
@@ -30,6 +30,9 @@ modules = find_modules()
 print(len(modules))
 
 modules = json_module_factory.create_multiple(modules)
+modules = list(
+    filter(lambda m: isinstance(m, CommandModule) and len(
+        list(filter(lambda cm: isinstance(cm, CommandAPT), m.commands)))))
 scripts = bash_module_factory.create_multiple(modules)
 
 for script in scripts:
