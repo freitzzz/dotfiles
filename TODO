@@ -4,9 +4,10 @@
 - export
 - refactor gunzip, unzip and others (remove url)
 - deprecate command => only accepts commands
+- missing dependencies (unzip, zip) install
 
 
 working:
 - alias
 - git-config
-- tool(apt)
+- tool(apt, bash)

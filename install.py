@@ -5,7 +5,7 @@ import os
 from tempfile import mktemp
 from typing import Any
 
-from framework.schema.command import CommandModule, CommandBash
+from framework.schema.command import CommandModule, CommandBash, CommandCopy
 from framework.transformer.bash import bash_module_factory
 from framework.transformer.json import json_module_factory
 
@@ -33,7 +33,7 @@ modules = json_module_factory.create_multiple(modules)
 modules = list(
     filter(
         lambda m: isinstance(m, CommandModule) and len(
-            list(filter(lambda cm: isinstance(cm, CommandBash), m.commands))
+            list(filter(lambda cm: isinstance(cm, CommandCopy), m.commands))
         ),
         modules
     )
