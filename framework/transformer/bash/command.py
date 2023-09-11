@@ -78,7 +78,7 @@ class CommandCopyConverter(CommandConverter[CommandCopy]):
     """
 
     def convert(self, _input: CommandCopy) -> Bash:
-        return f"wget {_input.url} -P {_input.target}"
+        return f"sudo wget {_input.url} -P {_input.target}"
 
     def command_type(self) -> CommandType:
         return CommandType.copy
