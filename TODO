@@ -3,7 +3,7 @@
 - missing properties like scope in git-config
 - export
 - refactor gunzip, unzip and others (remove url)
-
+- deprecate command => only accepts commands
 
 
 working:

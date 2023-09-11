@@ -49,4 +49,6 @@ for script in scripts:
     file.write(script)
     file.close()
 
-    os.system(f"cat {temp} | bash")
+    exit_code = os.system(f"cat {temp} | bash")
+
+    print(f"=>>>>>>> {exit_code}")
