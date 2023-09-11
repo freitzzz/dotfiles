@@ -31,8 +31,13 @@ print(len(modules))
 
 modules = json_module_factory.create_multiple(modules)
 modules = list(
-    filter(lambda m: isinstance(m, CommandModule) and len(
-        list(filter(lambda cm: isinstance(cm, CommandAPT), m.commands)))))
+    filter(
+        lambda m: isinstance(m, CommandModule) and len(
+            list(filter(lambda cm: isinstance(cm, CommandAPT), m.commands))
+        ),
+        modules
+    )
+)
 scripts = bash_module_factory.create_multiple(modules)
 
 for script in scripts:
