@@ -46,7 +46,7 @@ class CommandAPTConverter(CommandConverter[CommandAPT]):
 
             install_commands.extend(
                 [
-                    f"wget {_input.url} -o {temp_deb_fp}",
+                    f"wget {_input.url} -O {temp_deb_fp}",
                     f"sudo apt-get install {temp_deb_fp}"
                 ]
             )
