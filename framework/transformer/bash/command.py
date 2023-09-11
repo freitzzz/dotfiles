@@ -39,7 +39,7 @@ class CommandAPTConverter(CommandConverter[CommandAPT]):
 
         if _input.package is not None:
             install_commands.append(
-                f"sudo apt-get install {_input.package}"
+                f"sudo apt-get install -y {_input.package}"
             )
         else:
             temp_deb_fp = f"/tmp/{hash(_input.url)}.deb"
@@ -47,7 +47,7 @@ class CommandAPTConverter(CommandConverter[CommandAPT]):
             install_commands.extend(
                 [
                     f"wget {_input.url} -O {temp_deb_fp}",
-                    f"sudo apt-get install {temp_deb_fp}"
+                    f"sudo apt-get install -y {temp_deb_fp}"
                 ]
             )
 
