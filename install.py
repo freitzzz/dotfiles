@@ -18,7 +18,8 @@ def find_modules():
         for file in files:
             if file.endswith('.json'):
                 _json = json.load(open(os.path.join(current_path, file)))
-                if _json.get('definitions') is None and (_json.get('type') == 'tool'):
+                if _json.get('definitions') is None and (
+                        _json.get('type') == 'tool' and _json.get('name') == 'google-chrome'):
                     _modules.append(_json)
 
     return _modules
