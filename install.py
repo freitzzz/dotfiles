@@ -52,4 +52,4 @@ for script in scripts:
 
     exit_code = os.system(f"cat {temp} | bash")
 
-    print(f"=>>>>>>> {exit_code}")
+    print(f"=>>>>>>> {exit_code} | {script}")
