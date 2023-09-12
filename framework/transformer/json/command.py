@@ -45,6 +45,7 @@ class CommandAPTConverter(CommandConverter[CommandAPT]):
             package=_input.get('package'),
             url=_input.get('url'),
             repositories=_input.get('repositories'),
+            sudo=_input.get('sudo'),
             export=_input.get('export'),
             export_folder=_input.get('export_folder'),
         )
@@ -62,6 +63,7 @@ class CommandBashConverter(CommandConverter[CommandBash]):
         return CommandBash(
             url=_input.get('url'),
             source=_input.get('source'),
+            sudo=_input.get('sudo'),
             export=_input.get('export'),
             export_folder=_input.get('export_folder'),
         )
@@ -79,6 +81,7 @@ class CommandCopyConverter(CommandConverter[CommandCopy]):
         return CommandCopy(
             url=_input.get('url'),
             target=_input.get('target'),
+            sudo=_input.get('sudo'),
             export=_input.get('export'),
             export_folder=_input.get('export_folder'),
         )
@@ -95,6 +98,7 @@ class CommandDartPubConverter(CommandConverter[CommandDartPub]):
     def convert(self, _input: JSON) -> CommandDartPub:
         return CommandDartPub(
             package=_input.get('package'),
+            sudo=_input.get('sudo'),
             export=_input.get('export'),
             export_folder=_input.get('export_folder'),
         )
@@ -111,6 +115,7 @@ class CommandGunZipConverter(CommandConverter[CommandGunZip]):
     def convert(self, _input: JSON) -> CommandGunZip:
         return CommandGunZip(
             url=_input.get('url'),
+            sudo=_input.get('sudo'),
             export=_input.get('export'),
             export_folder=_input.get('export_folder'),
         )
@@ -127,6 +132,7 @@ class CommandNPMConverter(CommandConverter[CommandNPM]):
     def convert(self, _input: JSON) -> CommandNPM:
         return CommandNPM(
             package=_input.get('package'),
+            sudo=_input.get('sudo'),
             export=_input.get('export'),
             export_folder=_input.get('export_folder'),
         )
@@ -143,6 +149,7 @@ class CommandRemoveConverter(CommandConverter[CommandRemove]):
     def convert(self, _input: JSON) -> CommandRemove:
         return CommandRemove(
             target=_input.get('target'),
+            sudo=_input.get('sudo'),
             export=_input.get('export'),
             export_folder=_input.get('export_folder'),
         )
@@ -159,6 +166,7 @@ class CommandSDKManConverter(CommandConverter[CommandSDKMan]):
     def convert(self, _input: JSON) -> CommandSDKMan:
         return CommandSDKMan(
             package=_input.get('package'),
+            sudo=_input.get('sudo'),
             export=_input.get('export'),
             export_folder=_input.get('export_folder'),
         )
@@ -177,6 +185,7 @@ class CommandUnZipConverter(CommandConverter[CommandUnZip]):
             url=_input.get('url'),
             target=_input.get('target'),
             extract=_input.get('extract'),
+            sudo=_input.get('sudo'),
             export=_input.get('export'),
             export_folder=_input.get('export_folder'),
         )

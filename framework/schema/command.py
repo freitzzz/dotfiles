@@ -29,14 +29,22 @@ class Command(ObjectElement):
 
     Attributes:
         type: the command to use.
+        sudo: if the command should run in sudo mode.
         export: if the command exports new variables to be exported in local sessions (**PATH** variable).
         export_folder: an optional file path to a folder that contains binaries to export.
     """
 
-    def __init__(self, _type: CommandTypeEnum, export: bool = False, export_folder: str = None) -> None:
+    def __init__(
+            self,
+            _type: CommandTypeEnum,
+            sudo: bool = False,
+            export: bool = False,
+            export_folder: str = None
+    ) -> None:
         super().__init__()
 
         self.type = _type
+        self.sudo = sudo
         self.export = export
         self.export_folder = export_folder
 
@@ -53,6 +61,7 @@ class CommandAPT(Command):
 
     def __init__(
             self,
+            sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
             package: str = None,
@@ -61,6 +70,7 @@ class CommandAPT(Command):
     ) -> None:
         super().__init__(
             CommandType.apt,
+            sudo,
             export,
             export_folder
         )
@@ -81,6 +91,7 @@ class CommandBash(Command):
 
     def __init__(
             self,
+            sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
             url: str = None,
@@ -88,6 +99,7 @@ class CommandBash(Command):
     ) -> None:
         super().__init__(
             CommandType.bash,
+            sudo,
             export,
             export_folder
         )
@@ -109,11 +121,13 @@ class CommandCopy(Command):
             self,
             url: str,
             target: str = "/usr/local/bin",
+            sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
     ) -> None:
         super().__init__(
             CommandType.copy,
+            sudo,
             export,
             export_folder
         )
@@ -132,11 +146,13 @@ class CommandDartPub(Command):
     def __init__(
             self,
             package: str,
+            sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
     ) -> None:
         super().__init__(
             CommandType.dart_pub,
+            sudo,
             export,
             export_folder
         )
@@ -155,11 +171,13 @@ class CommandGunZip(Command):
     def __init__(
             self,
             url: str,
+            sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
     ) -> None:
         super().__init__(
             CommandType.gunzip,
+            sudo,
             export,
             export_folder
         )
@@ -178,11 +196,13 @@ class CommandNPM(Command):
     def __init__(
             self,
             package: str,
+            sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
     ) -> None:
         super().__init__(
             CommandType.npm,
+            sudo,
             export,
             export_folder
         )
@@ -203,6 +223,7 @@ class CommandUnZip(Command):
     def __init__(
             self,
             url: str,
+            sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
             extract: set[str] = None,
@@ -210,6 +231,7 @@ class CommandUnZip(Command):
     ) -> None:
         super().__init__(
             CommandType.unzip,
+            sudo,
             export,
             export_folder
         )
@@ -230,11 +252,13 @@ class CommandRemove(Command):
     def __init__(
             self,
             target: str,
+            sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
     ) -> None:
         super().__init__(
             CommandType.rm,
+            sudo,
             export,
             export_folder
         )
@@ -253,11 +277,13 @@ class CommandSDKMan(Command):
     def __init__(
             self,
             package: str,
+            sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
     ) -> None:
         super().__init__(
             CommandType.sdkman,
+            sudo,
             export,
             export_folder
         )

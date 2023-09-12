@@ -5,7 +5,6 @@ todo:
 - export
 - refactor gunzip, unzip and others (remove url)
 - missing dependencies (unzip, zip) install
-- missing sudo in command
 
 
 working:
@@ -15,3 +14,4 @@ working:
 
 done:
 - deprecate command => only accepts commands
+- missing sudo in command

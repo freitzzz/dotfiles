@@ -37,11 +37,11 @@
     },
     "command": {
       "type": "object",
-      "description": "Configures the installation process",
+      "description": "Configures the tool usage process",
       "definitions": {
         "command_apt": {
           "type": "object",
-          "description": "Configures the installation process using apt-get",
+          "description": "Configures the installation of a package using apt-get",
           "properties": {
             "type": {
               "$ref": "#/definitions/command/type",
@@ -84,7 +84,7 @@
         },
         "command_bash": {
           "type": "object",
-          "description": "Configures the installation process using bash",
+          "description": "Configures the scripting process using bash",
           "properties": {
             "type": {
               "$ref": "#/definitions/command/type",
@@ -117,7 +117,7 @@
         },
         "command_cp": {
           "type": "object",
-          "description": "Configures the installation process using copy",
+          "description": "Configures the configuration process using copy",
           "properties": {
             "type": {
               "$ref": "#/definitions/command/type",
@@ -140,7 +140,7 @@
         },
         "command_pub": {
           "type": "object",
-          "description": "Configures the installation process using Dart Pub",
+          "description": "Configures the installation of a package using Dart Pub",
           "properties": {
             "type": {
               "$ref": "#/definitions/command/type",
@@ -157,7 +157,7 @@
         },
         "command_gunzip": {
           "type": "object",
-          "description": "Configures the installation process using gunzip tool",
+          "description": "Configures the configuration process using gunzip tool",
           "properties": {
             "type": {
               "$ref": "#/definitions/command/type",
@@ -174,7 +174,7 @@
         },
         "command_npm": {
           "type": "object",
-          "description": "Configures the installation process using Node NPM",
+          "description": "Configures the installation of a package using Node NPM",
           "properties": {
             "type": {
               "$ref": "#/definitions/command/type",
@@ -191,7 +191,7 @@
         },
         "command_unzip": {
           "type": "object",
-          "description": "Configures the installation process using unzip",
+          "description": "Configures the configuration process using unzip",
           "properties": {
             "type": {
               "$ref": "#/definitions/command/type",
@@ -222,7 +222,7 @@
         },
         "command_rm": {
           "type": "object",
-          "description": "Configures the installation process using rm",
+          "description": "Configures the configuration process using rm",
           "properties": {
             "type": {
               "$ref": "#/definitions/command/type",
@@ -239,7 +239,7 @@
         },
         "command_sdkman": {
           "type": "object",
-          "description": "Configures the installation process using SDKMAN",
+          "description": "Configures the installation of a package using SDKMAN",
           "properties": {
             "type": {
               "$ref": "#/definitions/command/type",
@@ -257,7 +257,7 @@
       },
       "properties": {
         "type": {
-          "description": "Identifies the installation tool",
+          "description": "Identifies the command tool",
           "enum": [
             "apt",
             "bash",
@@ -269,6 +269,11 @@
             "rm",
             "sdkman"
           ]
+        },
+        "sudo": {
+          "description": "Indicates if the command should run in sudo mode",
+          "type": "boolean",
+          "default": false
         },
         "export": {
           "type": "boolean",
