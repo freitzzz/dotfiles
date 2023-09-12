@@ -2,8 +2,10 @@
   "$schema": "../modules-schema.json",
   "name": "hugo",
   "type": "tool",
-  "command": {
-    "type": "apt",
-    "package": "hugo"
-  }
+  "commands": [
+    {
+      "type": "apt",
+      "package": "hugo"
+    }
+  ]
 }

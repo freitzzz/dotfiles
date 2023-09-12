@@ -8,8 +8,10 @@
       "name": "flutter"
     }
   ],
-  "command": {
-    "type": "pub",
-    "package": "mason_cli"
-  }
+  "commands": [
+    {
+      "type": "pub",
+      "package": "mason_cli"
+    }
+  ]
 }

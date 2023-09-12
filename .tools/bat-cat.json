@@ -2,8 +2,10 @@
   "$schema": "../modules-schema.json",
   "name": "bat-cat",
   "type": "tool",
-  "command": {
-    "type": "apt",
-    "package": "bat"
-  }
+  "commands": [
+    {
+      "type": "apt",
+      "package": "bat"
+    }
+  ]
 }

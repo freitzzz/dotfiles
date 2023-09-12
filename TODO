@@ -1,13 +1,17 @@
+todo:
 - missing tools
 - control installed modules
 - missing properties like scope in git-config
 - export
 - refactor gunzip, unzip and others (remove url)
-- deprecate command => only accepts commands
 - missing dependencies (unzip, zip) install
+- missing sudo in command
 
 
 working:
 - alias
 - git-config
 - tool(apt, bash)
+
+done:
+- deprecate command => only accepts commands

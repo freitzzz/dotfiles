@@ -188,13 +188,13 @@ class CommandModuleConverter(ModuleConverter[CommandModule], ABC):
     """
 
     def accepts(self, _input: JSON) -> bool:
-        return super().accepts(_input) and (_input.get('command') or _input.get('commands')) is not None
+        return super().accepts(_input) and _input.get('commands') is not None
 
     def convert_commands(self, _input: JSON) -> set[Command]:
         return set(
             map(
                 lambda c: first(self.command_converters, lambda cc: cc.accepts(c)).convert(c),
-                _input.get('commands', [_input.get('command')])
+                _input.get('commands', [])
             ),
         )
 

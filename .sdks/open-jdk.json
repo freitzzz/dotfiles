@@ -9,8 +9,10 @@
     }
   ],
   "version": "11.0.18-amzn",
-  "command": {
-    "type": "sdkman",
-    "package": "java"
-  }
+  "commands": [
+    {
+      "type": "sdkman",
+      "package": "java"
+    }
+  ]
 }

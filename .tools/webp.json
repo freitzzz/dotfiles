@@ -2,8 +2,10 @@
   "$schema": "../modules-schema.json",
   "name": "webp",
   "type": "tool",
-  "command": {
-    "type": "apt",
-    "package": "webp"
-  }
+  "commands": [
+    {
+      "type": "apt",
+      "package": "webp"
+    }
+  ]
 }
