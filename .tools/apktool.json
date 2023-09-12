@@ -7,12 +7,14 @@
     {
       "type": "wget",
       "url": "https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool",
-      "target": "/usr/local/bin"
+      "target": "/usr/local/bin",
+      "sudo": true
     },
     {
       "type": "wget",
       "url": "https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_$version.jar",
-      "target": "/usr/local/bin"
+      "target": "/usr/local/bin",
+      "sudo": true
     }
   ]
 }
