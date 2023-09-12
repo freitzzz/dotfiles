@@ -5,7 +5,7 @@ from framework.core.func import first
 from framework.core.types import JSON
 from framework.schema.command import \
     CommandAPT, CommandType, CommandBash, CommandNPM, \
-    CommandCopy, CommandRemove, CommandUnZip, CommandGunZip, CommandDartPub, CommandSDKMan
+    CommandCopy, CommandRemove, CommandUnZip, CommandGunZip, CommandDartPub, CommandSDKMan, CommandWget
 from framework.schema.command import CommandModule, VPNModule, DriverModule, ToolModule, SDKModule, Command
 from framework.schema.module import ModuleType
 from framework.transformer.json.module import ModuleConverter, ModuleDependencyConverter
@@ -185,6 +185,24 @@ class CommandUnZipConverter(CommandConverter[CommandUnZip]):
             url=_input.get('url'),
             target=_input.get('target'),
             extract=_input.get('extract'),
+            sudo=_input.get('sudo'),
+            export=_input.get('export'),
+            export_folder=_input.get('export_folder'),
+        )
+
+
+class CommandWgetConverter(CommandConverter[CommandWget]):
+    """
+    A :class:`CommandConverter` for :class:`CommandWget`.
+    """
+
+    def command_type(self) -> CommandType:
+        return CommandType.wget
+
+    def convert(self, _input: JSON) -> CommandWget:
+        return CommandWget(
+            url=_input.get('url'),
+            target=_input.get('target'),
             sudo=_input.get('sudo'),
             export=_input.get('export'),
             export_folder=_input.get('export_folder'),

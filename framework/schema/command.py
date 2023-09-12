@@ -20,6 +20,7 @@ class CommandType(CommandTypeEnum):
     rm = CommandTypeEnum("rm")
     sdkman = CommandTypeEnum("sdkman")
     unzip = CommandTypeEnum("unzip")
+    wget = CommandTypeEnum("wget")
     pass
 
 
@@ -289,6 +290,33 @@ class CommandSDKMan(Command):
         )
 
         self.package = package
+
+
+class CommandWget(Command):
+    """
+    Represents the configuration to download a file using wget.
+
+    Attributes:
+        url: the link to a file that will be downloaded with wget.
+        target: the target destination where the file will be downloaded to. Defaults to /usr/local/bin.
+    """
+
+    def __init__(
+            self,
+            url: str,
+            target: str = "/usr/local/bin",
+            sudo: bool = False,
+            export: bool = False,
+            export_folder: str = None,
+    ) -> None:
+        super().__init__(
+            CommandType.wget,
+            sudo,
+            export,
+            export_folder
+        )
+        self.url = url
+        self.target = target
 
 
 class CommandModule(Module):

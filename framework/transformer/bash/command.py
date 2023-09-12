@@ -5,7 +5,7 @@ from framework.core.func import first, join_lines
 from framework.core.types import Bash
 from framework.schema.command import \
     CommandAPT, CommandBash, CommandNPM, \
-    CommandCopy, CommandRemove, CommandUnZip, CommandGunZip, CommandDartPub, CommandSDKMan, CommandType
+    CommandCopy, CommandRemove, CommandUnZip, CommandGunZip, CommandDartPub, CommandSDKMan, CommandType, CommandWget
 from framework.schema.command import CommandModule, Command
 from framework.schema.module import ModuleType
 from framework.transformer.bash.module import ModuleConverter
@@ -174,6 +174,18 @@ class CommandUnZipConverter(CommandConverter[CommandUnZip]):
 
     def command_type(self) -> CommandType:
         return CommandType.unzip
+
+
+class CommandWgetConverter(CommandConverter[CommandWget]):
+    """
+    A :class:`CommandConverter` for :class:`CommandWget`.
+    """
+
+    def convert(self, _input: CommandWget) -> Bash:
+        return f"wget {_input.url} -P {_input.target}"
+
+    def command_type(self) -> CommandType:
+        return CommandType.wget
 
 
 class CommandModuleConverter(ModuleConverter[CommandModule], ABC):

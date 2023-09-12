@@ -253,6 +253,29 @@
           "required": [
             "package"
           ]
+        },
+        "command_wget": {
+          "type": "object",
+          "description": "Configures the download of a file using wget",
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/command/type",
+              "const": "wget"
+            },
+            "url": {
+              "description": "URL that points to a file",
+              "type": "string"
+            },
+            "target": {
+              "description": "Directory where file will be downloaded to",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "url",
+            "target"
+          ]
         }
       },
       "properties": {
@@ -267,7 +290,8 @@
             "npm",
             "unzip",
             "rm",
-            "sdkman"
+            "sdkman",
+            "wget"
           ]
         },
         "sudo": {
@@ -310,6 +334,9 @@
         },
         {
           "$ref": "#/definitions/command/definitions/command_sdkman"
+        },
+        {
+          "$ref": "#/definitions/command/definitions/command_cp"
         }
       ],
       "required": [
