@@ -15,6 +15,13 @@ C = TypeVar('C', Command, Command)
 
 
 def sudo(_input: Command, _output: Bash) -> Bash:
+    """
+    Applies sudo prefix to a command bash output if needed.
+
+    :param _input: the command that may be required to run in sudo.
+    :param _output: the output bash script, converted from the command
+    :return: the bash script that runs in sudo if required.
+    """
     return f"sudo {_output}" if _input.sudo else _output
 
 
@@ -67,10 +74,10 @@ class CommandBashConverter(CommandConverter[CommandBash]):
     """
 
     def convert(self, _input: CommandBash) -> Bash:
-        if len(_input.source) > 0:
-            return join_lines(_input.source)
-
-        return f"wget -qO- {_input.url} | bash"
+        return sudo(
+            _input,
+            join_lines(_input.source) if len(_input.source > 0) else f"wget -qO- {_input.url} | bash"
+        )
 
     def command_type(self) -> CommandType:
         return CommandType.bash
@@ -94,7 +101,10 @@ class CommandDartPubConverter(CommandConverter[CommandDartPub]):
     """
 
     def convert(self, _input: CommandDartPub) -> Bash:
-        return f"dart pub global activate {_input.package}"
+        return sudo(
+            _input,
+            f"dart pub global activate {_input.package}"
+        )
 
     def command_type(self) -> CommandType:
         return CommandType.dart_pub
@@ -129,7 +139,10 @@ class CommandNPMConverter(CommandConverter[CommandNPM]):
     """
 
     def convert(self, _input: CommandNPM) -> Bash:
-        return f"sudo npm install -g {_input.package}"
+        return sudo(
+            _input,
+            f"sudo npm install -g {_input.package}"
+        )
 
     def command_type(self) -> CommandType:
         return CommandType.npm
@@ -141,7 +154,10 @@ class CommandRemoveConverter(CommandConverter[CommandRemove]):
     """
 
     def convert(self, _input: CommandRemove) -> Bash:
-        return f"rm -rf {_input.target}"
+        return sudo(
+            _input,
+            f"rm -rf {_input.target}"
+        )
 
     def command_type(self) -> CommandType:
         return CommandType.rm
@@ -153,7 +169,10 @@ class CommandSDKManConverter(CommandConverter[CommandSDKMan]):
     """
 
     def convert(self, _input: CommandSDKMan) -> Bash:
-        return f"sdk install {_input.package} {_input.package} <version>"
+        return sudo(
+            _input,
+            f"sdk install {_input.package} {_input.package} <version>"
+        )
 
     def command_type(self) -> CommandType:
         return CommandType.sdkman
