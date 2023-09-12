@@ -14,6 +14,10 @@ from framework.transformer.bash.transformer import BashConverter
 C = TypeVar('C', Command, Command)
 
 
+def sudo(_input: Command, _output: Bash) -> Bash:
+    return f"sudo {_output}" if _input.sudo else _output
+
+
 class CommandConverter(BashConverter[C], Generic[C], ABC):
     """
     Types a :class:`BashConverter` for :class:`Command`.
@@ -182,7 +186,10 @@ class CommandWgetConverter(CommandConverter[CommandWget]):
     """
 
     def convert(self, _input: CommandWget) -> Bash:
-        return f"wget {_input.url} -P {_input.target}"
+        return sudo(
+            _input,
+            f"wget {_input.url} -P {_input.target}"
+        )
 
     def command_type(self) -> CommandType:
         return CommandType.wget
