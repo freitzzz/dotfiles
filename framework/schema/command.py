@@ -300,13 +300,13 @@ class CommandWget(Command):
 
     Attributes:
         url: the link to a file that will be downloaded with wget.
-        target: the target destination where the file will be downloaded to. Defaults to /usr/local/bin.
+        target: the target destination where the file will be downloaded to. Defaults to /tmp.
     """
 
     def __init__(
             self,
             url: str,
-            target: str = "/usr/local/bin",
+            target: str = "/tmp",
             sudo: bool = False,
             export: bool = False,
             export_folder: str = None,

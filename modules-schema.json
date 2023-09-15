@@ -271,8 +271,9 @@
               "type": "string"
             },
             "target": {
-              "description": "Directory where file will be downloaded to",
-              "type": "string"
+              "description": "Directory where file will be downloaded to. Defaults to /tmp",
+              "type": "string",
+              "default": "/tmp"
             }
           },
           "required": [
