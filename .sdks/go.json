@@ -2,7 +2,6 @@
   "$schema": "../modules-schema.json",
   "name": "go",
   "type": "sdk",
-  "version": "1.19.3",
   "commands": [
     {
       "type": "rm",
@@ -10,7 +9,7 @@
     },
     {
       "type": "tar",
-      "url": "https://go.dev/dl/go$version.linux-amd64.tar.gz",
+      "url": "https://go.dev/dl/go1.19.3.linux-amd64.tar.gz",
       "target": "/usr/local"
     },
     {

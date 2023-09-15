@@ -2,7 +2,6 @@
   "$schema": "../modules-schema.json",
   "name": "flutter",
   "type": "sdk",
-  "version": "3.7.9",
   "dependencies": [
     {
       "type": "sdk",
@@ -20,7 +19,7 @@
     },
     {
       "type": "tar",
-      "url": "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_$version-stable.tar.xz",
+      "url": "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.7.9-stable.tar.xz",
       "target": "$target",
       "extract": [
         "flutter"

@@ -2,11 +2,10 @@
   "$schema": "../modules-schema.json",
   "name": "nvidia",
   "type": "driver",
-  "version": "535",
   "commands": [
     {
       "type": "apt",
-      "package": "nvidia-driver-$version"
+      "package": "nvidia-driver-535"
     }
   ]
 }

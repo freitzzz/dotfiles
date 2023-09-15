@@ -2,11 +2,10 @@
   "$schema": "../modules-schema.json",
   "name": "jadx",
   "type": "tool",
-  "version": "1.4.7",
   "commands": [
     {
       "type": "unzip",
-      "url": "https://github.com/skylot/jadx/releases/download/v$version/jadx-$version.zip",
+      "url": "https://github.com/skylot/jadx/releases/download/v1.4.7/jadx-1.4.7.zip",
       "export": true,
       "exportFolder": "bin"
     }

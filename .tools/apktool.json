@@ -2,7 +2,6 @@
   "$schema": "../modules-schema.json",
   "name": "apktool",
   "type": "tool",
-  "version": "2.7.0",
   "commands": [
     {
       "type": "wget",
@@ -12,7 +11,7 @@
     },
     {
       "type": "wget",
-      "url": "https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_$version.jar",
+      "url": "https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.7.0.jar",
       "target": "/usr/local/bin",
       "sudo": true
     }

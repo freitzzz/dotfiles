@@ -2,11 +2,10 @@
   "$schema": "../modules-schema.json",
   "name": "mitm-proxy",
   "type": "tool",
-  "version": "10.0.0",
   "commands": [
     {
       "type": "gunzip",
-      "url": "https://downloads.mitmproxy.org/$version/mitmproxy-$version-linux.tar.gz",
+      "url": "https://downloads.mitmproxy.org/10.0.0/mitmproxy-10.0.0-linux.tar.gz",
       "export": true
     }
   ]

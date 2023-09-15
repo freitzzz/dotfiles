@@ -2,14 +2,13 @@
   "$schema": "../modules-schema.json",
   "name": "node",
   "type": "sdk",
-  "version": "20.0.0",
   "commands": [
     {
       "type": "bash",
       "url": "https://raw.githubusercontent.com/tj/n/master/bin/n",
       "arguments": [
         "-s",
-        "$version"
+        "20.0.0"
       ]
     }
   ]
