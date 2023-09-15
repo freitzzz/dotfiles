@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic
 
-from framework.core.func import first, join_lines, safe_string
+from framework.core.func import first, join_lines, safe_string, get_or_else
 from framework.core.types import Bash
 from framework.schema.command import \
     CommandAPT, CommandBash, CommandNPM, \
@@ -23,6 +23,17 @@ def sudo(_input: Command, _output: Bash) -> Bash:
     :return: the bash script that runs in sudo if required.
     """
     return f"sudo {_output}" if _input.sudo else _output
+
+
+def or_result(_input: str | None) -> Bash:
+    """
+    Returns either the input or the latest command result value if the input is None.
+
+    :param _input: the input in comparison
+    :return: the input or the latest command result value.
+    """
+
+    return get_or_else(_input, lambda: '"$result"')
 
 
 class CommandConverter(BashConverter[C], Generic[C], ABC):
@@ -116,18 +127,9 @@ class CommandGunZipConverter(CommandConverter[CommandGunZip]):
     """
 
     def convert(self, _input: CommandGunZip) -> Bash:
-        url_hash = hash(_input.url)
+        source = or_result(_input.source)
 
-        temp_gz_fp = f"/tmp/{url_hash}.gz"
-        temp_tar_fp = f"/tmp/{url_hash}.tar"
-
-        return join_lines(
-            [
-                f"wget {_input.url} -O {temp_gz_fp}",
-                f"gunzip {temp_gz_fp}",
-                f"tar -xf {temp_tar_fp} -C {_input.export_folder}",
-            ]
-        )
+        return sudo(_input, f"gunzip {source}")
 
     def command_type(self) -> CommandType:
         return CommandType.gunzip
@@ -207,7 +209,7 @@ class CommandWgetConverter(CommandConverter[CommandWget]):
     def convert(self, _input: CommandWget) -> Bash:
         return sudo(
             _input,
-            f"wget {_input.url} -P {_input.target}"
+            f"wget {_input.url} -P {_input.target}; result="
         )
 
     def command_type(self) -> CommandType:

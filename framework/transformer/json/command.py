@@ -114,7 +114,8 @@ class CommandGunZipConverter(CommandConverter[CommandGunZip]):
 
     def convert(self, _input: JSON) -> CommandGunZip:
         return CommandGunZip(
-            url=_input.get('url'),
+            source=_input.get('source'),
+            target=_input.get('target'),
             sudo=_input.get('sudo'),
             export=_input.get('export'),
             export_folder=_input.get('export_folder'),

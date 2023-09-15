@@ -163,14 +163,16 @@
               "$ref": "#/definitions/command/type",
               "const": "gunzip"
             },
-            "url": {
-              "description": "URL that points to tar.gz file",
+            "source": {
+              "description": "File path that locates the .gz file to uncompress",
               "type": "string"
+            },
+            "target": {
+              "description": "Directory where files will be uncompressed to. Defaults to /tmp",
+              "type": "string",
+              "default": "/tmp"
             }
-          },
-          "required": [
-            "url"
-          ]
+          }
         },
         "command_npm": {
           "type": "object",
@@ -204,11 +206,9 @@
             "extract": {
               "description": "Set of files/folders to extract from the zipped folder. Defaults to extract everything.",
               "type": "array",
-              "items": [
-                {
-                  "type": "string"
-                }
-              ]
+              "items": {
+                "type": "string"
+              }
             },
             "target": {
               "description": "File path that locates where extracted file will be copied. Defaults to /usr/local",
@@ -366,11 +366,9 @@
     },
     "dependencies": {
       "type": "array",
-      "items": [
-        {
-          "$ref": "#/definitions/module_dependency"
-        }
-      ]
+      "items": {
+        "$ref": "#/definitions/module_dependency"
+      }
     }
   },
   "allOf": [
@@ -424,11 +422,9 @@
         "properties": {
           "commands": {
             "type": "array",
-            "items": [
-              {
-                "$ref": "#/definitions/command"
-              }
-            ]
+            "items": {
+              "$ref": "#/definitions/command"
+            }
           }
         },
         "required": [
@@ -448,11 +444,9 @@
         "properties": {
           "commands": {
             "type": "array",
-            "items": [
-              {
-                "$ref": "#/definitions/command"
-              }
-            ]
+            "items": {
+              "$ref": "#/definitions/command"
+            }
           }
         }
       }
@@ -469,11 +463,9 @@
         "properties": {
           "commands": {
             "type": "array",
-            "items": [
-              {
-                "$ref": "#/definitions/command"
-              }
-            ]
+            "items": {
+              "$ref": "#/definitions/command"
+            }
           }
         }
       }
@@ -490,11 +482,9 @@
         "properties": {
           "commands": {
             "type": "array",
-            "items": [
-              {
-                "$ref": "#/definitions/command"
-              }
-            ]
+            "items": {
+              "$ref": "#/definitions/command"
+            }
           }
         }
       }

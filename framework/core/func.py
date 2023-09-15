@@ -37,6 +37,12 @@ def get_or_else(x: X | None, or_else: Callable[[], X]) -> X:
 
 
 def safe_string(x: str | None) -> str:
+    """
+   Checks if a string is none, and if so, returns an empty string
+
+   :param x: the possible None string
+   :return: the received string or an empty string
+   """
     return get_or_else(x, lambda: "")
 
 

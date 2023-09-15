@@ -163,15 +163,17 @@ class CommandDartPub(Command):
 
 class CommandGunZip(Command):
     """
-    Represents the configuration to extract files and folders using gunzip (gz).
+    Represents the configuration to uncompress files and folders using gunzip (gz).
 
     Attributes:
-        url: the link to a .gz file which files will be extracted.
+        source: the file path that locates the .gz file to uncompress.
+        target: directory where files will be uncompressed to. Defaults to /tmp
     """
 
     def __init__(
             self,
-            url: str,
+            source: str = None,
+            target: str = "/tmp",
             sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
@@ -183,7 +185,8 @@ class CommandGunZip(Command):
             export_folder
         )
 
-        self.url = url
+        self.source = source
+        self.target = target
 
 
 class CommandNPM(Command):
