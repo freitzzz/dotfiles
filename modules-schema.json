@@ -248,6 +248,10 @@
             "package": {
               "description": "Identifies the package available in sdkman",
               "type": "string"
+            },
+            "version": {
+              "description": "Identifies the version of the package",
+              "type": "string"
             }
           },
           "required": [

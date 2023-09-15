@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic
 
-from framework.core.func import first, join_lines
+from framework.core.func import first, join_lines, safe_string
 from framework.core.types import Bash
 from framework.schema.command import \
     CommandAPT, CommandBash, CommandNPM, \
@@ -171,7 +171,7 @@ class CommandSDKManConverter(CommandConverter[CommandSDKMan]):
     def convert(self, _input: CommandSDKMan) -> Bash:
         return sudo(
             _input,
-            f"sdk install {_input.package} {_input.package} <version>"
+            f"sdk install {_input.package} {_input.package} {safe_string(_input.version)}"
         )
 
     def command_type(self) -> CommandType:

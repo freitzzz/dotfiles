@@ -36,6 +36,10 @@ def get_or_else(x: X | None, or_else: Callable[[], X]) -> X:
     return x or or_else()
 
 
+def safe_string(x: str | None) -> str:
+    return get_or_else(x, lambda: "")
+
+
 def safe_set(x: set[X] | None) -> set[X]:
     """
     Checks if a set is none, and if so, returns an empty set

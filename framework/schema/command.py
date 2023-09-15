@@ -278,6 +278,7 @@ class CommandSDKMan(Command):
     def __init__(
             self,
             package: str,
+            version: str = None,
             sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
@@ -290,6 +291,7 @@ class CommandSDKMan(Command):
         )
 
         self.package = package
+        self.version = version
 
 
 class CommandWget(Command):

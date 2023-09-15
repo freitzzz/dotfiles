@@ -166,6 +166,7 @@ class CommandSDKManConverter(CommandConverter[CommandSDKMan]):
     def convert(self, _input: JSON) -> CommandSDKMan:
         return CommandSDKMan(
             package=_input.get('package'),
+            version=_input.get('version'),
             sudo=_input.get('sudo'),
             export=_input.get('export'),
             export_folder=_input.get('export_folder'),

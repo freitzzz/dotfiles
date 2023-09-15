@@ -8,11 +8,11 @@
       "name": "sdkman"
     }
   ],
-  "version": "11.0.18-amzn",
   "commands": [
     {
       "type": "sdkman",
-      "package": "java"
+      "package": "java",
+      "version": "11.0.18-amzn"
     }
   ]
 }
