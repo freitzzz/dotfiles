@@ -196,7 +196,7 @@ class CommandTarConverter(CommandConverter[CommandTar]):
 
         return join_lines(
             [
-                f"tar xf {source} {join(_input.extract)} -C {_input.target}",
+                sudo(_input, f"tar xf {source} {join(_input.extract)} -C {_input.target}"),
             ]
         )
 
@@ -214,7 +214,7 @@ class CommandUnZipConverter(CommandConverter[CommandUnZip]):
 
         return join_lines(
             [
-                f"unzip -o {source} {join(_input.extract)} -d {_input.target}",
+                sudo(_input, f"unzip -o {source} {join(_input.extract)} -d {_input.target}"),
             ]
         )
 
