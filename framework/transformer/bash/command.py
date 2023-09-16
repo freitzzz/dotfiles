@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic
 
-from framework.core.func import first, join_lines, safe_string, get_or_else, join
+from framework.core.func import first, join_lines, safe_string, get_or_else, join, last
 from framework.core.types import Bash
 from framework.schema.command import \
     CommandAPT, CommandBash, CommandNPM, \
@@ -228,9 +228,11 @@ class CommandWgetConverter(CommandConverter[CommandWget]):
     """
 
     def convert(self, _input: CommandWget) -> Bash:
+        result = last(_input.url.split("/"))
+
         return sudo(
             _input,
-            f"wget {_input.url} -P {_input.target}; result="
+            f"wget {_input.url} -P {_input.target}; result={result}"
         )
 
     def command_type(self) -> CommandType:

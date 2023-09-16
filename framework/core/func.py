@@ -4,15 +4,31 @@ X = TypeVar('X')
 Y = TypeVar('Y')
 
 
-def first(iterable: set[X] | list[X], where: Callable[[X], bool]) -> X:
+def first(iterable: set[X] | list[X], where: Callable[[X], bool] = None) -> X:
     """
-    Finds the first value in a set/list that matches a predicate.
+    Finds the first value in a set/list that matches a predicate. Defaults to first index
+    element if predicate doesn't match any value.
 
     :param iterable: the set/list in search.
     :param where: the predicate function to match the first value being searched.
-    :return: the first value found that matches the predicate.
+    :return: the first value found that matches the predicate or the first index element.
     """
-    return next(filter(where, iterable))
+    return iterable[0] if (where is None) else next(filter(where, iterable), iterable[0])
+
+
+def last(iterable: set[X] | list[X], where: Callable[[X], bool] = None) -> X:
+    """
+    Finds the last value in a set/list that matches a predicate. Defaults to last index
+    element if predicate doesn't match any value.
+
+    :param iterable: the set/list in search.
+    :param where: the predicate function to match the last value being searched.
+    :return: the last value found that matches the predicate or the last index element.
+    """
+    return iterable[len(iterable) - 1] if (where is None) else next(
+        filter(where, reversed(iterable)),
+        iterable[len(iterable) - 1]
+    )
 
 
 def join_lines(iterable: Iterable[str]):
