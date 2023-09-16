@@ -174,6 +174,7 @@ class CommandGunZip(Command):
             self,
             source: str = None,
             target: str = "/tmp",
+            tar: bool = True,
             sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
@@ -187,6 +188,7 @@ class CommandGunZip(Command):
 
         self.source = source
         self.target = target
+        self.tar = tar
 
 
 class CommandNPM(Command):

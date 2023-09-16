@@ -129,7 +129,12 @@ class CommandGunZipConverter(CommandConverter[CommandGunZip]):
     def convert(self, _input: CommandGunZip) -> Bash:
         source = or_result(_input.source)
 
-        return sudo(_input, f"gunzip {source}")
+        return join_lines(
+            [
+                f"cd {_input.target}",
+                sudo(_input, f"tar -czvf {source}") if _input.tar else sudo(_input, f"gunzip {source}")
+            ]
+        )
 
     def command_type(self) -> CommandType:
         return CommandType.gunzip

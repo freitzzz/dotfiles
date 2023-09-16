@@ -10,9 +10,14 @@
   ],
   "commands": [
     {
+      "type": "wget",
+      "url": "https://download-cdn.jetbrains.com/toolbox/jetbrains-toolbox-2.0.2.16660.tar.gz"
+    },
+    {
       "type": "gunzip",
-      "url": "https://download-cdn.jetbrains.com/toolbox/jetbrains-toolbox-2.0.2.16660.tar.gz",
-      "export": true
+      "tar": true,
+      "export": true,
+      "exportFolder": "~/Documents/Tools/jetbrains-toolbox"
     }
   ]
 }

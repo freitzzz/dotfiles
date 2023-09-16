@@ -4,6 +4,7 @@ todo:
 - missing properties like scope in git-config
 - export
 - refactor gunzip, unzip and others (remove url)
+- $target
 - missing dependencies (unzip, zip) install
 - locally store modules for future updates comparison
 

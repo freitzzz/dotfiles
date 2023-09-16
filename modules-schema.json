@@ -171,6 +171,11 @@
               "description": "Directory where files will be uncompressed to. Defaults to /tmp",
               "type": "string",
               "default": "/tmp"
+            },
+            "tar": {
+              "description": "Indicates if the gunzip is a tar file and should be extracted to target folder",
+              "type": "boolean",
+              "default": true
             }
           }
         },
