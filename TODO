@@ -1,7 +1,6 @@
 todo:
 - control installed modules
 - missing properties like scope in git-config
-- export
 - missing dependencies (unzip, zip) install
 - locally store modules for future updates comparison
 
@@ -17,3 +16,4 @@ done:
 - missing tools
 - refactor gunzip, unzip and others (remove url)
 - $target
+- export

@@ -15,6 +15,22 @@ from framework.transformer.bash.transformer import BashConverter
 C = TypeVar('C', Command, Command)
 
 
+def export(_input: Command, _output: Bash) -> Bash:
+    """
+    Exports a folder in PATH variable if required.
+
+    :param _input: the command that may be required to be exported.
+    :param _output: the output bash script, converted from the command
+    :return: the bash script that will be exported if required.
+    """
+    return join_lines(
+        [
+            _output,
+            f'export PATH="$PATH/{_input.export_folder}"'
+        ]
+    ) if _input.export else _output
+
+
 def sudo(_input: Command, _output: Bash) -> Bash:
     """
     Applies sudo prefix to a command bash output if needed.
@@ -74,7 +90,7 @@ class CommandAPTConverter(CommandConverter[CommandAPT]):
                 ]
             )
 
-        return join_lines(install_commands)
+            return export(_input, join_lines(install_commands))
 
     def command_type(self) -> CommandType:
         return CommandType.apt
@@ -86,9 +102,12 @@ class CommandBashConverter(CommandConverter[CommandBash]):
     """
 
     def convert(self, _input: CommandBash) -> Bash:
-        return sudo(
+        return export(
             _input,
-            join_lines(_input.source) if len(_input.source > 0) else f"wget -qO- {_input.url} | bash"
+            sudo(
+                _input,
+                join_lines(_input.source) if len(_input.source > 0) else f"wget -qO- {_input.url} | bash"
+            )
         )
 
     def command_type(self) -> CommandType:
@@ -101,7 +120,7 @@ class CommandCopyConverter(CommandConverter[CommandCopy]):
     """
 
     def convert(self, _input: CommandCopy) -> Bash:
-        return sudo(_input, f"cp {_input.source} {_input.target}")
+        return export(_input, sudo(_input, f"cp {_input.source} {_input.target}"))
 
     def command_type(self) -> CommandType:
         return CommandType.copy
@@ -113,9 +132,12 @@ class CommandDartPubConverter(CommandConverter[CommandDartPub]):
     """
 
     def convert(self, _input: CommandDartPub) -> Bash:
-        return sudo(
+        return export(
             _input,
-            f"dart pub global activate {_input.package}"
+            sudo(
+                _input,
+                f"dart pub global activate {_input.package}"
+            )
         )
 
     def command_type(self) -> CommandType:
@@ -130,11 +152,14 @@ class CommandGunZipConverter(CommandConverter[CommandGunZip]):
     def convert(self, _input: CommandGunZip) -> Bash:
         source = or_result(_input.source)
 
-        return join_lines(
-            [
-                f"cd {_input.target}",
-                sudo(_input, f"tar -czvf {source}") if _input.tar else sudo(_input, f"gunzip {source}")
-            ]
+        return export(
+            _input,
+            join_lines(
+                [
+                    f"cd {_input.target}",
+                    sudo(_input, f"tar -czvf {source}") if _input.tar else sudo(_input, f"gunzip {source}")
+                ]
+            )
         )
 
     def command_type(self) -> CommandType:
@@ -147,9 +172,12 @@ class CommandNPMConverter(CommandConverter[CommandNPM]):
     """
 
     def convert(self, _input: CommandNPM) -> Bash:
-        return sudo(
+        return export(
             _input,
-            f"sudo npm install -g {_input.package}"
+            sudo(
+                _input,
+                f"sudo npm install -g {_input.package}"
+            )
         )
 
     def command_type(self) -> CommandType:
@@ -162,9 +190,12 @@ class CommandRemoveConverter(CommandConverter[CommandRemove]):
     """
 
     def convert(self, _input: CommandRemove) -> Bash:
-        return sudo(
+        return export(
             _input,
-            f"rm -rf {_input.target}"
+            sudo(
+                _input,
+                f"rm -rf {_input.target}"
+            )
         )
 
     def command_type(self) -> CommandType:
@@ -177,9 +208,12 @@ class CommandSDKManConverter(CommandConverter[CommandSDKMan]):
     """
 
     def convert(self, _input: CommandSDKMan) -> Bash:
-        return sudo(
+        return export(
             _input,
-            f"sdk install {_input.package} {_input.package} {safe_string(_input.version)}"
+            sudo(
+                _input,
+                f"sdk install {_input.package} {_input.package} {safe_string(_input.version)}"
+            )
         )
 
     def command_type(self) -> CommandType:
@@ -194,10 +228,13 @@ class CommandTarConverter(CommandConverter[CommandTar]):
     def convert(self, _input: CommandTar) -> Bash:
         source = or_result(_input.source)
 
-        return join_lines(
-            [
-                sudo(_input, f"tar xf {source} {join(_input.extract)} -C {_input.target}"),
-            ]
+        return export(
+            _input,
+            join_lines(
+                [
+                    sudo(_input, f"tar xf {source} {join(_input.extract)} -C {_input.target}"),
+                ]
+            )
         )
 
     def command_type(self) -> CommandType:
@@ -212,10 +249,13 @@ class CommandUnZipConverter(CommandConverter[CommandUnZip]):
     def convert(self, _input: CommandUnZip) -> Bash:
         source = or_result(_input.source)
 
-        return join_lines(
-            [
-                sudo(_input, f"unzip -o {source} {join(_input.extract)} -d {_input.target}"),
-            ]
+        return export(
+            _input,
+            join_lines(
+                [
+                    sudo(_input, f"unzip -o {source} {join(_input.extract)} -d {_input.target}"),
+                ]
+            )
         )
 
     def command_type(self) -> CommandType:
@@ -230,9 +270,12 @@ class CommandWgetConverter(CommandConverter[CommandWget]):
     def convert(self, _input: CommandWget) -> Bash:
         result = last(_input.url.split("/"))
 
-        return sudo(
+        return export(
             _input,
-            f"wget {_input.url} -P {_input.target}; result={result}"
+            sudo(
+                _input,
+                f"wget {_input.url} -P {_input.target}; result={result}"
+            )
         )
 
     def command_type(self) -> CommandType:
