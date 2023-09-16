@@ -19,6 +19,7 @@ class CommandType(CommandTypeEnum):
     npm = CommandTypeEnum("npm")
     rm = CommandTypeEnum("rm")
     sdkman = CommandTypeEnum("sdkman")
+    tar = CommandTypeEnum("tar")
     unzip = CommandTypeEnum("unzip")
     wget = CommandTypeEnum("wget")
     pass
@@ -114,17 +115,17 @@ class CommandCopy(Command):
     Represents the configuration to copy a file/folder to a target using copy (cp).
 
     Attributes:
-        url: the link to a file that will be downloaded with wget and copied to the target destination.
+        source: the source file/folder to copy.
         target: the target destination where the file will be copied to. Defaults to /usr/local/bin.
     """
 
     def __init__(
             self,
-            url: str,
-            target: str = "/usr/local/bin",
             sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
+            source: str = None,
+            target: str = "/usr/local/bin",
     ) -> None:
         super().__init__(
             CommandType.copy,
@@ -132,7 +133,8 @@ class CommandCopy(Command):
             export,
             export_folder
         )
-        self.url = url
+
+        self.source = source
         self.target = target
 
 
@@ -297,6 +299,37 @@ class CommandSDKMan(Command):
 
         self.package = package
         self.version = version
+
+
+class CommandTar(Command):
+    """
+    Represents the configuration to extract files and folders using tar.
+
+    Attributes:
+        extract: a set of files to extract from the .tar file. Defaults to every file.
+        source: the file path that locates the .tar file to extract.
+        target: the target destination to copy the extracted files. Defaults to /tmp.
+    """
+
+    def __init__(
+            self,
+            sudo: bool = False,
+            export: bool = False,
+            export_folder: str = None,
+            extract: set[str] = None,
+            source: str = None,
+            target: str = "/tmp",
+    ) -> None:
+        super().__init__(
+            CommandType.tar,
+            sudo,
+            export,
+            export_folder
+        )
+
+        self.extract = safe_set(extract)
+        self.source = source
+        self.target = target
 
 
 class CommandWget(Command):

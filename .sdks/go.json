@@ -8,14 +8,16 @@
       "target": "/usr/local/go"
     },
     {
-      "type": "tar",
-      "url": "https://go.dev/dl/go1.19.3.linux-amd64.tar.gz",
-      "target": "/usr/local"
+      "type": "wget",
+      "url": "https://go.dev/dl/go1.19.3.linux-amd64.tar.gz"
     },
     {
-      "type": "export",
-      "variable": "PATH",
-      "value": "/usr/local/go/bin"
+      "type": "gunzip",
+      "tar": true,
+      "export": true,
+      "sudo": true,
+      "target": "/usr/local",
+      "exportFolder": "/usr/local/go/bin"
     }
   ]
 }

@@ -1,7 +1,7 @@
 from framework.transformer.bash.command import CommandAPTConverter, CommandBashConverter, CommandCopyConverter, \
     CommandDartPubConverter, CommandGunZipConverter, CommandNPMConverter, CommandRemoveConverter, \
     CommandSDKManConverter, CommandUnZipConverter, DriverModuleConverter, SDKModuleConverter, ToolModuleConverter, \
-    VPNModuleConverter, CommandWgetConverter
+    VPNModuleConverter, CommandWgetConverter, CommandTarConverter
 from framework.transformer.bash.configuration import AliasModuleConverter, GitConfigModuleConverter
 from framework.transformer.bash.module import ModuleFactory
 
@@ -14,6 +14,7 @@ command_converters = {
     CommandNPMConverter(),
     CommandRemoveConverter(),
     CommandSDKManConverter(),
+    CommandTarConverter(),
     CommandUnZipConverter(),
     CommandWgetConverter(),
 }

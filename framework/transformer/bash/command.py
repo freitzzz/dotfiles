@@ -5,7 +5,8 @@ from framework.core.func import first, join_lines, safe_string, get_or_else, joi
 from framework.core.types import Bash
 from framework.schema.command import \
     CommandAPT, CommandBash, CommandNPM, \
-    CommandCopy, CommandRemove, CommandUnZip, CommandGunZip, CommandDartPub, CommandSDKMan, CommandType, CommandWget
+    CommandCopy, CommandRemove, CommandUnZip, CommandGunZip, CommandDartPub, CommandSDKMan, CommandType, CommandWget, \
+    CommandTar
 from framework.schema.command import CommandModule, Command
 from framework.schema.module import ModuleType
 from framework.transformer.bash.module import ModuleConverter
@@ -100,7 +101,7 @@ class CommandCopyConverter(CommandConverter[CommandCopy]):
     """
 
     def convert(self, _input: CommandCopy) -> Bash:
-        return f"sudo wget {_input.url} -P {_input.target}"
+        return sudo(_input, f"cp {_input.source} {_input.target}")
 
     def command_type(self) -> CommandType:
         return CommandType.copy
@@ -183,6 +184,24 @@ class CommandSDKManConverter(CommandConverter[CommandSDKMan]):
 
     def command_type(self) -> CommandType:
         return CommandType.sdkman
+
+
+class CommandTarConverter(CommandConverter[CommandTar]):
+    """
+    A :class:`CommandConverter` for :class:`CommandTar`.
+    """
+
+    def convert(self, _input: CommandTar) -> Bash:
+        source = or_result(_input.source)
+
+        return join_lines(
+            [
+                f"tar xf {source} {join(_input.extract)} -C {_input.target}",
+            ]
+        )
+
+    def command_type(self) -> CommandType:
+        return CommandType.tar
 
 
 class CommandUnZipConverter(CommandConverter[CommandUnZip]):

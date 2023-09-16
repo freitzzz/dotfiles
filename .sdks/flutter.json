@@ -15,21 +15,25 @@
   "commands": [
     {
       "type": "rm",
-      "target": "$target"
+      "target": "~/Documents/SDK/flutter"
+    },
+    {
+      "type": "wget",
+      "url": "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.7.9-stable.tar.xz"
     },
     {
       "type": "tar",
-      "url": "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.7.9-stable.tar.xz",
-      "target": "$target",
       "extract": [
         "flutter"
       ],
-      "export": true,
-      "exportFolder": "bin"
+      "target": "~/Documents/SDK/flutter",
+      "exportFolder": "~/Documents/SDK/flutter/bin",
+      "export": true
     },
     {
       "type": "bash",
       "source": [
+        "source ~/.profile",
         "flutter config --no-analytics",
         "dart --disable-analytics",
         "flutter config --android-sdk=$ANDROID_SDK_ROOT",

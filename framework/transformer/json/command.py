@@ -5,7 +5,7 @@ from framework.core.func import first
 from framework.core.types import JSON
 from framework.schema.command import \
     CommandAPT, CommandType, CommandBash, CommandNPM, \
-    CommandCopy, CommandRemove, CommandUnZip, CommandGunZip, CommandDartPub, CommandSDKMan, CommandWget
+    CommandCopy, CommandRemove, CommandUnZip, CommandGunZip, CommandDartPub, CommandSDKMan, CommandWget, CommandTar
 from framework.schema.command import CommandModule, VPNModule, DriverModule, ToolModule, SDKModule, Command
 from framework.schema.module import ModuleType
 from framework.transformer.json.module import ModuleConverter, ModuleDependencyConverter
@@ -79,7 +79,7 @@ class CommandCopyConverter(CommandConverter[CommandCopy]):
 
     def convert(self, _input: JSON) -> CommandCopy:
         return CommandCopy(
-            url=_input.get('url'),
+            source=_input.get('source'),
             target=_input.get('target'),
             sudo=_input.get('sudo'),
             export=_input.get('export'),
@@ -169,6 +169,25 @@ class CommandSDKManConverter(CommandConverter[CommandSDKMan]):
         return CommandSDKMan(
             package=_input.get('package'),
             version=_input.get('version'),
+            sudo=_input.get('sudo'),
+            export=_input.get('export'),
+            export_folder=_input.get('export_folder'),
+        )
+
+
+class CommandTarConverter(CommandConverter[CommandTar]):
+    """
+    A :class:`CommandConverter` for :class:`CommandTar`.
+    """
+
+    def command_type(self) -> CommandType:
+        return CommandType.tar
+
+    def convert(self, _input: JSON) -> CommandTar:
+        return CommandTar(
+            extract=_input.get('extract'),
+            source=_input.get('source'),
+            target=_input.get('target'),
             sudo=_input.get('sudo'),
             export=_input.get('export'),
             export_folder=_input.get('export_folder'),

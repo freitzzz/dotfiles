@@ -123,18 +123,17 @@
               "$ref": "#/definitions/command/type",
               "const": "cp"
             },
-            "url": {
-              "description": "URL that points to a file",
+            "source": {
+              "description": "File path that locates the file to be copied",
               "type": "string"
             },
             "target": {
-              "description": "File path that locates where downloaded file will be copied",
+              "description": "File path that locates where file will be copied",
               "type": "string"
             }
           },
           "required": [
             "type",
-            "url",
             "target"
           ]
         },
@@ -260,6 +259,35 @@
             "package"
           ]
         },
+        "command_tar": {
+          "type": "object",
+          "description": "Configures the configuration process using tar",
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/command/type",
+              "const": "tar"
+            },
+            "extract": {
+              "description": "Set of files/folders to extract. Defaults to extract everything.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source": {
+              "description": "File path that locates the .tar to be extracted",
+              "type": "string"
+            },
+            "target": {
+              "description": "Directory where files will be extracted",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "target"
+          ]
+        },
         "command_wget": {
           "type": "object",
           "description": "Configures the download of a file using wget",
@@ -298,6 +326,7 @@
             "unzip",
             "rm",
             "sdkman",
+            "tar",
             "wget"
           ]
         },
