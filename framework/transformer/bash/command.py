@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic
 
-from framework.core.func import first, join_lines, safe_string, get_or_else
+from framework.core.func import first, join_lines, safe_string, get_or_else, join
 from framework.core.types import Bash
 from framework.schema.command import \
     CommandAPT, CommandBash, CommandNPM, \
@@ -191,14 +191,11 @@ class CommandUnZipConverter(CommandConverter[CommandUnZip]):
     """
 
     def convert(self, _input: CommandUnZip) -> Bash:
-        url_hash = hash(_input.url)
-
-        temp_zip_fp = f"/tmp/{url_hash}.zip"
+        source = or_result(_input.source)
 
         return join_lines(
             [
-                f"wget {_input.url} -O {temp_zip_fp}",
-                f"unzip -o {temp_zip_fp} -d {_input.export_folder}",
+                f"unzip -o {source} {join(_input.extract)} -d {_input.target}",
             ]
         )
 

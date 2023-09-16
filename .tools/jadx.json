@@ -4,10 +4,14 @@
   "type": "tool",
   "commands": [
     {
+      "type": "wget",
+      "url": "https://github.com/skylot/jadx/releases/download/v1.4.7/jadx-1.4.7.zip"
+    },
+    {
       "type": "unzip",
-      "url": "https://github.com/skylot/jadx/releases/download/v1.4.7/jadx-1.4.7.zip",
-      "export": true,
-      "exportFolder": "bin"
+      "target": "~/Documents/Tools/jadx",
+      "exportFolder": "~/Documents/Tools/jadx/bin",
+      "export": true
     }
   ]
 }

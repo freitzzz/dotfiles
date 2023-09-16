@@ -185,9 +185,9 @@ class CommandUnZipConverter(CommandConverter[CommandUnZip]):
 
     def convert(self, _input: JSON) -> CommandUnZip:
         return CommandUnZip(
-            url=_input.get('url'),
-            target=_input.get('target'),
             extract=_input.get('extract'),
+            source=_input.get('source'),
+            target=_input.get('target'),
             sudo=_input.get('sudo'),
             export=_input.get('export'),
             export_folder=_input.get('export_folder'),

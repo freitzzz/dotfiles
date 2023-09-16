@@ -204,10 +204,6 @@
               "$ref": "#/definitions/command/type",
               "const": "unzip"
             },
-            "url": {
-              "description": "URL that points to .zip file",
-              "type": "string"
-            },
             "extract": {
               "description": "Set of files/folders to extract from the zipped folder. Defaults to extract everything.",
               "type": "array",
@@ -215,15 +211,16 @@
                 "type": "string"
               }
             },
+            "source": {
+              "description": "File path that locates the .zip file to extract",
+              "type": "string"
+            },
             "target": {
-              "description": "File path that locates where extracted file will be copied. Defaults to /usr/local",
+              "description": "File path that locates where extracted file will be copied. Defaults to /tmp",
               "type": "string",
-              "default": "/usr/local"
+              "default": "/tmp"
             }
-          },
-          "required": [
-            "url"
-          ]
+          }
         },
         "command_rm": {
           "type": "object",
@@ -428,7 +425,11 @@
           "commands": {
             "type": "array",
             "items": {
-              "$ref": "#/definitions/command"
+              "allOf": [
+                {
+                  "$ref": "#/definitions/command"
+                }
+              ]
             }
           }
         },
@@ -450,7 +451,11 @@
           "commands": {
             "type": "array",
             "items": {
-              "$ref": "#/definitions/command"
+              "allOf": [
+                {
+                  "$ref": "#/definitions/command"
+                }
+              ]
             }
           }
         }
@@ -469,7 +474,11 @@
           "commands": {
             "type": "array",
             "items": {
-              "$ref": "#/definitions/command"
+              "allOf": [
+                {
+                  "$ref": "#/definitions/command"
+                }
+              ]
             }
           }
         }
@@ -488,7 +497,11 @@
           "commands": {
             "type": "array",
             "items": {
-              "$ref": "#/definitions/command"
+              "allOf": [
+                {
+                  "$ref": "#/definitions/command"
+                }
+              ]
             }
           }
         }

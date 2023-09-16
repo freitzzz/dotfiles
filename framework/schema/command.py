@@ -221,19 +221,19 @@ class CommandUnZip(Command):
     Represents the configuration to extract files and folders using unzip (zip).
 
     Attributes:
-        url: the link to a .zip file which files will be extracted.
         extract: a set of files to extract from the zip file. Defaults to every file.
-        target: the target destination to copy the extracted files. Defaults to /usr/local.
+        source: the file path that locates the .zip file to extract.
+        target: the target destination to copy the extracted files. Defaults to /tmp.
     """
 
     def __init__(
             self,
-            url: str,
             sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
             extract: set[str] = None,
-            target: str = "/usr/local",
+            source: str = None,
+            target: str = "/tmp",
     ) -> None:
         super().__init__(
             CommandType.unzip,
@@ -242,8 +242,8 @@ class CommandUnZip(Command):
             export_folder
         )
 
-        self.url = url
         self.extract = safe_set(extract)
+        self.source = source
         self.target = target
 
 

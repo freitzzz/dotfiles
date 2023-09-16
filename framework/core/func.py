@@ -22,7 +22,18 @@ def join_lines(iterable: Iterable[str]):
     :param iterable: the group of lines to combine.
     :return: a single string that is the result of the line's combination.
     """
-    return "\n".join(iterable)
+    return join(iterable, "\n")
+
+
+def join(iterable: Iterable[str], separator: str = " "):
+    """
+    Combines a group of strings in a single string.
+
+    :param iterable: the group of strings to combine.
+    :param separator: what to put between strings.
+    :return: a single string that is the result of the line's combination.
+    """
+    return separator.join(iterable)
 
 
 def get_or_else(x: X | None, or_else: Callable[[], X]) -> X:
