@@ -38,12 +38,8 @@ class Installer:
         self.installed_modules = self._load_installed_modules()
         self.modules_to_install = self._load_modules_to_install()
 
-        print(self.installed_modules)
-        print("a")
-        print(self.modules_to_install)
-
     def run(self):
-        modules_to_install = self.modules_to_install.difference(self.modules_to_install)
+        modules_to_install = self.modules_to_install.difference(self.installed_modules)
 
         for module in modules_to_install:
             print(f"installing {module}")
