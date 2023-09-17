@@ -50,7 +50,7 @@ class Installer:
 
     def run(self):
         for module in self.modules_to_install:
-            print(f"module({module}: {module.__hash__()})")
+            print(f"module({module}): {module.__hash__()})")
 
         modules_to_install = self.modules_to_install.difference(self.installed_modules)
 
