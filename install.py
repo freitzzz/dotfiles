@@ -49,12 +49,6 @@ class Installer:
         self.modules_to_install = self._load_modules_to_install()
 
     def run(self):
-        for module in self.modules_to_install:
-            print(f"module to install ({module}): {module.__hash__()})")
-
-        for module in self.installed_modules:
-            print(f"already installed module ({module}): {module.__hash__()})")
-
         modules_to_install = self.modules_to_install.difference(self.installed_modules)
 
         for module in modules_to_install:
