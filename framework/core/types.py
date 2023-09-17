@@ -81,6 +81,12 @@ class EnumElement(StringElement):
     def __init__(self, value: str) -> None:
         super().__init__(value)
 
+    def __hash__(self):
+        return super.__hash__(self)
+
+    def __eq__(self, other):
+        return super.__eq__(self, other)
+
     def __str__(self):
         return self.value
 
