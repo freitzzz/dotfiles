@@ -103,7 +103,7 @@ class Installer:
 
 installer = Installer(
     "~/.dotfiles",
-    ".",
+    ".aliases",
     json_module_factory,
     bash_module_factory,
 )
