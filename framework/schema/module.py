@@ -8,6 +8,7 @@ class ModuleName(StringElement):
     """
 
     def __hash__(self):
+        print(f"yO? {self.value}")
         return super.__hash__(self)
 
     def __eq__(self, other):
