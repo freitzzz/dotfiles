@@ -34,6 +34,8 @@ class ModuleConverter(JsonConverter[M], Generic[M]):
         else:
             print(f"<==== {_input.get('name')}")
 
+        print(self)
+
         return _input.get('type') == self.module_type().value and _input.get('name') is not None
 
     @abstractmethod
