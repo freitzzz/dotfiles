@@ -67,7 +67,6 @@ class StringElement(Element):
         self.value = value
 
     def __hash__(self):
-        print("yo???")
         return hash(self.value)
 
     def __eq__(self, other):
