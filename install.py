@@ -3,7 +3,7 @@ import base64
 import json
 import os
 
-from framework.core.func import join_lines
+from framework.core.func import join_lines, join
 from framework.core.types import JSON, Factory, Bash
 from framework.schema.module import Module
 from framework.transformer.bash import bash_module_factory
@@ -57,12 +57,13 @@ class Installer:
         bash_script = self.bash_module_factory.create(module)
         bash_script_b64 = base64.b64encode(bytes(bash_script, "utf-8")).decode("utf-8")
         _exit_code = os.system(
-            join_lines(
+            join(
                 [
                     'temp_file=$(mk_temp)'
                     'echo "1"'
 
-                ]
+                ],
+                ";"
             )
         )
 
