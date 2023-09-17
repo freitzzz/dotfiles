@@ -14,10 +14,9 @@ def find_modules(modules_directory: str) -> list[JSON]:
 
     for current_path, folders, files in os.walk(modules_directory):
         for file in files:
-            print(file)
             if file.endswith('.json'):
                 _json = json.load(open(os.path.join(current_path, file)))
-                if _json.get('definitions'):  # is None and (_json.get('type') == 'tool'):
+                if _json.get('definitions') is None:  # is None and (_json.get('type') == 'tool'):
                     _modules.append(_json)
 
     return _modules
@@ -44,11 +43,7 @@ class Installer:
 
     def run(self):
         modules_to_install = self.loaded_modules.difference(self.loaded_modules)
-
-        print(modules_to_install)
-        print(self.loaded_modules)
-        print(self.modules_directory)
-
+        
         for module in modules_to_install:
             print(f"installing {module}")
             self._install_module(module)
