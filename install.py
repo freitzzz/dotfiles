@@ -44,6 +44,9 @@ class Installer:
     def run(self):
         modules_to_install = self.loaded_modules.difference(self.loaded_modules)
 
+        print(modules_to_install)
+        print(self.loaded_modules)
+
         for module in modules_to_install:
             print(f"installing {module}")
             self._install_module(module)
