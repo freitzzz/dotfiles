@@ -6,6 +6,7 @@
     "adb": "$ANDROID_SDK_ROOT/platform-tools/adb",
     "emulator": "$ANDROID_EMULATOR_ROOT/emulator -gpu host",
     "android_emulator": "emulator -avd P430 -gpu host",
-    "hackable_android_emulator": "emulator -avd HP430"
+    "hackable_android_emulator": "emulator -avd HP430",
+    "teste": "test"
   }
 }
