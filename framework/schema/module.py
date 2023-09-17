@@ -8,11 +8,10 @@ class ModuleName(StringElement):
     """
 
     def __hash__(self):
-        # print(f"yO? {self.value}")
         return super().__hash__()
 
     def __eq__(self, other):
-        return super.__eq__(self, other)
+        return super().__eq__(other)
 
     def __str__(self):
         return self.value
@@ -23,10 +22,10 @@ class ModuleName(StringElement):
 class ModuleTypeEnum(EnumElement):
 
     def __hash__(self):
-        return super.__hash__(self)
+        return super().__hash__()
 
     def __eq__(self, other):
-        return super.__eq__(self, other)
+        return super().__eq__(other)
 
     def __str__(self):
         return self.value
