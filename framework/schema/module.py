@@ -7,6 +7,12 @@ class ModuleName(StringElement):
     Describes the module name.
     """
 
+    def __hash__(self):
+        return hash(self.value)
+
+    def __eq__(self, other):
+        return self.__hash__() == hash(other)
+
     def __str__(self):
         return self.value
 
@@ -14,6 +20,12 @@ class ModuleName(StringElement):
 
 
 class ModuleTypeEnum(EnumElement):
+
+    def __hash__(self):
+        return hash(self.value)
+
+    def __eq__(self, other):
+        return self.__hash__() == hash(other)
 
     def __str__(self):
         return self.value
