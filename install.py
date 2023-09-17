@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+import base64
 import json
 import os
 
@@ -54,7 +54,7 @@ class Installer:
         self._install_dependencies(module)
 
         bash_script = self.bash_module_factory.create(module)
-        _exit_code = os.system(f'eval "{bash_script}"')
+        _exit_code = os.system(f'echo "{base64.encodestring(bash_script)}" | eval')
 
         if _exit_code == 0:
             print(f"installed {module}")
