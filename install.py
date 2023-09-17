@@ -61,10 +61,7 @@ class Installer:
                 [
                     'temp_file=$(mk_temp)'
                     'echo "1"'
-                    f'echo "{bash_script_b64}" > $temp_file'
-                    'bash_script=$(base64 -d $temp_file")'
-                    'echo $bash_script > $temp_file'
-                    'bash $temp_file'
+
                 ]
             )
         )
