@@ -25,7 +25,7 @@ def find_modules(modules_directory: str) -> list[JSON]:
 def eval_bash_script(bash_script: Bash):
     temp = mktemp()
 
-    with(open(temp), "x") as temp_file:
+    with(open(temp, "x")) as temp_file:
         temp_file.write(bash_script)
         temp_file.close()
 
