@@ -110,7 +110,7 @@ class Installer:
 
 
 installer = Installer(
-    "~/.dotfiles",
+    "/home/freitas/.dotfiles",
     ".aliases",
     json_module_factory,
     bash_module_factory,
