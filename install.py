@@ -108,6 +108,8 @@ installer = Installer(
     bash_module_factory,
 )
 
+installer.run()
+
 #
 # modules = find_modules()
 #
