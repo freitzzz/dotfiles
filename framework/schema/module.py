@@ -26,7 +26,7 @@ class ModuleType(StringElement):
     pass
 
     def __str__(self):
-        return super.__str__()
+        return self.value
 
 
 class ModuleDependency(ObjectElement):
