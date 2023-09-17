@@ -36,14 +36,11 @@ class Installer:
         self.bash_module_factory = _bash_module_factory
 
         self.installed_modules = self._load_installed_modules()
-
-        self.loaded_modules = self.json_module_factory.create_multiple(
-            find_modules(modules_directory)
-        )
+        self.modules_to_install = self._load_modules_to_install()
 
     def run(self):
-        modules_to_install = self.loaded_modules.difference(self.loaded_modules)
-        
+        modules_to_install = self.modules_to_install.difference(self.modules_to_install)
+
         for module in modules_to_install:
             print(f"installing {module}")
             self._install_module(module)
@@ -78,7 +75,7 @@ class Installer:
                 lambda d: len(
                     list(
                         filter(
-                            lambda m: m.type == d.type and m.name == d.name, self.loaded_modules
+                            lambda m: m.type == d.type and m.name == d.name, self.modules_to_install
                         )
                     )
                 ) > 0, module.dependencies
@@ -90,6 +87,11 @@ class Installer:
     def _load_installed_modules(self):
         return self.json_module_factory.create_multiple(
             find_modules(self.configuration_directory)
+        )
+
+    def _load_modules_to_install(self):
+        return self.json_module_factory.create_multiple(
+            find_modules(self.modules_directory)
         )
 
     def _save_installed_modules(self):
