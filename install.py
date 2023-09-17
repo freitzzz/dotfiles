@@ -58,7 +58,7 @@ class Installer:
 
         if _exit_code == 0:
             print(f"installed {module}")
-            self.installed_modules.append(module)
+            self.installed_modules.add(module)
         else:
             print(f"failed to install {module}")
 
