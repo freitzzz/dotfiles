@@ -104,9 +104,10 @@ class Installer:
         for module in self.installed_modules:
             module_file_path = f"{self.configuration_directory}/{module.type}_{module.name}.json"
 
-            with(open(module_file_path, "w")) as file:
-                file.write(json.dumps({"name": module.name, "type": module.type.value}))
-                file.close()
+            if not os.path.exists(module_file_path):
+                with(open(module_file_path, "w")) as file:
+                    file.write(json.dumps({"name": module.name, "type": module.type.value}))
+                    file.close()
 
 
 installer = Installer(
