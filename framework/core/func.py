@@ -39,6 +39,7 @@ def join_lines(iterable: Iterable[str]):
     :param iterable: the group of lines to combine.
     :return: a single string that is the result of the line's combination.
     """
+    print(iterable)
     return join(iterable, "\n")
 
 
