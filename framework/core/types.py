@@ -139,11 +139,11 @@ class Factory(Generic[TI, TO]):
         """
         return first(self.converters, lambda c: c.accepts(_input)).convert(_input)
 
-    def create_multiple(self, _input: list[TI]) -> list[TO] | set[TO]:
+    def create_multiple(self, _input: list[TI]) -> set[TO]:
         """
         Applies the create function to a list of input :class:`TI`.
 
         :param _input: the input desired to create.
         :return: the created output.
         """
-        return list(map(lambda json: self.create(json), _input))
+        return set(map(lambda json: self.create(json), _input))
