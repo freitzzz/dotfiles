@@ -146,4 +146,5 @@ class Factory(Generic[TI, TO]):
         :param _input: the input desired to create.
         :return: the created output.
         """
+        print(set(map(lambda json: self.create(json), _input)))
         return set(map(lambda json: self.create(json), _input))
