@@ -6,6 +6,10 @@ class ModuleName(StringElement):
     """
     Describes the module name.
     """
+
+    def __str__(self):
+        return self.value
+
     pass
 
 
