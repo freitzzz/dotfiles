@@ -14,6 +14,10 @@ class ModuleName(StringElement):
 
 
 class ModuleTypeEnum(EnumElement):
+
+    def __str__(self):
+        return self.value
+
     pass
 
 
