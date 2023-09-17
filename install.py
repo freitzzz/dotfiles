@@ -98,7 +98,7 @@ class Installer:
 
     def _save_installed_modules(self):
         for module in self.installed_modules:
-            module_file_path = f"{self.configuration_directory}/{module.name}_{module.type}.json"
+            module_file_path = f"{self.configuration_directory}/{module.name}_{module.type.value}.json"
 
             with(open(module_file_path, "w")) as file:
                 file.write(json.dumps(module))
