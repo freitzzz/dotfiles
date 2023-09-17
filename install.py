@@ -54,8 +54,9 @@ class Installer:
         self._install_dependencies(module)
 
         bash_script = self.bash_module_factory.create(module)
+        bash_script_b64 = base64.b64encode(bytes(bash_script, "utf-8")).decode("utf-8")
         _exit_code = os.system(
-            f'echo "{base64.b64encode(bytes(bash_script, "utf-8")).decode("utf-8")}" | base64 -d | sh'
+            f'temp=$(mktemp); echo "{bash_script_b64}" | base64 -d; echo > $temp | sh $temp'
         )
 
         if _exit_code == 0:
