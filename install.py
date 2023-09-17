@@ -105,7 +105,7 @@ class Installer:
             module_file_path = f"{self.configuration_directory}/{module.type}_{module.name}.json"
 
             with(open(module_file_path, "x")) as file:
-                file.write(json.dumps(module.__dict__))
+                file.write(json.dumps({"name": module.name, "type": module.type}))
                 file.close()
 
 
