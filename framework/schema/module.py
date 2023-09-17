@@ -25,6 +25,9 @@ class ModuleType(StringElement):
     vpn = ModuleTypeEnum("vpn")
     pass
 
+    def __str__(self):
+        return super.__str__()
+
 
 class ModuleDependency(ObjectElement):
     """
