@@ -39,6 +39,7 @@ class Installer:
         self.modules_to_install = self._load_modules_to_install()
 
         print(self.installed_modules)
+        print("a")
         print(self.modules_to_install)
 
     def run(self):
