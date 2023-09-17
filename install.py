@@ -118,7 +118,7 @@ class Installer:
 
             if not os.path.exists(module_file_path):
                 with(open(module_file_path, "w")) as file:
-                    file.write(json.dumps({"name": module.name, "type": module.type.value}))
+                    file.write(json.dumps({"name": module.name.value, "type": module.type.value}))
                     file.close()
 
 
