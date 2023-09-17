@@ -7,7 +7,7 @@ from framework.schema.command import \
     CommandAPT, CommandType, CommandBash, CommandNPM, \
     CommandCopy, CommandRemove, CommandUnZip, CommandGunZip, CommandDartPub, CommandSDKMan, CommandWget, CommandTar
 from framework.schema.command import CommandModule, VPNModule, DriverModule, ToolModule, SDKModule, Command
-from framework.schema.module import ModuleType
+from framework.schema.module import ModuleType, ModuleName
 from framework.transformer.json.module import ModuleConverter, ModuleDependencyConverter
 from framework.transformer.json.transformer import JsonConverter
 
@@ -267,7 +267,7 @@ class DriverModuleConverter(CommandModuleConverter):
 
     def convert(self, _input: JSON) -> DriverModule:
         return DriverModule(
-            name=_input.get('name'),
+            name=ModuleName(_input.get('name')),
             commands=self.convert_commands(_input),
             dependencies=self.dependency_converter.convert_multiple(
                 _input.get('dependencies')
@@ -292,7 +292,7 @@ class SDKModuleConverter(CommandModuleConverter):
 
     def convert(self, _input: JSON) -> SDKModule:
         return SDKModule(
-            name=_input.get('name'),
+            name=ModuleName(_input.get('name')),
             commands=self.convert_commands(_input),
             dependencies=self.dependency_converter.convert_multiple(
                 _input.get('dependencies')
@@ -317,7 +317,7 @@ class ToolModuleConverter(CommandModuleConverter):
 
     def convert(self, _input: JSON) -> ToolModule:
         return ToolModule(
-            name=_input.get('name'),
+            name=ModuleName(_input.get('name')),
             commands=self.convert_commands(_input),
             dependencies=self.dependency_converter.convert_multiple(
                 _input.get('dependencies')
@@ -342,7 +342,7 @@ class VPNModuleConverter(CommandModuleConverter):
 
     def convert(self, _input: JSON) -> VPNModule:
         return VPNModule(
-            name=_input.get('name'),
+            name=ModuleName(_input.get('name')),
             commands=self.convert_commands(_input),
             dependencies=self.dependency_converter.convert_multiple(
                 _input.get('dependencies')

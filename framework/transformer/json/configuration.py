@@ -1,6 +1,6 @@
 from framework.core.types import JSON
 from framework.schema.configuration import GitConfigModule, AliasModule, Entries
-from framework.schema.module import ModuleType
+from framework.schema.module import ModuleType, ModuleName
 from framework.transformer.json.module import ModuleConverter, ModuleDependencyConverter
 
 
@@ -14,7 +14,7 @@ class AliasModuleConverter(ModuleConverter[AliasModule]):
 
     def convert(self, _input: JSON) -> AliasModule:
         return AliasModule(
-            name=_input.get('name'),
+            name=ModuleName(_input.get('name')),
             entries=Entries(_input.get('entries')),
             dependencies=self.dependency_converter.convert_multiple(
                 _input.get('dependencies')
@@ -35,7 +35,7 @@ class GitConfigModuleConverter(ModuleConverter[GitConfigModule]):
 
     def convert(self, _input: JSON) -> GitConfigModule:
         return GitConfigModule(
-            name=_input.get('name'),
+            name=ModuleName(_input.get('name')),
             entries=Entries(_input.get('entries')),
             dependencies=self.dependency_converter.convert_multiple(
                 _input.get('dependencies')
