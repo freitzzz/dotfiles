@@ -98,6 +98,7 @@ class Installer:
 
     def _save_installed_modules(self):
         if not os.path.exists(self.configuration_directory):
+            print(self.configuration_directory)
             os.mkdir(self.configuration_directory)
 
         for module in self.installed_modules:
