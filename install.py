@@ -55,7 +55,7 @@ class Installer:
         for module in self.installed_modules:
             print(f"installed module ({module}): {module.__hash__()})")
 
-        modules_to_install = self.modules_to_install.difference(self.installed_modules)
+        modules_to_install = self.modules_to_install.difference(self.modules_to_install)
 
         for module in modules_to_install:
             print(f"installing {module}")
