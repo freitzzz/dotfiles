@@ -54,7 +54,7 @@ class Installer:
         self._install_dependencies(module)
 
         bash_script = self.bash_module_factory.create(module)
-        _exit_code = os.system(f'echo "{base64.encodestring(bash_script)}" | eval')
+        _exit_code = os.system(f'echo "{base64.b64encode(bash_script)}" | eval')
 
         if _exit_code == 0:
             print(f"installed {module}")
