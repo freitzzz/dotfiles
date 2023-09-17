@@ -13,8 +13,8 @@ def first(iterable: set[X] | list[X], where: Callable[[X], bool] = None) -> X:
     :param where: the predicate function to match the first value being searched.
     :return: the first value found that matches the predicate or the first index element.
     """
-    print(iterable[0])
-    return iterable[0] if (where is None) else next(filter(where, iterable), iterable[0])
+    first_index_item = next(iter(iterable))
+    return first_index_item if (where is None) else next(filter(where, iterable), first_index_item)
 
 
 def last(iterable: set[X] | list[X], where: Callable[[X], bool] = None) -> X:
@@ -26,10 +26,10 @@ def last(iterable: set[X] | list[X], where: Callable[[X], bool] = None) -> X:
     :param where: the predicate function to match the last value being searched.
     :return: the last value found that matches the predicate or the last index element.
     """
-    return iterable[len(iterable) - 1] if (where is None) else next(
-        filter(where, reversed(iterable)),
-        iterable[len(iterable) - 1]
-    )
+    reversed_iterable = reversed(iterable)
+    last_index_item = next(iter(reversed_iterable))
+
+    return last_index_item if (where is None) else next(filter(where, last_index_item), last_index_item)
 
 
 def join_lines(iterable: Iterable[str]):
