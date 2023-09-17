@@ -125,7 +125,7 @@ class Installer:
 
 installer = Installer(
     "/home/freitas/.dotfiles",
-    ".aliases",
+    ".git-config",
     json_module_factory,
     bash_module_factory,
 )
