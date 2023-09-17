@@ -46,6 +46,7 @@ class Installer:
 
         print(modules_to_install)
         print(self.loaded_modules)
+        print(self.modules_directory)
 
         for module in modules_to_install:
             print(f"installing {module}")
