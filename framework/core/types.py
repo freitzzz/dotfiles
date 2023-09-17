@@ -66,6 +66,12 @@ class StringElement(Element):
         super().__init__(str)
         self.value = value
 
+    def __hash__(self):
+        return hash(self.value)
+
+    def __eq__(self, other):
+        return self.__hash__() == hash(other)
+
 
 class EnumElement(StringElement):
     """
@@ -124,7 +130,7 @@ class Factory(Generic[TI, TO]):
     def __init__(self, converters: set[Converter[TI, TO]]):
         self.converters = converters
 
-    def create(self, _input: TI):
+    def create(self, _input: TI) -> TO:
         """
         Creates a value of type :class:`TO` based on an input of type :class:`TI`.
 

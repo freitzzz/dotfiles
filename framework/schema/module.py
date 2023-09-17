@@ -41,6 +41,12 @@ class ModuleDependency(ObjectElement):
         self.type = _type
         self.name = name
 
+    def __hash__(self):
+        return hash(self.name) + hash(self.type)
+
+    def __eq__(self, other):
+        return self.__hash__() == hash(other)
+
 
 class Module(ObjectElement):
     """
@@ -64,3 +70,12 @@ class Module(ObjectElement):
         self.type = _type
         self.name = name
         self.dependencies = safe_set(dependencies)
+
+    def __hash__(self):
+        return hash(self.name) + hash(self.type)
+
+    def __eq__(self, other):
+        return self.__hash__() == hash(other)
+
+    def __str__(self):
+        return f"{self.type}({self.name})"
