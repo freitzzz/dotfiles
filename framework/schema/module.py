@@ -95,8 +95,8 @@ class Module(ObjectElement):
         return hash(self.name) & hash(self.type)
 
     def __eq__(self, other):
-        print(
-            f"{self} == {other} {self.__hash__()} == {hash(other)} {self.__hash__() == hash(other)} && {hash(self.type)} == {hash(other.type)}")
+        # print(
+        #     f"{self} == {other} {self.__hash__()} == {hash(other)} {self.__hash__() == hash(other)} && {hash(self.type)} == {hash(other.type)}")
         return self.__hash__() == hash(other)
 
     def __str__(self):
