@@ -59,6 +59,7 @@ class Installer:
 
     def _install_module(self, module: Module):
         if module in self.installed_modules:
+            print(f"Module {module} already installed, skipping")
             pass
 
         self._install_dependencies(module)
