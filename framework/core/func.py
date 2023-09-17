@@ -13,6 +13,7 @@ def first(iterable: set[X] | list[X], where: Callable[[X], bool] = None) -> X:
     :param where: the predicate function to match the first value being searched.
     :return: the first value found that matches the predicate or the first index element.
     """
+    print(iterable[0])
     return iterable[0] if (where is None) else next(filter(where, iterable), iterable[0])
 
 
