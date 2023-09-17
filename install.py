@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-import base64
 import json
 import os
+from tempfile import mktemp
 
-from framework.core.func import join_lines, join
 from framework.core.types import JSON, Factory, Bash
 from framework.schema.module import Module
 from framework.transformer.bash import bash_module_factory
@@ -21,6 +20,16 @@ def find_modules(modules_directory: str) -> list[JSON]:
                     _modules.append(_json)
 
     return _modules
+
+
+def eval_bash_script(bash_script: Bash):
+    temp = mktemp()
+
+    with(temp, "w+") as temp_file:
+        temp_file.write(bash_script)
+        temp_file.close()
+
+    return os.system(f"bash {temp_file.name}")
 
 
 class Installer:
@@ -55,17 +64,7 @@ class Installer:
         self._install_dependencies(module)
 
         bash_script = self.bash_module_factory.create(module)
-        bash_script_b64 = base64.b64encode(bytes(bash_script, "utf-8")).decode("utf-8")
-        _exit_code = os.system(
-            join(
-                [
-                    'temp_file=$(mk_temp)'
-                    'echo "1"'
-
-                ],
-                ";"
-            )
-        )
+        _exit_code = eval_bash_script(bash_script)
 
         if _exit_code == 0:
             print(f"installed {module}")
