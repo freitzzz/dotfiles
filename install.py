@@ -100,7 +100,7 @@ class Installer:
         for module in self.installed_modules:
             module_file_path = f"{self.configuration_directory}/{module.name}_{module.type.value}.json"
 
-            with(open(module_file_path, "w")) as file:
+            with(open(module_file_path, "wa")) as file:
                 file.write(json.dumps(module))
                 file.close()
 
