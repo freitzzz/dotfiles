@@ -55,7 +55,7 @@ class Installer:
 
         bash_script = self.bash_module_factory.create(module)
         _exit_code = os.system(
-            f' base64 -d <<< "{base64.b64encode(bytes(bash_script, "utf-8")).decode("utf-8")}" | eval'
+            f'base64 -d <<< "{base64.b64encode(bytes(bash_script, "utf-8")).decode("utf-8")}" | eval'
         )
 
         if _exit_code == 0:
