@@ -81,6 +81,9 @@ class EnumElement(StringElement):
     def __init__(self, value: str) -> None:
         super().__init__(value)
 
+    def __str__(self):
+        return self.value
+
 
 class Converter(Generic[TI, TO]):
     """
