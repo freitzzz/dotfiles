@@ -73,6 +73,8 @@ class CommandAPTConverter(CommandConverter[CommandAPT]):
     """
 
     def convert(self, _input: CommandAPT) -> Bash:
+        print("WTF")
+
         install_commands = [
             *map(lambda r: f"sudo add-apt-repository {r}", _input.repositories),
         ]
