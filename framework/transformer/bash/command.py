@@ -105,7 +105,7 @@ class CommandAPTConverter(CommandConverter[CommandAPT]):
 
             print("WTF 3")
 
-            return export(_input, join_lines(install_commands))
+        return export(_input, join_lines(install_commands))
 
     def command_type(self) -> CommandType:
         return CommandType.apt
