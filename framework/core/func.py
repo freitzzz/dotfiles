@@ -40,6 +40,7 @@ def join_lines(iterable: Iterable[str]):
     :return: a single string that is the result of the line's combination.
     """
     print(iterable)
+    print("oi")
     return join(iterable, "\n")
 
 
