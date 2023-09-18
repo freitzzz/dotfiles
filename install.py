@@ -51,6 +51,11 @@ class Installer:
     def run(self):
         modules_to_install = list(self.modules_to_install.difference(self.installed_modules))
 
+        for module in modules_to_install:
+            print(f"NEED TO INSTALL: {module}")
+
+        exit(0)
+
         if len(modules_to_install) == 0:
             print("All modules are already installed.")
             return
