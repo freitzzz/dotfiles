@@ -87,13 +87,13 @@ class Installer:
     def _module_dependencies(self, module: Module) -> set[Module]:
         required_dependencies = set[module](
             filter(
-                lambda d: len(
+                lambda m: len(
                     list(
                         filter(
-                            lambda m: m.type == d.type and m.name == d.name, self.modules_to_install
+                            lambda d: m.type == d.type and m.name == d.name, module.dependencies
                         )
                     )
-                ) > 0, module.dependencies
+                ) > 0, self.modules_to_install
             )
         )
 
