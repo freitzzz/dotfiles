@@ -81,12 +81,12 @@ class CommandAPTConverter(CommandConverter[CommandAPT]):
                 f"sudo apt-get install -y {_input.package}"
             )
         else:
-            temp_deb_fp = f"/tmp/{hash(_input.url)}.deb"
+            result = last(_input.url.split("/"))
 
             install_commands.extend(
                 [
-                    f"wget {_input.url} -O {temp_deb_fp}",
-                    f"sudo apt-get install -y {temp_deb_fp}"
+                    f"wget {_input.url} -O {result}",
+                    f"sudo apt-get install -y {result}"
                 ]
             )
 
