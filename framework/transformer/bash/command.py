@@ -63,6 +63,7 @@ class CommandConverter(BashConverter[C], Generic[C], ABC):
         ...
 
     def accepts(self, _input: C) -> bool:
+        print(f"{_input.type} == {self.command_type()} => {_input.type == self.command_type()}")
         return _input.type == self.command_type()
 
 
