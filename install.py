@@ -49,21 +49,21 @@ class Installer:
         self.modules_to_install = self._load_modules_to_install()
 
     def run(self):
-        modules_to_install = list(self.modules_to_install.difference(self.installed_modules))
+        asd = list(self.modules_to_install.difference(self.installed_modules))
 
-        for module in modules_to_install:
+        for module in asd:
             print(f"NEED TO INSTALL: {module}")
 
-        print(len(modules_to_install))
+        # print(len(modules_to_install))
 
         exit(0)
 
-        if len(modules_to_install) == 0:
+        if len(asd) == 0:
             print("All modules are already installed.")
             return
 
         try:
-            for module in modules_to_install:
+            for module in asd:
                 print(f"installing {module}")
                 self._install_module(module)
         except object:
