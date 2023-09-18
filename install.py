@@ -29,7 +29,7 @@ def eval_bash_script(bash_script: Bash):
         temp_file.write(bash_script)
         temp_file.close()
 
-    return os.system(f"bash {temp_file.name}")
+    return os.system(f"cd /tmp; bash {temp_file.name}")
 
 
 class Installer:
@@ -55,9 +55,12 @@ class Installer:
             print("All modules are already installed.")
             return
 
-        for module in modules_to_install:
-            print(f"installing {module}")
-            self._install_module(module)
+        try:
+            for module in modules_to_install:
+                print(f"installing {module}")
+                self._install_module(module)
+        except object:
+            print("something went wrong during modules installation.")
 
         self._save_installed_modules()
 
@@ -82,7 +85,7 @@ class Installer:
 
         for module_dependency in module_dependencies:
             print(f"installing {module_dependency} dependency of module {module}")
-            self._install_module(module_dependency)
+            # self._install_module(module_dependency)
 
     def _module_dependencies(self, module: Module) -> set[Module]:
         required_dependencies = set[module](
