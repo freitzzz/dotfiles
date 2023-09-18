@@ -93,6 +93,12 @@ class CommandAPTConverter(CommandConverter[CommandAPT]):
                 ]
             )
 
+            print("WTF 2")
+
+            a = export(_input, join_lines(install_commands))
+
+            print("WTF 3")
+
             return export(_input, join_lines(install_commands))
 
     def command_type(self) -> CommandType:
