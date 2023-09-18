@@ -84,7 +84,8 @@ class Installer:
         module_dependencies = self._module_dependencies(module)
 
         for module_dependency in module_dependencies:
-            print(f"installing {module_dependency} dependency of module {module}")
+            print(f"installing dependency {module_dependency} of module {module}")
+            print("lol")
             # self._install_module(module_dependency)
 
     def _module_dependencies(self, module: Module) -> set[Module]:
