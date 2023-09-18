@@ -318,7 +318,7 @@ class ToolModuleConverter(CommandModuleConverter):
     def convert(self, _input: JSON) -> ToolModule:
         print(f"TEST ORDER ({_input})")
 
-        for i in range(1, 10):
+        for i in range(1, 100):
             commands = self.convert_commands(_input)
             print("START")
             for command in commands:
