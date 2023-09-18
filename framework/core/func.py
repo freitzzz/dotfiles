@@ -83,3 +83,13 @@ def safe_set(x: set[X] | None) -> set[X]:
     :return: the received set or an empty set
     """
     return get_or_else(x, lambda: set[X]())
+
+
+def safe_list(x: list[X] | None) -> list[X]:
+    """
+    Checks if a list is none, and if so, returns an empty list
+
+    :param x: the possible None list
+    :return: the received list or an empty list
+    """
+    return get_or_else(x, lambda: list[X]())

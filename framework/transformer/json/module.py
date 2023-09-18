@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from typing import TypeVar, Generic
 
-from framework.core.types import JSON, Factory
+from framework.core.types import JSON
 from framework.schema.module import ModuleDependency, ModuleName, ModuleType, Module
 from framework.transformer.json.transformer import JsonConverter, JsonFactory
 

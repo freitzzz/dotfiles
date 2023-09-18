@@ -287,8 +287,8 @@ class CommandModuleConverter(ModuleConverter[CommandModule], ABC):
     Types a :class:`BashConverter` for :class:`CommandModule`.
     """
 
-    def convert_commands(self, _input: CommandModule) -> set[Bash]:
-        return set(
+    def convert_commands(self, _input: CommandModule) -> list[Bash]:
+        return list(
             map(
                 lambda c: first(self.command_converters, lambda cc: cc.accepts(c)).convert(c),
                 _input.commands

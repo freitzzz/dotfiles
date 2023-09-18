@@ -1,4 +1,4 @@
-from framework.core.func import safe_set
+from framework.core.func import safe_set, safe_list
 from framework.core.types import EnumElement, ObjectElement
 from framework.schema.module import Module, ModuleType, ModuleName, ModuleDependency
 
@@ -97,7 +97,7 @@ class CommandBash(Command):
             export: bool = False,
             export_folder: str = None,
             url: str = None,
-            source: set[str] = None
+            source: list[str] = None
     ) -> None:
         super().__init__(
             CommandType.bash,
@@ -107,7 +107,7 @@ class CommandBash(Command):
         )
 
         self.url = url
-        self.source = safe_set(source)
+        self.source = safe_list(source)
 
 
 class CommandCopy(Command):
@@ -364,12 +364,12 @@ class CommandModule(Module):
     Represents a module that instructs how to execute commands.
 
     Attributes:
-        commands: a set of :class:`Command` with instruction on how to execute a command.
+        commands: a list of :class:`Command` with instruction on how to execute a command.
     """
 
     def __init__(
             self,
-            commands: set[Command],
+            commands: list[Command],
             _type: ModuleType,
             name: ModuleName,
             dependencies: set[ModuleDependency] = None
@@ -384,7 +384,7 @@ class DriverModule(CommandModule):
     Represents a :class:`Module` that instructs how to install a driver.
     """
 
-    def __init__(self, commands: set[Command], name: ModuleName, dependencies: set[ModuleDependency]):
+    def __init__(self, commands: list[Command], name: ModuleName, dependencies: set[ModuleDependency]):
         super().__init__(commands, ModuleType.driver, name, dependencies)
 
 
@@ -393,7 +393,7 @@ class ToolModule(CommandModule):
     Represents a :class:`Module` that instructs how to install a tool.
     """
 
-    def __init__(self, commands: set[Command], name: ModuleName, dependencies: set[ModuleDependency]):
+    def __init__(self, commands: list[Command], name: ModuleName, dependencies: set[ModuleDependency]):
         super().__init__(commands, ModuleType.tool, name, dependencies)
 
 
@@ -402,7 +402,7 @@ class SDKModule(CommandModule):
     Represents a :class:`Module` that instructs how to install an SDK.
     """
 
-    def __init__(self, commands: set[Command], name: ModuleName, dependencies: set[ModuleDependency]):
+    def __init__(self, commands: list[Command], name: ModuleName, dependencies: set[ModuleDependency]):
         super().__init__(commands, ModuleType.sdk, name, dependencies)
 
 
@@ -411,5 +411,5 @@ class VPNModule(CommandModule):
     Represents a :class:`Module` that instructs how to install a VPN.
     """
 
-    def __init__(self, commands: set[Command], name: ModuleName, dependencies: set[ModuleDependency]):
+    def __init__(self, commands: list[Command], name: ModuleName, dependencies: set[ModuleDependency]):
         super().__init__(commands, ModuleType.vpn, name, dependencies)

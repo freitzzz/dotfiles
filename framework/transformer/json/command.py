@@ -239,7 +239,7 @@ class CommandModuleConverter(ModuleConverter[CommandModule], ABC):
     def accepts(self, _input: JSON) -> bool:
         return super().accepts(_input) and _input.get('commands') is not None
 
-    def convert_commands(self, _input: JSON) -> set[Command]:
+    def convert_commands(self, _input: JSON) -> list[Command]:
         return list(
             map(
                 lambda c: first(self.command_converters, lambda cc: cc.accepts(c)).convert(c),
@@ -318,7 +318,7 @@ class ToolModuleConverter(CommandModuleConverter):
     def convert(self, _input: JSON) -> ToolModule:
         print(f"TEST ORDER ({_input})")
 
-        for i in range(1, 100):
+        for i in range(1, 10):
             commands = self.convert_commands(_input)
             print("START")
             for command in commands:
