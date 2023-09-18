@@ -79,11 +79,17 @@ class CommandAPTConverter(CommandConverter[CommandAPT]):
             *map(lambda r: f"sudo add-apt-repository {r}", _input.repositories),
         ]
 
+        print("WTF ??")
+
         if _input.package is not None:
+            print("WTF ??»")
+
             install_commands.append(
                 f"sudo apt-get install -y {_input.package}"
             )
         else:
+            print("WTF ?!")
+
             result = last(_input.url.split("/"))
 
             install_commands.extend(
