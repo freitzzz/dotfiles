@@ -63,7 +63,6 @@ class CommandConverter(BashConverter[C], Generic[C], ABC):
         ...
 
     def accepts(self, _input: C) -> bool:
-        print(f"{_input.type} == {self.command_type()} => {_input.type == self.command_type()}")
         return _input.type == self.command_type()
 
 
@@ -73,37 +72,22 @@ class CommandAPTConverter(CommandConverter[CommandAPT]):
     """
 
     def convert(self, _input: CommandAPT) -> Bash:
-        print("WTF")
-
         install_commands = [
-            *map(lambda r: f"sudo add-apt-repository {r}", _input.repositories),
+            *map(lambda r: f"sudo add-apt-repository {r} -y", _input.repositories),
         ]
 
-        print("WTF ??")
-
         if _input.package is not None:
-            print("WTF ??»")
-
             install_commands.append(
                 f"sudo apt-get install -y {_input.package}"
             )
         else:
-            print("WTF ?!")
-
-            result = last(_input.url.split("/"))
-
             install_commands.extend(
                 [
-                    f"wget {_input.url} -O {result}",
-                    f"sudo apt-get install -y {result}"
+                    "temp_dep=$(mktemp).deb",
+                    f"wget {_input.url} -O $temp_deb",
+                    "sudo apt-get install -y $temp_deb"
                 ]
             )
-
-            print("WTF 2")
-
-            a = export(_input, join_lines(install_commands))
-
-            print("WTF 3")
 
         return export(_input, join_lines(install_commands))
 
