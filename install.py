@@ -54,7 +54,7 @@ class Installer:
         for module in asd:
             print(f"NEED TO INSTALL: {module}")
 
-        print(len(modules_to_install))
+        print(len(asd))
 
         exit(0)
 
