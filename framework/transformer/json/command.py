@@ -316,6 +316,13 @@ class ToolModuleConverter(CommandModuleConverter):
         return ModuleType.tool
 
     def convert(self, _input: JSON) -> ToolModule:
+        print("TEST ORDER")
+
+        for i in range(1, 10):
+            commands = self.convert_commands(_input)
+            for command in commands:
+                print(f"command: {command.type}")
+
         return ToolModule(
             name=ModuleName(_input.get('name')),
             commands=self.convert_commands(_input),
