@@ -50,7 +50,7 @@ class Installer:
         self.modules_to_install = self._load_modules_to_install()
 
     def run(self):
-        abc = list(self.installed_modules.intersection(self.modules_to_install))
+        abc = list(self.modules_to_install.intersection(self.installed_modules))
 
         for module in self.modules_to_install:
             print(f"MODULE TO INSTALL: {module}")
