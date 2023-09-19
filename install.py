@@ -66,7 +66,7 @@ class Installer:
 
         print(len(abc))
 
-        print({1, 2, 3, 4, 5}.difference({6, 7, 8, 9}))
+        print({1, 2, 3, 4, 5}.difference({5, 6, 7, 8, 9}))
 
         exit(0)
 
