@@ -49,7 +49,7 @@ class Installer:
         self.modules_to_install = self._load_modules_to_install()
 
     def run(self):
-        abc = set(self.installed_modules.difference(self.modules_to_install))
+        abc = list(self.installed_modules.difference(self.modules_to_install))
 
         for module in self.modules_to_install:
             print(f"MODULE TO INSTALL: {module}")
@@ -65,6 +65,8 @@ class Installer:
             print(f"NEED TO INSTALL: {module}")
 
         print(len(abc))
+
+        print({1, 2, 3, 4, 5}.difference({6, 7, 8, 9}))
 
         exit(0)
 
