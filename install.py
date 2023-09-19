@@ -65,6 +65,8 @@ class Installer:
         for module in abc:
             print(f"NEED TO INSTALL: {module}")
 
+        sys.stdout.flush()
+
         print(len(abc))
 
         print({1, 2, 3, 4, 5}.difference({5, 6, 7, 8, 9}))
