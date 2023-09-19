@@ -65,13 +65,13 @@ class Installer:
         for module in abc:
             print(f"NEED TO INSTALL: {module}")
 
-        sys.stdout.flush()
+        # sys.stdout.flush()
 
         print(len(abc))
 
         print({1, 2, 3, 4, 5}.difference({5, 6, 7, 8, 9}))
 
-        exit(0)
+        return
 
         if len(abc) == 0:
             print("All modules are already installed.")
