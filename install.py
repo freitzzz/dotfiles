@@ -51,10 +51,10 @@ class Installer:
     def run(self):
         modules_to_install = list(self.modules_to_install.difference(self.installed_modules))
 
-        print(len(modules_to_install))
-
         for module in modules_to_install:
             print(f"NEED TO INSTALL: {module}")
+
+        print(len(modules_to_install))
 
         exit(0)
 
