@@ -69,7 +69,7 @@ class Installer:
 
         print(len(abc))
 
-        print(({5, 6, 7, 8, 9}.difference({1, 2, 3, 4, 5})))
+        print(({5, 6, 7, 8, 9}.symmetric_difference({1, 2, 3, 4, 5})))
 
         return
 
