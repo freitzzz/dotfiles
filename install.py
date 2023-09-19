@@ -65,7 +65,7 @@ class Installer:
         for module in abc:
             print(f"NEED TO INSTALL: {module}")
 
-        sys.stdout.flush()
+        # sys.stdout.flush()
 
         print(len(abc))
 
