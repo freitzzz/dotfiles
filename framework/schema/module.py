@@ -96,7 +96,7 @@ class Module(ObjectElement):
 
     def __eq__(self, other):
         print(f"wtf: {self} == {other} ({self.__hash__() == hash(other)})")
-        return True
+        return self.__hash__() == hash(other)
 
     def __str__(self):
         return f"{self.type}({self.name})"
