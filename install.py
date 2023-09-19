@@ -54,8 +54,6 @@ class Installer:
         for module in _modules_to_install:
             print(f"NEED TO INSTALL: {module}")
 
-        print(len(_modules_to_install))
-
         exit(0)
 
         if len(_modules_to_install) == 0:
