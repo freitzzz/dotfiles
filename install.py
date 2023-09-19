@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import json
 import os
+import sys
 from tempfile import mktemp
 
 from framework.core.types import JSON, Factory, Bash
@@ -63,6 +64,8 @@ class Installer:
 
         for module in abc:
             print(f"NEED TO INSTALL: {module}")
+
+        sys.stdout.flush()
 
         print(len(abc))
 
