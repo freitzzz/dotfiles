@@ -92,10 +92,10 @@ class Module(ObjectElement):
         self.dependencies = safe_set(dependencies)
 
     def __hash__(self):
-        print("wtf")
         return hash(self.name) & hash(self.type)
 
     def __eq__(self, other):
+        print("wtf")
         return self.__hash__() == hash(other)
 
     def __str__(self):
