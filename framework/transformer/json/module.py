@@ -57,7 +57,7 @@ class ModuleFactory(JsonFactory[Module]):
         return first(
             self.converters,
             lambda c: ModuleConverter.accepts(
-                c if skip_concrete_check else ModuleConverter[Module],
+                c if skip_concrete_check else ModuleConverter[Module](),
                 _input)
         ).convert(_input)
 
