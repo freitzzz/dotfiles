@@ -24,6 +24,8 @@ def find_modules(modules_directory: str) -> list[JSON]:
 
 
 def eval_bash_script(bash_script: Bash):
+    return 0
+
     temp = mktemp()
 
     with(open(temp, "x")) as temp_file:
@@ -50,7 +52,7 @@ class Installer:
         self.modules_to_install = self._load_modules_to_install()
 
     def run(self):
-        abc = self.installed_modules.difference(self.modules_to_install)
+        abc = self.modules_to_install.difference(self.installed_modules)
         # a = set(map(lambda x: x.name.value, self.modules_to_install))
         # b = set(map(lambda x: x.name.value, self.installed_modules))
         # abc = list(b.difference(a))
