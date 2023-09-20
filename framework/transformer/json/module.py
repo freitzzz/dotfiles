@@ -56,9 +56,7 @@ class ModuleFactory(JsonFactory[Module]):
     def create(self, _input: JSON, skip_concrete_check=False) -> Module:
         return first(
             self.converters,
-            lambda c: ModuleConverter.accepts(
-                c if skip_concrete_check else ModuleConverter(c),
-                _input)
+            lambda c: ModuleConverter.accepts(c if skip_concrete_check else ModuleConverter(c), _input)
         ).convert(_input)
 
     def create_multiple(self, _input: list[JSON], skip_concrete_check=False) -> set[Module]:
