@@ -50,30 +50,31 @@ class Installer:
         self.modules_to_install = self._load_modules_to_install()
 
     def run(self):
-        a = set(map(lambda x: x.name.value, self.modules_to_install))
-        b = set(map(lambda x: x.name.value, self.installed_modules))
-        abc = list(b.difference(a))
-
-        for module in self.modules_to_install:
-            print(f"MODULE TO INSTALL: {module}")
-
-        print(len(self.modules_to_install))
-
-        for module in self.installed_modules:
-            print(f"INSTALLED MODULE: {module}")
-
-        print(len(self.installed_modules))
-
-        for module in abc:
-            print(f"NEED TO INSTALL: {module}")
-
-        # sys.stdout.flush()
-
-        print(len(abc))
-
-        print(({1, 2, 3, 4, 5, 6, 7, 8, 9}.difference({5, 6, 7, 8, 9})))
-
-        return
+        abc = self.installed_modules.difference(self.modules_to_install)
+        # a = set(map(lambda x: x.name.value, self.modules_to_install))
+        # b = set(map(lambda x: x.name.value, self.installed_modules))
+        # abc = list(b.difference(a))
+        #
+        # for module in self.modules_to_install:
+        #     print(f"MODULE TO INSTALL: {module}")
+        #
+        # print(len(self.modules_to_install))
+        #
+        # for module in self.installed_modules:
+        #     print(f"INSTALLED MODULE: {module}")
+        #
+        # print(len(self.installed_modules))
+        #
+        # for module in abc:
+        #     print(f"NEED TO INSTALL: {module}")
+        #
+        # # sys.stdout.flush()
+        #
+        # print(len(abc))
+        #
+        # print(({1, 2, 3, 4, 5, 6, 7, 8, 9}.difference({5, 6, 7, 8, 9})))
+        #
+        # return
 
         if len(abc) == 0:
             print("All modules are already installed.")
