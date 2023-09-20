@@ -6,8 +6,8 @@ from tempfile import mktemp
 
 from framework.core.types import JSON, Factory, Bash
 from framework.schema.module import Module
-from framework.transformer.bash import bash_module_factory
-from framework.transformer.json import json_module_factory
+from framework.transformer.bash import bash_module_factory, ModuleFactory as BashModuleFactory
+from framework.transformer.json import json_module_factory, ModuleFactory as JsonModuleFactory
 
 
 def find_modules(modules_directory: str) -> list[JSON]:
@@ -40,8 +40,8 @@ class Installer:
             self,
             configuration_directory: str,
             modules_directory: str,
-            _json_module_factory: Factory[JSON, Module],
-            _bash_module_factory: Factory[Module, Bash]
+            _json_module_factory: JsonModuleFactory,
+            _bash_module_factory: BashModuleFactory
     ):
         self.configuration_directory = configuration_directory
         self.modules_directory = modules_directory
@@ -132,7 +132,8 @@ class Installer:
 
     def _load_installed_modules(self):
         return self.json_module_factory.create_multiple(
-            find_modules(self.configuration_directory)
+            find_modules(self.configuration_directory),
+            skip_concrete_check=True
         )
 
     def _load_modules_to_install(self):
@@ -151,7 +152,6 @@ class Installer:
 
             if not os.path.exists(module_file_path):
                 with(open(module_file_path, "w")) as file:
-                    print(vars(module))
                     file.write(json.dumps({"name": module.name.value, "type": module.type.value}))
                     file.close()
 
