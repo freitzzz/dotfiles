@@ -52,7 +52,7 @@ class Installer:
         self.modules_to_install = self._load_modules_to_install()
 
     def run(self):
-        abc = self.modules_to_install.difference(self.installed_modules)
+        abc = self.modules_to_install
         # a = set(map(lambda x: x.name.value, self.modules_to_install))
         # b = set(map(lambda x: x.name.value, self.installed_modules))
         # abc = list(b.difference(a))
