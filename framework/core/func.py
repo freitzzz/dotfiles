@@ -4,16 +4,17 @@ X = TypeVar('X')
 Y = TypeVar('Y')
 
 
-def first(iterable: set[X] | list[X], where: Callable[[X], bool] = None) -> X:
+def first(iterable: set[X] | list[X], where: Callable[[X], bool] = None, or_else: Callable[[], X | None] = None) -> X:
     """
     Finds the first value in a set/list that matches a predicate. Defaults to first index
     element if predicate doesn't match any value.
 
     :param iterable: the set/list in search.
     :param where: the predicate function to match the first value being searched.
+    :param or_else: a fallback function if no value is found.
     :return: the first value found that matches the predicate or the first index element.
     """
-    first_index_item = next(iter(iterable))
+    first_index_item = next(iter(iterable)) if or_else is None else or_else()
     return first_index_item if (where is None) else next(filter(where, iterable), first_index_item)
 
 

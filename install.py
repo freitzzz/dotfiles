@@ -102,8 +102,12 @@ class Installer:
 
     def _module_dependencies(self, module: Module) -> set[Module]:
         required_dependencies = set[module](
-            map(lambda d: first(self.modules_to_install, lambda m: m.type == d.type and m.name == d.name),
-                module.dependencies)
+            map(
+                lambda d: first(
+                    self.modules_to_install, lambda m: m.type == d.type and m.name == d.name,
+                    lambda: None
+                ), module.dependencies
+            )
         )
 
         print(module.dependencies)
