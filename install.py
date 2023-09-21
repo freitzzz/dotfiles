@@ -17,7 +17,8 @@ def find_modules(modules_directory: str) -> list[JSON]:
         for file in files:
             if file.endswith('.json'):
                 _json = json.load(open(os.path.join(current_path, file)))
-                if _json.get('definitions') is None:  # is None and (_json.get('type') == 'tool'):
+                if _json.get('definitions') is None and _json.get(
+                        'name') == 'flutter':  # is None and (_json.get('type') == 'tool'):
                     _modules.append(_json)
 
     return _modules
