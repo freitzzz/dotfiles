@@ -68,13 +68,13 @@ class Installer:
             print("All modules are already installed.")
             return
 
-        try:
-            for module in abc:
+        for module in abc:
+            try:
                 print(f"installing {module}")
                 self._install_module(module)
-        except BaseException as exception:
-            print("something went wrong during modules installation.")
-            print(f"(err): {exception}")
+            except BaseException as exception:
+                print("something went wrong during module installation.")
+                print(f"(err): {exception}")
 
         self._save_installed_modules()
 
