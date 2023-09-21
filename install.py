@@ -35,8 +35,6 @@ def to_json(element: object):
 
 
 def eval_bash_script(bash_script: Bash):
-    return 0
-
     temp = mktemp()
 
     with(open(temp, "x")) as temp_file:
@@ -64,30 +62,6 @@ class Installer:
 
     def run(self):
         abc = self.modules_to_install.difference(self.installed_modules)
-        # a = set(map(lambda x: x.name.value, self.modules_to_install))
-        # b = set(map(lambda x: x.name.value, self.installed_modules))
-        # abc = list(b.difference(a))
-        #
-        # for module in self.modules_to_install:
-        #     print(f"MODULE TO INSTALL: {module}")
-        #
-        # print(len(self.modules_to_install))
-        #
-        # for module in self.installed_modules:
-        #     print(f"INSTALLED MODULE: {module}")
-        #
-        # print(len(self.installed_modules))
-        #
-        for module in self.installed_modules:
-            print(f"NEED TO INSTALL: {module}")
-        #
-        # # sys.stdout.flush()
-        #
-        # print(len(abc))
-        #
-        # print(({1, 2, 3, 4, 5, 6, 7, 8, 9}.difference({5, 6, 7, 8, 9})))
-        #
-        # return
 
         if len(abc) == 0:
             print("All modules are already installed.")
