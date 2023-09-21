@@ -107,6 +107,7 @@ class Installer:
         )
 
         print(module.dependencies)
+        print(required_dependencies)
 
         return required_dependencies.difference(self.installed_modules)
 
