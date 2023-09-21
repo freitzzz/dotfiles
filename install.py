@@ -29,7 +29,8 @@ def to_json(element: object):
     elif isinstance(element, set | list):
         return list(map(lambda x: to_json(x), element))
     elif isinstance(element, ObjectElement):
-        return dict(map(lambda x: (x[0], to_json(x[1])), element.__dict__.items()))
+        asd = map(lambda x: (x[0], to_json(x[1])), element.__dict__.items())
+        return dict(filter(lambda x: x[0] == '_type', asd))
     else:
         return element
 
