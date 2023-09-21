@@ -74,7 +74,7 @@ class Installer:
                 self._install_module(module)
         except BaseException as exception:
             print("something went wrong during modules installation.")
-            print(exception)
+            print(f"(err): {exception}")
 
         self._save_installed_modules()
 
