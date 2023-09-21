@@ -53,6 +53,17 @@ def or_result(_input: str | None) -> Bash:
     return get_or_else(_input, lambda: '"$result"')
 
 
+def mkdir(directory: str) -> Bash:
+    """
+    Returns a command to create a directory.
+
+    :param directory: the directory to create path
+    :return: the command to create the directory.
+    """
+
+    return f"mkdir -p {directory}"
+
+
 class CommandConverter(BashConverter[C], Generic[C], ABC):
     """
     Types a :class:`BashConverter` for :class:`Command`.
@@ -119,7 +130,17 @@ class CommandCopyConverter(CommandConverter[CommandCopy]):
     """
 
     def convert(self, _input: CommandCopy) -> Bash:
-        return export(_input, sudo(_input, f"cp {_input.source} {_input.target}"))
+        target = _input.target
+
+        return export(
+            _input,
+            join_lines(
+                [
+                    mkdir(target),
+                    sudo(_input, f"cp {_input.source} {target}")
+                ]
+            )
+        )
 
     def command_type(self) -> CommandType:
         return CommandType.copy
@@ -150,12 +171,14 @@ class CommandGunZipConverter(CommandConverter[CommandGunZip]):
 
     def convert(self, _input: CommandGunZip) -> Bash:
         source = or_result(_input.source)
+        target = _input.target
 
         return export(
             _input,
             join_lines(
                 [
-                    f"cd {_input.target}",
+                    mkdir(target),
+                    f"cd {target}",
                     sudo(_input, f"tar -czvf {source}") if _input.tar else sudo(_input, f"gunzip {source}")
                 ]
             )
@@ -226,13 +249,14 @@ class CommandTarConverter(CommandConverter[CommandTar]):
 
     def convert(self, _input: CommandTar) -> Bash:
         source = or_result(_input.source)
+        target = _input.target
 
         return export(
             _input,
             join_lines(
                 [
-                    "echo $result !!!!",
-                    sudo(_input, f"tar xf {source} {join(_input.extract)} -C {_input.target}"),
+                    mkdir(target),
+                    sudo(_input, f"tar xf {source} {join(_input.extract)} -C {target}"),
                 ]
             )
         )
@@ -248,12 +272,14 @@ class CommandUnZipConverter(CommandConverter[CommandUnZip]):
 
     def convert(self, _input: CommandUnZip) -> Bash:
         source = or_result(_input.source)
+        target = _input.target
 
         return export(
             _input,
             join_lines(
                 [
-                    sudo(_input, f"unzip -o {source} {join(_input.extract)} -d {_input.target}"),
+                    mkdir(target),
+                    sudo(_input, f"unzip -o {source} {join(_input.extract)} -d {target}"),
                 ]
             )
         )
