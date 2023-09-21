@@ -268,12 +268,13 @@ class CommandWgetConverter(CommandConverter[CommandWget]):
 
     def convert(self, _input: CommandWget) -> Bash:
         result = last(_input.url.split("/"))
+        target = f"{_input.target}/{result}"
 
         return export(
             _input,
             sudo(
                 _input,
-                f"wget {_input.url} -P {result}; result={result}"
+                f"wget {_input.url} -P {target}; result={target}"
             )
         )
 
