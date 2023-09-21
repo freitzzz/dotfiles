@@ -143,7 +143,7 @@ class Installer:
 
 installer = Installer(
     "/home/freitas/.dotfiles",
-    ".alias",
+    ".aliases",
     json_module_factory,
     bash_module_factory,
 )
