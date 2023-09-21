@@ -127,16 +127,13 @@ class Installer:
 
     def _save_installed_modules(self):
         if not os.path.exists(self.configuration_directory):
-            print(self.configuration_directory)
             os.mkdir(self.configuration_directory)
 
         for module in self.installed_modules:
             module_file_path = f"{self.configuration_directory}/{module.type}_{module.name}.json"
-            print(module_file_path)
 
             if not os.path.exists(module_file_path):
                 with(open(module_file_path, "w")) as file:
-                    print(to_json(module))
                     file.write(json.dumps(to_json(module)))
                     file.close()
 
