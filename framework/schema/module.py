@@ -43,6 +43,11 @@ class ModuleType(StringElement):
     sdk = ModuleTypeEnum("sdk")
     tool = ModuleTypeEnum("tool")
     vpn = ModuleTypeEnum("vpn")
+
+    @staticmethod
+    def of(value: str):
+        return ModuleTypeEnum(value)
+
     pass
 
 
