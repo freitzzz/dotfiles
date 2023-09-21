@@ -162,6 +162,7 @@ class Installer:
 
             if not os.path.exists(module_file_path):
                 with(open(module_file_path, "w")) as file:
+                    print(to_json(module))
                     file.write(json.dumps(to_json(module)))
                     file.close()
 
