@@ -1,7 +1,6 @@
 from abc import abstractmethod
 from typing import TypeVar, Generic
 
-from framework.core.func import first
 from framework.core.types import JSON
 from framework.schema.module import ModuleDependency, ModuleName, ModuleType, Module
 from framework.transformer.json.transformer import JsonConverter, JsonFactory
@@ -52,12 +51,3 @@ class ModuleFactory(JsonFactory[Module]):
 
     def __init__(self, converters: set[ModuleConverter]):
         super().__init__(converters)
-
-    def create(self, _input: JSON, skip_concrete_check=False) -> Module:
-        return first(
-            self.converters,
-            lambda c: ModuleConverter.accepts(c if skip_concrete_check else ModuleConverter(c), _input)
-        ).convert(_input)
-
-    def create_multiple(self, _input: list[JSON], skip_concrete_check=False) -> set[Module]:
-        return set(map(lambda json: self.create(json), _input))

@@ -4,7 +4,7 @@ import os
 import sys
 from tempfile import mktemp
 
-from framework.core.types import JSON, Factory, Bash
+from framework.core.types import JSON, Factory, Bash, StringElement, MapElement, ObjectElement
 from framework.schema.module import Module
 from framework.transformer.bash import bash_module_factory, ModuleFactory as BashModuleFactory
 from framework.transformer.json import json_module_factory, ModuleFactory as JsonModuleFactory
@@ -21,6 +21,17 @@ def find_modules(modules_directory: str) -> list[JSON]:
                     _modules.append(_json)
 
     return _modules
+
+
+def to_json(element: object):
+    if isinstance(element, StringElement | MapElement):
+        return element.value
+    elif isinstance(element, set | list):
+        return list(map(lambda x: to_json(x), element))
+    elif isinstance(element, ObjectElement):
+        return dict(map(lambda x: (x[0], to_json(x[1])), element.__dict__.items()))
+    else:
+        return element
 
 
 def eval_bash_script(bash_script: Bash):
@@ -133,7 +144,6 @@ class Installer:
     def _load_installed_modules(self):
         return self.json_module_factory.create_multiple(
             find_modules(self.configuration_directory),
-            skip_concrete_check=True
         )
 
     def _load_modules_to_install(self):
@@ -149,6 +159,8 @@ class Installer:
         for module in self.installed_modules:
             module_file_path = f"{self.configuration_directory}/{module.type}_{module.name}.json"
             print(module_file_path)
+
+            print(to_json(module))
 
             if not os.path.exists(module_file_path):
                 with(open(module_file_path, "w")) as file:
