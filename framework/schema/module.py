@@ -67,6 +67,9 @@ class ModuleDependency(ObjectElement):
     def __eq__(self, other):
         return self.__hash__() == hash(other)
 
+    def __str__(self):
+        return f"{self.type}({self.name})"
+
 
 class Module(ObjectElement):
     """
