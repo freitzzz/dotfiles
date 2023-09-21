@@ -274,7 +274,7 @@ class CommandWgetConverter(CommandConverter[CommandWget]):
             _input,
             sudo(
                 _input,
-                f"wget {_input.url} -P {target}; result={target}"
+                f"wget {_input.url} -O {target}; result={target}"
             )
         )
 
