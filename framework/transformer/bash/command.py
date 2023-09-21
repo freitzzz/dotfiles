@@ -231,6 +231,7 @@ class CommandTarConverter(CommandConverter[CommandTar]):
             _input,
             join_lines(
                 [
+                    "echo $result",
                     sudo(_input, f"tar xf {source} {join(_input.extract)} -C {_input.target}"),
                 ]
             )
