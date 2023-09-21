@@ -20,7 +20,8 @@ def find_modules(modules_directory: str) -> list[JSON]:
                 if _json.get('definitions') is None and (_json.get(
                         'name') == 'flutter' or _json.get(
                     'name') == 'android' or _json.get(
-                    'name') == 'open-jdk'):  # is None and (_json.get('type') == 'tool'):
+                    'name') == 'open-jdk' or _json.get(
+                    'name') == 'sdkman'):  # is None and (_json.get('type') == 'tool'):
                     _modules.append(_json)
 
     return _modules
