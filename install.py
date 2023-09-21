@@ -72,8 +72,9 @@ class Installer:
             for module in abc:
                 print(f"installing {module}")
                 self._install_module(module)
-        except object:
+        except BaseException as exception:
             print("something went wrong during modules installation.")
+            print(exception)
 
         self._save_installed_modules()
 
@@ -102,7 +103,7 @@ class Installer:
 
     def _module_dependencies(self, module: Module) -> set[Module]:
         required_dependencies = set[module]()
-        
+
         for dependency in module.dependencies:
             module_dependency_match = first(
                 self.modules_to_install,
