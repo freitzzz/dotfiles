@@ -125,7 +125,7 @@ class CommandCopy(Command):
             export: bool = False,
             export_folder: str = None,
             source: str = None,
-            target: str = "/usr/local/bin",
+            target: str = None,
     ) -> None:
         super().__init__(
             CommandType.copy,
@@ -135,7 +135,7 @@ class CommandCopy(Command):
         )
 
         self.source = source
-        self.target = target
+        self.target = target or "/usr/local/bin"
 
 
 class CommandDartPub(Command):
@@ -175,7 +175,7 @@ class CommandGunZip(Command):
     def __init__(
             self,
             source: str = None,
-            target: str = "/tmp",
+            target: str = None,
             tar: bool = True,
             sudo: bool = False,
             export: bool = False,
@@ -189,7 +189,7 @@ class CommandGunZip(Command):
         )
 
         self.source = source
-        self.target = target
+        self.target = target or "/tmp"
         self.tar = tar
 
 
@@ -235,7 +235,7 @@ class CommandUnZip(Command):
             export_folder: str = None,
             extract: set[str] = None,
             source: str = None,
-            target: str = "/tmp",
+            target: str = None,
     ) -> None:
         super().__init__(
             CommandType.unzip,
@@ -246,7 +246,7 @@ class CommandUnZip(Command):
 
         self.extract = safe_set(extract)
         self.source = source
-        self.target = target
+        self.target = target or "/tmp"
 
 
 class CommandRemove(Command):
@@ -318,7 +318,7 @@ class CommandTar(Command):
             export_folder: str = None,
             extract: set[str] = None,
             source: str = None,
-            target: str = "/tmp",
+            target: str = None,
     ) -> None:
         super().__init__(
             CommandType.tar,
@@ -329,7 +329,7 @@ class CommandTar(Command):
 
         self.extract = safe_set(extract)
         self.source = source
-        self.target = target
+        self.target = target or "/tmp"
 
 
 class CommandWget(Command):
@@ -344,7 +344,7 @@ class CommandWget(Command):
     def __init__(
             self,
             url: str,
-            target: str = "/tmp",
+            target: str = None,
             sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
@@ -356,7 +356,7 @@ class CommandWget(Command):
             export_folder
         )
         self.url = url
-        self.target = target
+        self.target = target or "/tmp"
 
 
 class CommandModule(Module):
