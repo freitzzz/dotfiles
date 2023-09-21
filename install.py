@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 import json
 import os
-import sys
 from tempfile import mktemp
 
-from framework.core.types import JSON, Factory, Bash, StringElement, MapElement, ObjectElement
+from framework.core.types import JSON, Bash, StringElement, MapElement, ObjectElement
 from framework.schema.module import Module
 from framework.transformer.bash import bash_module_factory, ModuleFactory as BashModuleFactory
 from framework.transformer.json import json_module_factory, ModuleFactory as JsonModuleFactory
@@ -64,7 +63,7 @@ class Installer:
         self.modules_to_install = self._load_modules_to_install()
 
     def run(self):
-        abc = self.modules_to_install
+        abc = self.modules_to_install.difference(self.installed_modules)
         # a = set(map(lambda x: x.name.value, self.modules_to_install))
         # b = set(map(lambda x: x.name.value, self.installed_modules))
         # abc = list(b.difference(a))
