@@ -3,6 +3,7 @@ import json
 import os
 from tempfile import mktemp
 
+from framework.core.func import first
 from framework.core.types import JSON, Bash, StringElement, MapElement, ObjectElement
 from framework.schema.module import Module
 from framework.transformer.bash import bash_module_factory, ModuleFactory as BashModuleFactory
@@ -101,15 +102,8 @@ class Installer:
 
     def _module_dependencies(self, module: Module) -> set[Module]:
         required_dependencies = set[module](
-            filter(
-                lambda m: len(
-                    list(
-                        filter(
-                            lambda d: m.type == d.type and m.name == d.name, module.dependencies
-                        )
-                    )
-                ) > 0, self.modules_to_install
-            )
+            map(lambda d: first(self.modules_to_install, lambda m: m.type == d.type and m.name == d.name),
+                module.dependencies)
         )
 
         print(module.dependencies)
