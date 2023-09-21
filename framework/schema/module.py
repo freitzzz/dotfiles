@@ -55,7 +55,7 @@ class ModuleDependency(ObjectElement):
         name: dependency module name.
     """
 
-    def __init__(self, _type: ModuleType, name: ModuleName) -> None:
+    def __init__(self, _type: ModuleTypeEnum, name: ModuleName) -> None:
         super().__init__()
 
         self.type = _type
