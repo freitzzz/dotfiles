@@ -101,18 +101,19 @@ class Installer:
             self._install_module(module_dependency)
 
     def _module_dependencies(self, module: Module) -> set[Module]:
-        required_dependencies = set[module](
-            map(
-                lambda d: first(
-                    self.modules_to_install, lambda m: m.type == d.type and m.name == d.name,
-                    lambda: None
-                ), module.dependencies
+        required_dependencies = set[module]()
+        
+        for dependency in module.dependencies:
+            module_dependency_match = first(
+                self.modules_to_install,
+                lambda m: m.type == dependency.type and m.name == dependency.name,
+                lambda: None
             )
-        )
 
-        print(module.dependencies)
-        for x in required_dependencies:
-            print(x.name)
+            if module_dependency_match is None:
+                raise Exception(f"no module matching dependency {dependency} was found.")
+
+            required_dependencies.add(module_dependency_match)
 
         return required_dependencies.difference(self.installed_modules)
 
