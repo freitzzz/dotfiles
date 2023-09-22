@@ -47,7 +47,7 @@ class CommandAPTConverter(CommandConverter[CommandAPT]):
             repositories=_input.get('repositories'),
             sudo=_input.get('sudo'),
             export=_input.get('export'),
-            export_folder=_input.get('export_folder'),
+            export_folder=_input.get('exportFolder'),
         )
 
 
@@ -65,7 +65,7 @@ class CommandBashConverter(CommandConverter[CommandBash]):
             source=_input.get('source'),
             sudo=_input.get('sudo'),
             export=_input.get('export'),
-            export_folder=_input.get('export_folder'),
+            export_folder=_input.get('exportFolder'),
         )
 
 
@@ -83,7 +83,7 @@ class CommandCopyConverter(CommandConverter[CommandCopy]):
             target=_input.get('target'),
             sudo=_input.get('sudo'),
             export=_input.get('export'),
-            export_folder=_input.get('export_folder'),
+            export_folder=_input.get('exportFolder'),
         )
 
 
@@ -100,7 +100,7 @@ class CommandDartPubConverter(CommandConverter[CommandDartPub]):
             package=_input.get('package'),
             sudo=_input.get('sudo'),
             export=_input.get('export'),
-            export_folder=_input.get('export_folder'),
+            export_folder=_input.get('exportFolder'),
         )
 
 
@@ -119,7 +119,7 @@ class CommandGunZipConverter(CommandConverter[CommandGunZip]):
             tar=_input.get('tar'),
             sudo=_input.get('sudo'),
             export=_input.get('export'),
-            export_folder=_input.get('export_folder'),
+            export_folder=_input.get('exportFolder'),
         )
 
 
@@ -136,7 +136,7 @@ class CommandNPMConverter(CommandConverter[CommandNPM]):
             package=_input.get('package'),
             sudo=_input.get('sudo'),
             export=_input.get('export'),
-            export_folder=_input.get('export_folder'),
+            export_folder=_input.get('exportFolder'),
         )
 
 
@@ -153,7 +153,7 @@ class CommandRemoveConverter(CommandConverter[CommandRemove]):
             target=_input.get('target'),
             sudo=_input.get('sudo'),
             export=_input.get('export'),
-            export_folder=_input.get('export_folder'),
+            export_folder=_input.get('exportFolder'),
         )
 
 
@@ -171,7 +171,7 @@ class CommandSDKManConverter(CommandConverter[CommandSDKMan]):
             version=_input.get('version'),
             sudo=_input.get('sudo'),
             export=_input.get('export'),
-            export_folder=_input.get('export_folder'),
+            export_folder=_input.get('exportFolder'),
         )
 
 
@@ -191,7 +191,7 @@ class CommandTarConverter(CommandConverter[CommandTar]):
             target=_input.get('target'),
             sudo=_input.get('sudo'),
             export=_input.get('export'),
-            export_folder=_input.get('export_folder'),
+            export_folder=_input.get('exportFolder'),
         )
 
 
@@ -210,7 +210,7 @@ class CommandUnZipConverter(CommandConverter[CommandUnZip]):
             target=_input.get('target'),
             sudo=_input.get('sudo'),
             export=_input.get('export'),
-            export_folder=_input.get('export_folder'),
+            export_folder=_input.get('exportFolder'),
         )
 
 
@@ -228,7 +228,7 @@ class CommandWgetConverter(CommandConverter[CommandWget]):
             target=_input.get('target'),
             sudo=_input.get('sudo'),
             export=_input.get('export'),
-            export_folder=_input.get('export_folder'),
+            export_folder=_input.get('exportFolder'),
         )
 
 
