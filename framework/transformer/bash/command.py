@@ -42,6 +42,17 @@ def sudo(_input: Command, _output: Bash) -> Bash:
     return f"sudo {_output}" if _input.sudo else _output
 
 
+def execution_environment(_input: Bash, directory: str) -> Bash:
+    """
+    Scopes a bash script execution environment to a specific directory.
+
+    :param _input: the command to run in the requested execution environment.
+    :param directory: the environment directory path where the script will be run.
+    :return: the bash script that runs in the requested execution environment.
+    """
+    return f"(cd {directory}; {_input})"
+
+
 def or_result(_input: str | None) -> Bash:
     """
     Returns either the input or the latest command result value if the input is None.
@@ -178,8 +189,10 @@ class CommandGunZipConverter(CommandConverter[CommandGunZip]):
             join_lines(
                 [
                     mkdir(target),
-                    f"cd {target}",
-                    sudo(_input, f"tar -czvf {source}") if _input.tar else sudo(_input, f"gunzip {source}")
+                    execution_environment(
+                        sudo(_input, f"tar -czvf {source}") if _input.tar else sudo(_input, f"gunzip {source}"),
+                        target
+                    ),
                 ]
             )
         )
@@ -256,7 +269,10 @@ class CommandTarConverter(CommandConverter[CommandTar]):
             join_lines(
                 [
                     mkdir(target),
-                    sudo(_input, f"tar xf {source} {join(_input.extract)} -C {target}"),
+                    execution_environment(
+                        sudo(_input, f"tar xf {source} {join(_input.extract)}"),
+                        target
+                    )
                 ]
             )
         )
