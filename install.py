@@ -2,12 +2,20 @@
 import json
 import os
 from tempfile import mktemp
+from typing import Iterable
 
-from framework.core.func import first
+from framework.core.const import configuration_directory_path, dotfiles_init_path, exported_paths_path
+from framework.core.func import first, join_lines
 from framework.core.types import JSON, Bash, StringElement, MapElement, ObjectElement
 from framework.schema.module import Module
 from framework.transformer.bash import bash_module_factory, ModuleFactory as BashModuleFactory
 from framework.transformer.json import json_module_factory, ModuleFactory as JsonModuleFactory
+
+
+def write_file(file_path: str, content: str | Iterable[str], mode="w"):
+    with(open(file_path, mode) as file):
+        file.write(content if content is str else join_lines(content))
+        file.close()
 
 
 def find_modules(modules_directory: str) -> list[JSON]:
@@ -68,6 +76,8 @@ class Installer:
 
         self.installed_modules = self._load_installed_modules()
         self.modules_to_install = self._load_modules_to_install()
+        
+        self._init_internals()
 
     def run(self):
         abc = self.modules_to_install.difference(self.installed_modules)
@@ -144,13 +154,24 @@ class Installer:
             module_file_path = f"{self.configuration_directory}/{module.type}_{module.name}.json"
 
             if not os.path.exists(module_file_path):
-                with(open(module_file_path, "w")) as file:
-                    file.write(json.dumps(to_json(module)))
-                    file.close()
+                write_file(module_file_path, json.dumps(to_json(module)))
+
+    def _init_internals(self):
+        if not os.path.exists(self.configuration_directory):
+            os.mkdir(self.configuration_directory)
+
+        if not os.path.exists(dotfiles_init_path):
+            write_file(
+                dotfiles_init_path,
+                [
+                    "# THIS FILE IS AUTOMATICALLY UPDATED BY THE FRAMEWORK. DO NOT DELETE IT.",
+                    f"source {exported_paths_path}"
+                ]
+            )
 
 
 installer = Installer(
-    "/home/freitas/.dotfiles",
+    configuration_directory_path,
     ".",
     json_module_factory,
     bash_module_factory,

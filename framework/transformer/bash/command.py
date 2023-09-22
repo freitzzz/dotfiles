@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic
 
+from framework.core.const import exported_paths_path
 from framework.core.func import first, join_lines, safe_string, get_or_else, join, last
 from framework.core.types import Bash
 from framework.schema.command import \
@@ -26,7 +27,7 @@ def export(_input: Command, _output: Bash) -> Bash:
     return join_lines(
         [
             _output,
-            f'echo \'export PATH="$PATH:{_input.export_folder}"\' >> ~/.profile'
+            f'echo \'export PATH="$PATH:{_input.export_folder}"\' >> {exported_paths_path}'
         ]
     ) if _input.export else _output
 
