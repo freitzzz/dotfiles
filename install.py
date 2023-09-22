@@ -162,6 +162,7 @@ class Installer:
             os.mkdir(self.configuration_directory)
 
         if not os.path.exists(dotfiles_init_path):
+            print(f"hello: {user_session_environment_path}")
             write_file(
                 dotfiles_init_path,
                 [
