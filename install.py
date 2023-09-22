@@ -184,7 +184,7 @@ class Installer:
                 os.mkdir(module_directory_path)
 
         for module in self.installed_modules:
-            module_directory_path = f"{self.installed_modules_directory}/{module.type"
+            module_directory_path = f"{self.installed_modules_directory}/{module.type}"
             module_file_path = f"{module_directory_path}/{module.name}.json"
 
             if not os.path.exists(module_file_path):
