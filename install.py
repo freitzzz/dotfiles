@@ -15,7 +15,7 @@ from framework.transformer.json import json_module_factory, ModuleFactory as Jso
 
 def write_file(file_path: str, content: str | Iterable[str], mode="w"):
     with(open(file_path, mode) as file):
-        file.write(content if content is str else join_lines(content))
+        file.write(content if isinstance(content, str) else join_lines(content))
         file.close()
 
 

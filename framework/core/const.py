@@ -16,4 +16,4 @@ dotfiles_init_path = f'{configuration_directory_path}/init'
 exported_paths_path = f'{configuration_directory_path}/paths'
 
 # Location of directory that lists installed modules
-installed_modules_path = f'{configuration_directory_path}/installed'
+installed_modules_path = f'{configuration_directory_path}/modules'
