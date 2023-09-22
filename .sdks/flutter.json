@@ -26,7 +26,7 @@
       "extract": [
         "flutter"
       ],
-      "target": "~/Documents/SDK/flutter",
+      "target": "~/Documents/SDK/",
       "exportFolder": "~/Documents/SDK/flutter/bin",
       "export": true
     },
