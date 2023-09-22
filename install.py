@@ -76,7 +76,7 @@ class Installer:
 
         self.installed_modules = self._load_installed_modules()
         self.modules_to_install = self._load_modules_to_install()
-        
+
         self._init_internals()
 
     def run(self):
@@ -167,6 +167,14 @@ class Installer:
                     "# THIS FILE IS AUTOMATICALLY UPDATED BY THE FRAMEWORK. DO NOT DELETE IT.",
                     f"source {exported_paths_path}"
                 ]
+            )
+
+            write_file(
+                "~/.profile",
+                [
+                    f"source {dotfiles_init_path}"
+                ],
+                mode="a"
             )
 
 
