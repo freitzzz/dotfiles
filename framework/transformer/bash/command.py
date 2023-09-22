@@ -26,7 +26,7 @@ def export(_input: Command, _output: Bash) -> Bash:
     return join_lines(
         [
             _output,
-            f'export PATH="$PATH/{_input.export_folder}"'
+            f'export PATH="$PATH/{_input.export_folder}" >> ~/.profile'
         ]
     ) if _input.export else _output
 
