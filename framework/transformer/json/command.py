@@ -184,6 +184,7 @@ class CommandTarConverter(CommandConverter[CommandTar]):
         return CommandType.tar
 
     def convert(self, _input: JSON) -> CommandTar:
+        print(_input)
         return CommandTar(
             extract=_input.get('extract'),
             source=_input.get('source'),

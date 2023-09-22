@@ -264,8 +264,6 @@ class CommandTarConverter(CommandConverter[CommandTar]):
         source = or_result(_input.source)
         target = _input.target
 
-        print(vars(_input))
-
         return export(
             _input,
             join_lines(
