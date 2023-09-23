@@ -10,7 +10,7 @@
     {
       "type": "unzip",
       "extract": [
-        "cmdline-tools"
+        "cmdline-tools/*"
       ],
       "target": "~/Documents/SDK/android"
     },
