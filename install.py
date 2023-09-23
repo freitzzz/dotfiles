@@ -71,6 +71,7 @@ def eval_bash_script(bash_script: Bash):
         temp_file.write(
             join_lines(
                 [
+                    "set -e",
                     "source ~/.profile",
                     bash_script
                 ]
