@@ -47,7 +47,7 @@ class ConsoleLumberSnakeClient(LumberSnakeClient):
     """
 
     def log_info(self, message: str) -> None:
-        print(f"[info] {message}")
+        print(f"[info]: {message}")
 
     def log_warning(self, message: str) -> None:
         print(f"[warning] -> {message}")
