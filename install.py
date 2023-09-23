@@ -224,6 +224,8 @@ put_snakes_to_work(
     ]
 )
 
+log_info("asdasd")
+
 installer = Installer(
     installed_modules_path,
     ".",
