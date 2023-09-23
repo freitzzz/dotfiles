@@ -17,6 +17,7 @@
     {
       "type": "bash",
       "source": [
+        "shopt -s extglob",
         "cd ~/Documents/SDK/android",
         "mv cmdline-tools/!(latest) cmdline-tools/latest",
         "sdkmanager=\"$PWD/cmdline-tools/bin/sdkmanager\"",
