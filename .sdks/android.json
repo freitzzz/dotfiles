@@ -20,6 +20,7 @@
         "cd ~/Documents/SDK/android",
         "sdkmanager=\"$PWD/cmdline-tools/bin/sdkmanager\"",
         "echo $sdkmanager",
+        "echo \"$PWD\"",
         "yes | $sdkmanager \"platform-tools\" \"platforms;android-31\" --sdk_root=\"$PWD\"",
         "yes | $sdkmanager \"platform-tools\" \"emulator\" --sdk_root=\"$PWD\"",
         "yes | $sdkmanager --licenses",
