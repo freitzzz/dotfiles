@@ -27,7 +27,7 @@ def find_modules(modules_directory: str) -> list[JSON]:
         for file in files:
             if file.endswith('.json'):
                 _json = json.load(open(os.path.join(current_path, file)))
-                if _json.get('definitions') is None and True
+                if _json.get('definitions') is None and True:
                     #     'name') == 'flutter' or _json.get(
                     # 'name') == 'android' or _json.get(
                     # 'name') == 'open-jdk' or _json.get(
