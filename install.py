@@ -61,9 +61,9 @@ def to_json(element: object):
 
 
 def eval_bash_script(bash_script: Bash):
-    print(bash_script)
-
-    return 1
+    # print(bash_script)
+    #
+    # return 1
 
     temp = mktemp()
 
