@@ -48,6 +48,7 @@ def find_modules(modules_directory: str) -> list[JSON]:
                     'name') == 'mason' or _json.get(
                     'name') == 'mitm-proxy' or _json.get(
                     'name') == 'vscode' or _json.get(
+                    'name') == 'clear-pass' or _json.get(
                     'name') == 'sdkman'):  # is None and (_json.get('type') == 'tool'):
                     _modules.append(_json)
 
