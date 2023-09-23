@@ -1,6 +1,7 @@
 todo:
 - missing dependencies (unzip, zip) install
 - add export command
+- source .profile for compress-images
 
 working:
 - alias
