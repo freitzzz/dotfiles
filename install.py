@@ -35,6 +35,7 @@ def find_modules(modules_directory: str) -> list[JSON]:
                     'name') == 'go' or _json.get(
                     'name') == 'gradle' or _json.get(
                     'name') == 'node' or _json.get(
+                    'name') == 'apk-tool' or _json.get(
                     'name') == 'sdkman'):  # is None and (_json.get('type') == 'tool'):
                     _modules.append(_json)
 
