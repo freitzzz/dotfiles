@@ -7,6 +7,7 @@ from typing import Iterable
 from framework.core.const import dotfiles_init_path, exported_paths_path, \
     user_session_environment_path, installed_modules_path, configuration_directory_path
 from framework.core.func import first, join_lines
+from framework.core.log import put_snakes_to_work, ConsoleLumberSnakeClient, log_info, log_error, log_warning
 from framework.core.types import JSON, Bash, StringElement, MapElement, ObjectElement
 from framework.schema.module import Module
 from framework.transformer.bash import bash_module_factory, ModuleFactory as BashModuleFactory
@@ -135,22 +136,21 @@ class Installer:
         abc = self.modules_to_install.difference(self.installed_modules)
 
         if len(abc) == 0:
-            print("All modules are already installed.")
+            log_info("All modules are already installed.")
             return
 
         for module in abc:
             try:
-                print(f"installing {module}")
+                log_info(f"installing {module}")
                 self._install_module(module)
             except BaseException as exception:
-                print("something went wrong during module installation.")
-                print(f"(err): {exception}")
+                log_error("something went wrong during module installation.", exception)
 
         self._save_installed_modules()
 
     def _install_module(self, module: Module):
         if module in self.installed_modules:
-            print(f"Module {module} already installed, skipping")
+            log_info(f"Module {module} already installed, skipping")
             return
 
         self._install_dependencies(module)
@@ -159,16 +159,16 @@ class Installer:
         _exit_code = eval_bash_script(bash_script)
 
         if _exit_code == 0:
-            print(f"installed {module}")
+            log_info(f"installed {module}")
             self.installed_modules.add(module)
         else:
-            print(f"failed to install {module}")
+            log_warning(f"failed to install {module}")
 
     def _install_dependencies(self, module: Module):
         module_dependencies = self._module_dependencies(module)
 
         for module_dependency in module_dependencies:
-            print(f"installing dependency {module_dependency} of module {module}")
+            log_info(f"installing dependency {module_dependency} of module {module}")
             self._install_module(module_dependency)
 
     def _module_dependencies(self, module: Module) -> set[Module]:
@@ -218,6 +218,12 @@ class Installer:
                 write_file(module_file_path, json.dumps(to_json(module)))
 
 
+put_snakes_to_work(
+    [
+        ConsoleLumberSnakeClient()
+    ]
+)
+
 installer = Installer(
     installed_modules_path,
     ".",
@@ -226,33 +232,3 @@ installer = Installer(
 )
 
 installer.run()
-
-#
-# modules = find_modules()
-#
-# modules = json_module_factory.create_multiple(modules)
-# modules = list(
-#     filter(
-#         lambda m: isinstance(m, CommandModule) and len(
-#             list(filter(lambda cm: isinstance(cm, CommandWget), m.commands))
-#         ),
-#         modules
-#     )
-# )
-#
-# print(len(modules))
-#
-# scripts = bash_module_factory.create_multiple(modules)
-#
-# for script in scripts:
-#     # print(script)
-#     # continue
-#     temp = mktemp()
-#
-#     file = open(temp, "w+")
-#     file.write(script)
-#     file.close()
-#
-#     exit_code = os.system(f"cat {temp} | bash")
-#
-#     print(f"=>>>>>>> {exit_code} | {script}")
