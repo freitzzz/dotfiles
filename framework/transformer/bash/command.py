@@ -107,7 +107,7 @@ class CommandAPTConverter(CommandConverter[CommandAPT]):
             install_commands.extend(
                 [
                     "temp_dep=$(mktemp).deb",
-                    "echo $temp_deb",
+                    "echo \"AAAAAA: $temp_deb\"",
                     f"wget {_input.url} -O $temp_deb",
                     "sudo apt-get install -y $temp_deb"
                 ]
