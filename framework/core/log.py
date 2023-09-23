@@ -50,13 +50,13 @@ class ConsoleLumberSnakeClient(LumberSnakeClient):
         print(f"[info]: {message}")
 
     def log_warning(self, message: str) -> None:
-        print(f"[warning] -> {message}")
+        print(f"[warning]: {message}")
 
     def log_error(self, message: str, error: BaseException) -> None:
-        print(f"[error] -> {message} | {error}")
+        print(f"[error]: {message} | {error}")
 
     def log_fatal(self, message: str) -> None:
-        print(f"[fatal] -> {message}")
+        print(f"[fatal]: {message}")
 
 
 # Global list of logging clients
