@@ -31,6 +31,7 @@ def find_modules(modules_directory: str) -> list[JSON]:
                     'name') == 'android' or _json.get(
                     'name') == 'open-jdk' or _json.get(
                     'name') == 'docker' or _json.get(
+                    'name') == 'fuse' or _json.get(
                     'name') == 'sdkman'):  # is None and (_json.get('type') == 'tool'):
                     _modules.append(_json)
 
