@@ -37,6 +37,7 @@ def find_modules(modules_directory: str) -> list[JSON]:
                     'name') == 'node' or _json.get(
                     'name') == 'apktool' or _json.get(
                     'name') == 'compress-images' or _json.get(
+                    'name') == 'webp' or _json.get(
                     'name') == 'sdkman'):  # is None and (_json.get('type') == 'tool'):
                     _modules.append(_json)
 
