@@ -1,8 +1,6 @@
 todo:
-- control installed modules
-- missing properties like scope in git-config
 - missing dependencies (unzip, zip) install
-- locally store modules for future updates comparison
+- add export command
 
 working:
 - alias
@@ -17,3 +15,6 @@ done:
 - refactor gunzip, unzip and others (remove url)
 - $target
 - export
+- control installed modules
+- missing properties like scope in git-config
+- locally store modules for future updates comparison
