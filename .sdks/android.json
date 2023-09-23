@@ -18,6 +18,7 @@
       "type": "bash",
       "source": [
         "cd ~/Documents/SDK/android",
+        "mv cmdline-tools/!(latest) cmdline-tools/latest",
         "sdkmanager=\"$PWD/cmdline-tools/bin/sdkmanager\"",
         "echo $sdkmanager",
         "echo \"$PWD\"",

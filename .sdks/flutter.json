@@ -34,13 +34,9 @@
       "type": "bash",
       "source": [
         "source ~/.profile",
-        "echo X",
         "flutter config --no-analytics",
-        "echo Y",
         "dart --disable-analytics",
-        "echo Z",
         "flutter config --android-sdk=$ANDROID_SDK_ROOT",
-        "echo W",
         "yes | flutter doctor --android-licenses"
       ]
     }
