@@ -23,8 +23,6 @@
         "mkdir -p $cmdline_tools_root",
         "mv cmdline-tools/!(latest) $cmdline_tools_root",
         "sdkmanager=\"$cmdline_tools_root/bin/sdkmanager\"",
-        "echo $sdkmanager",
-        "echo \"$PWD\"",
         "yes | $sdkmanager \"platform-tools\" \"platforms;android-31\" --sdk_root=\"$PWD\"",
         "yes | $sdkmanager \"platform-tools\" \"emulator\" --sdk_root=\"$PWD\"",
         "yes | $sdkmanager --licenses --sdk_root=\"$PWD\"",
