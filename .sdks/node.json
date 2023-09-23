@@ -11,6 +11,10 @@
         "20.0.0"
       ],
       "sudo": true
+    },
+    {
+      "type": "npm",
+      "package": "n"
     }
   ]
 }
