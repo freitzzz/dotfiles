@@ -56,10 +56,17 @@ def eval_bash_script(bash_script: Bash):
     temp = mktemp()
 
     with(open(temp, "x")) as temp_file:
-        temp_file.write(bash_script)
+        temp_file.write(
+            join_lines(
+                [
+                    "source ~/.profile",
+                    bash_script
+                ]
+            )
+        )
         temp_file.close()
 
-    return os.system(f"cd /tmp; source ~/.profile; bash {temp_file.name}")
+    return os.system(f"cd /tmp; bash {temp_file.name}")
 
 
 def _init_internals():
