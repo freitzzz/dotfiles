@@ -248,7 +248,7 @@ class CommandSDKManConverter(CommandConverter[CommandSDKMan]):
             _input,
             sudo(
                 _input,
-                f"sdk install {_input.package} {_input.package} {safe_string(_input.version)}"
+                f"sdk install {_input.package} {safe_string(_input.version)}"
             )
         )
 
