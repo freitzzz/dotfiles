@@ -40,7 +40,7 @@ def sudo(_input: Command, _output: Bash) -> Bash:
     :param _output: the output bash script, converted from the command
     :return: the bash script that runs in sudo if required.
     """
-    return f"sudo -v {_output}" if _input.sudo else _output
+    return f"sudo {_output}" if _input.sudo else _output
 
 
 def execution_environment(_input: Bash, directory: str) -> Bash:
@@ -129,7 +129,7 @@ class CommandBashConverter(CommandConverter[CommandBash]):
             sudo(
                 _input,
                 join_lines(_input.source) if len(
-                    _input.source) > 0 else f"wget -qO- {_input.url} | bash {join(_input.arguments)}"
+                    _input.source) > 0 else f"wget -qO- {_input.url} && bash {join(_input.arguments)}"
             )
         )
 
