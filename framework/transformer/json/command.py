@@ -63,6 +63,7 @@ class CommandBashConverter(CommandConverter[CommandBash]):
         return CommandBash(
             url=_input.get('url'),
             source=_input.get('source'),
+            arguments=_input.get('arguments'),
             sudo=_input.get('sudo'),
             export=_input.get('export'),
             export_folder=_input.get('exportFolder'),

@@ -97,7 +97,8 @@ class CommandBash(Command):
             export: bool = False,
             export_folder: str = None,
             url: str = None,
-            source: list[str] = None
+            source: list[str] = None,
+            arguments: list[str] = None
     ) -> None:
         super().__init__(
             CommandType.bash,
@@ -108,6 +109,7 @@ class CommandBash(Command):
 
         self.url = url
         self.source = safe_list(source)
+        self.arguments = safe_list(arguments)
 
 
 class CommandCopy(Command):
