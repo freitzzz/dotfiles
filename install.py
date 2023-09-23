@@ -42,6 +42,7 @@ def find_modules(modules_directory: str) -> list[JSON]:
                     'name') == 'ghidra' or _json.get(
                     'name') == 'github-upsert' or _json.get(
                     'name') == 'google-chrome' or _json.get(
+                    'name') == 'htop' or _json.get(
                     'name') == 'sdkman'):  # is None and (_json.get('type') == 'tool'):
                     _modules.append(_json)
 
