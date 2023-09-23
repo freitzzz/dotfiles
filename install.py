@@ -46,6 +46,7 @@ def find_modules(modules_directory: str) -> list[JSON]:
                     'name') == 'jetbrains-tool-box' or _json.get(
                     'name') == 'keepass2' or _json.get(
                     'name') == 'mason' or _json.get(
+                    'name') == 'mitm-proxy' or _json.get(
                     'name') == 'sdkman'):  # is None and (_json.get('type') == 'tool'):
                     _modules.append(_json)
 
