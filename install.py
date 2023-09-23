@@ -27,30 +27,30 @@ def find_modules(modules_directory: str) -> list[JSON]:
         for file in files:
             if file.endswith('.json'):
                 _json = json.load(open(os.path.join(current_path, file)))
-                if _json.get('definitions') is None and (_json.get(
-                        'name') == 'flutter' or _json.get(
-                    'name') == 'android' or _json.get(
-                    'name') == 'open-jdk' or _json.get(
-                    'name') == 'docker' or _json.get(
-                    'name') == 'fuse' or _json.get(
-                    'name') == 'go' or _json.get(
-                    'name') == 'gradle' or _json.get(
-                    'name') == 'node' or _json.get(
-                    'name') == 'apktool' or _json.get(
-                    'name') == 'compress-images' or _json.get(
-                    'name') == 'webp' or _json.get(
-                    'name') == 'dlt-viewer' or _json.get(
-                    'name') == 'ghidra' or _json.get(
-                    'name') == 'github-upsert' or _json.get(
-                    'name') == 'google-chrome' or _json.get(
-                    'name') == 'htop' or _json.get(
-                    'name') == 'jetbrains-tool-box' or _json.get(
-                    'name') == 'keepass2' or _json.get(
-                    'name') == 'mason' or _json.get(
-                    'name') == 'mitm-proxy' or _json.get(
-                    'name') == 'vscode' or _json.get(
-                    'name') == 'clear-pass' or _json.get(
-                    'name') == 'sdkman'):  # is None and (_json.get('type') == 'tool'):
+                if _json.get('definitions') is None and True
+                    #     'name') == 'flutter' or _json.get(
+                    # 'name') == 'android' or _json.get(
+                    # 'name') == 'open-jdk' or _json.get(
+                    # 'name') == 'docker' or _json.get(
+                    # 'name') == 'fuse' or _json.get(
+                    # 'name') == 'go' or _json.get(
+                    # 'name') == 'gradle' or _json.get(
+                    # 'name') == 'node' or _json.get(
+                    # 'name') == 'apktool' or _json.get(
+                    # 'name') == 'compress-images' or _json.get(
+                    # 'name') == 'webp' or _json.get(
+                    # 'name') == 'dlt-viewer' or _json.get(
+                    # 'name') == 'ghidra' or _json.get(
+                    # 'name') == 'github-upsert' or _json.get(
+                    # 'name') == 'google-chrome' or _json.get(
+                    # 'name') == 'htop' or _json.get(
+                    # 'name') == 'jetbrains-tool-box' or _json.get(
+                    # 'name') == 'keepass2' or _json.get(
+                    # 'name') == 'mason' or _json.get(
+                    # 'name') == 'mitm-proxy' or _json.get(
+                    # 'name') == 'vscode' or _json.get(
+                    # 'name') == 'clear-pass' or _json.get(
+                    # 'name') == 'sdkman'):  # is None and (_json.get('type') == 'tool'):
                     _modules.append(_json)
 
     return _modules
