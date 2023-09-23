@@ -128,7 +128,8 @@ class CommandBashConverter(CommandConverter[CommandBash]):
             _input,
             sudo(
                 _input,
-                join_lines(_input.source) if len(_input.source) > 0 else f"wget -qO- {_input.url} | bash"
+                join_lines(_input.source) if len(
+                    _input.source) > 0 else f"wget -qO- {_input.url} | bash {join(_input.arguments)}"
             )
         )
 
