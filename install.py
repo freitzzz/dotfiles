@@ -49,9 +49,9 @@ def to_json(element: object):
 
 
 def eval_bash_script(bash_script: Bash):
-    # print(bash_script)
-    #
-    # return 1
+    print(bash_script)
+
+    return 1
 
     temp = mktemp()
 
@@ -74,7 +74,6 @@ def _init_internals():
         os.mkdir(configuration_directory_path)
 
     if not os.path.exists(dotfiles_init_path):
-        print(f"hello: {user_session_environment_path}")
         write_file(
             dotfiles_init_path,
             [
