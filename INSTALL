@@ -49,7 +49,7 @@ echo "~~~~~~~~"
 echo "º Installing modules using dotfiles framework..."
 echo "~~~~~~~~"
 
-./framework/run.py
+python3.10 framework/run.py
 
 echo "~~~~~~~~"
 echo "º All done! Your work environment is now tuned."
