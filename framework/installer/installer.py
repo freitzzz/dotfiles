@@ -54,6 +54,8 @@ class Installer:
         bash_script = self.bash_module_factory.create(module)
         _exit_code = eval_bash(bash_script)
 
+        print(_exit_code)
+
         if _exit_code == 0:
             log_info(f"installed {module}")
             self.installed_modules.add(module)
