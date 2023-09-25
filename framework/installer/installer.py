@@ -39,6 +39,8 @@ class Installer:
             except BaseException as exception:
                 log_error("something went wrong during module installation.", exception)
 
+        cleanup()
+
         save_modules(
             self.installed_modules_directory,
             self.installed_modules,

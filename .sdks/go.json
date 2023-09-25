@@ -5,7 +5,8 @@
   "commands": [
     {
       "type": "rm",
-      "target": "/usr/local/go"
+      "target": "/usr/local/go",
+      "sudo": true
     },
     {
       "type": "wget",
