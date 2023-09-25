@@ -45,6 +45,7 @@ do
     fi
 done < <( cat "$dependencies_source" )
 
+echo "º All dependencies installed!"
 echo "~~~~~~~~"
 
 # 2. Run install script targeting repository modules
