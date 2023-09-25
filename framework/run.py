@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 from framework.core.const import installed_modules_path
 from framework.core.log import put_snakes_to_work, ConsoleLumberSnakeClient
 from framework.installer.installer import Installer
