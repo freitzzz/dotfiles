@@ -1,5 +1,4 @@
 todo:
-- missing dependencies (unzip, zip) install
 - add export command
 - source .profile for compress-images
 - remove duplicates from paths file
@@ -20,3 +19,4 @@ done:
 - control installed modules
 - missing properties like scope in git-config
 - locally store modules for future updates comparison
+- missing dependencies (unzip, zip) install

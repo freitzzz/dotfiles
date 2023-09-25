@@ -120,6 +120,7 @@ def init_internals() -> None:
 
     if not os.path.exists(configuration_directory_path):
         os.mkdir(configuration_directory_path)
+        write_file(exported_paths_path, [])
 
     if not os.path.exists(dotfiles_init_path):
         write_file(
