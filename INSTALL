@@ -38,7 +38,7 @@ echo "~~~~~~~~"
 
 while read -r dependency;
 do
-    apt-get install -y $dependency
+    sudo apt-get install -y $dependency
 done < <( cat "$dependencies_source" )
 
 echo "~~~~~~~~"
