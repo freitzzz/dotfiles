@@ -1,0 +1,12 @@
+{
+  "$schema": "../modules-schema.json",
+  "name": "global-config",
+  "type": "git-config",
+  "entries": {
+    "user.name": "freitzzz",
+    "user.email": "1160907@isep.ipp.pt",
+    "credential.helper": "store",
+    "core.editor": "nano",
+    "pull.rebase": false
+  }
+}

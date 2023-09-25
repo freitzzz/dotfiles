@@ -1,0 +1,11 @@
+{
+  "$schema": "../modules-schema.json",
+  "name": "hugo",
+  "type": "tool",
+  "commands": [
+    {
+      "type": "apt",
+      "package": "hugo"
+    }
+  ]
+}

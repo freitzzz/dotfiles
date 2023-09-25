@@ -1,0 +1,17 @@
+{
+  "$schema": "../modules-schema.json",
+  "name": "github-upsert",
+  "type": "tool",
+  "dependencies": [
+    {
+      "type": "sdk",
+      "name": "node"
+    }
+  ],
+  "commands": [
+    {
+      "type": "npm",
+      "package": "@web-pacotes/github-upsert"
+    }
+  ]
+}

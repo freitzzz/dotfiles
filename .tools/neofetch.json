@@ -1,0 +1,11 @@
+{
+  "$schema": "../modules-schema.json",
+  "name": "neofetch",
+  "type": "tool",
+  "commands": [
+    {
+      "type": "apt",
+      "package": "neofetch"
+    }
+  ]
+}

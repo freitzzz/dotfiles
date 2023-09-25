@@ -1,0 +1,37 @@
+{
+  "$schema": "../modules-schema.json",
+  "name": "android",
+  "type": "sdk",
+  "commands": [
+    {
+      "type": "wget",
+      "url": "https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip"
+    },
+    {
+      "type": "unzip",
+      "extract": [
+        "cmdline-tools/*"
+      ],
+      "target": "~/Documents/SDK/android"
+    },
+    {
+      "type": "bash",
+      "source": [
+        "shopt -s extglob",
+        "cd ~/Documents/SDK/android",
+        "cmdline_tools_root=\"$PWD/cmdline-tools/latest\"",
+        "rm -rf $cmdline_tools_root",
+        "mkdir -p $cmdline_tools_root",
+        "mv cmdline-tools/!(latest) $cmdline_tools_root",
+        "sdkmanager=\"$cmdline_tools_root/bin/sdkmanager\"",
+        "yes | $sdkmanager \"platform-tools\" \"platforms;android-31\" --sdk_root=\"$PWD\"",
+        "yes | $sdkmanager \"platform-tools\" \"emulator\" --sdk_root=\"$PWD\"",
+        "yes | $sdkmanager --licenses --sdk_root=\"$PWD\"",
+        "echo \"export ANDROID_SDK_ROOT=$PWD\" >> ~/.profile",
+        "echo \"export ANDROID_CMDLINE_TOOLS_ROOT=$cmdline_tools_root\" >> ~/.profile",
+        "echo \"export ANDROID_EMULATOR_ROOT=$PWD/emulator\" >> ~/.profile",
+        "echo \"export ANDROID_EMULATOR_WAIT_TIME_BEFORE_KILL=5\" >> ~/.profile"
+      ]
+    }
+  ]
+}

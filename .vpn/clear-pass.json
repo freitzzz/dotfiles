@@ -1,0 +1,11 @@
+{
+  "$schema": "../modules-schema.json",
+  "name": "clear-pass",
+  "type": "vpn",
+  "commands": [
+    {
+      "type": "bash",
+      "url": "https://gist.githubusercontent.com/freitzzz/dc760116ee30e0737a988c20d1a75a03/raw/clear_pass_configure.bash"
+    }
+  ]
+}

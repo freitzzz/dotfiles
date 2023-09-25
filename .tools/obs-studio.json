@@ -1,0 +1,14 @@
+{
+  "$schema": "../modules-schema.json",
+  "name": "obs-studio",
+  "type": "tool",
+  "commands": [
+    {
+      "type": "apt",
+      "package": "obs-studio",
+      "repositories": [
+        "ppa:obsproject/obs-studio"
+      ]
+    }
+  ]
+}

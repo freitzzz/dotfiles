@@ -1,0 +1,19 @@
+{
+  "$schema": "../modules-schema.json",
+  "name": "oh-my-bash",
+  "type": "tool",
+  "commands": [
+    {
+      "type": "bash",
+      "url": "https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh"
+    },
+    {
+      "type": "bash",
+      "source": [
+        "sed -i 's/OSH_THEME.*/OSH_THEME=\"rr\"/g' ~/.bashrc",
+        "echo 'export EDITOR=\"nano\"' >> ~/.bashrc",
+        "echo \"source ~/.bash_aliases\" >> ~/.bashrc"
+      ]
+    }
+  ]
+}

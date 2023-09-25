@@ -1,0 +1,11 @@
+{
+  "$schema": "../modules-schema.json",
+  "name": "webp",
+  "type": "tool",
+  "commands": [
+    {
+      "type": "apt",
+      "package": "webp"
+    }
+  ]
+}

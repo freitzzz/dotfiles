@@ -1,0 +1,11 @@
+{
+  "$schema": "../modules-schema.json",
+  "name": "htop",
+  "type": "tool",
+  "commands": [
+    {
+      "type": "apt",
+      "package": "htop"
+    }
+  ]
+}

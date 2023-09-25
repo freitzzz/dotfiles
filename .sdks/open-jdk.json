@@ -1,0 +1,18 @@
+{
+  "$schema": "../modules-schema.json",
+  "name": "open-jdk",
+  "type": "sdk",
+  "dependencies": [
+    {
+      "type": "tool",
+      "name": "sdkman"
+    }
+  ],
+  "commands": [
+    {
+      "type": "sdkman",
+      "package": "java",
+      "version": "11.0.18-amzn"
+    }
+  ]
+}

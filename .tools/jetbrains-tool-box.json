@@ -1,0 +1,23 @@
+{
+  "$schema": "../modules-schema.json",
+  "name": "jetbrains-tool-box",
+  "type": "tool",
+  "dependencies": [
+    {
+      "type": "sdk",
+      "name": "fuse"
+    }
+  ],
+  "commands": [
+    {
+      "type": "wget",
+      "url": "https://download-cdn.jetbrains.com/toolbox/jetbrains-toolbox-2.0.2.16660.tar.gz"
+    },
+    {
+      "type": "gunzip",
+      "tar": true,
+      "export": true,
+      "exportFolder": "~/Documents/Tools/jetbrains-toolbox"
+    }
+  ]
+}

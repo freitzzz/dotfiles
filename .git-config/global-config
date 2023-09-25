@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-set -x
-
-git config --global user.name freitzzz
-git config --global user.email 1160907@isep.ipp.pt
-git config --global credential.helper store
-git config --global pull.rebase false
-git config --global core.editor nano

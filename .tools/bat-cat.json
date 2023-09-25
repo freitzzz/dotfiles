@@ -1,0 +1,11 @@
+{
+  "$schema": "../modules-schema.json",
+  "name": "bat-cat",
+  "type": "tool",
+  "commands": [
+    {
+      "type": "apt",
+      "package": "bat"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "$schema": "../modules-schema.json",
+  "name": "cobrinhas",
+  "type": "alias",
+  "entries": {
+    "twitch_chat": "twitch-doritos --with-notifications",
+    "update_cobrinhas": "(cd $COBRINHAS_BIN_PATH; ./DOWNLOAD; exec run.bash)"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "../modules-schema.json",
+  "name": "sdkman",
+  "type": "tool",
+  "commands": [
+    {
+      "type": "bash",
+      "url": "https://get.sdkman.io"
+    },
+    {
+      "type": "bash",
+      "source": [
+        "SDKMAN_DIR=\"$HOME/.sdkman\"",
+        "sdkman_init_snippet=$( cat << EOF",
+        "#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!",
+        "[[ -s $SDKMAN_DIR/bin/sdkman-init.sh ]] && source $SDKMAN_DIR/bin/sdkman-init.sh",
+        "EOF",
+        ")",
+        "echo \"$sdkman_init_snippet\" >> ~/.profile"
+      ]
+    }
+  ]
+}

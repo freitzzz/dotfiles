@@ -1,0 +1,11 @@
+{
+  "$schema": "../modules-schema.json",
+  "name": "jq",
+  "type": "tool",
+  "commands": [
+    {
+      "type": "apt",
+      "package": "jq"
+    }
+  ]
+}

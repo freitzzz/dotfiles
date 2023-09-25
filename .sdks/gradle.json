@@ -1,0 +1,18 @@
+{
+  "$schema": "../modules-schema.json",
+  "name": "gradle",
+  "type": "sdk",
+  "dependencies": [
+    {
+      "type": "tool",
+      "name": "sdkman"
+    }
+  ],
+  "commands": [
+    {
+      "type": "sdkman",
+      "package": "gradle",
+      "version": "8.0"
+    }
+  ]
+}

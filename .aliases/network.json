@@ -1,0 +1,8 @@
+{
+  "$schema": "../modules-schema.json",
+  "name": "network",
+  "type": "alias",
+  "entries": {
+    "active_connections": "netstat -natp"
+  }
+}

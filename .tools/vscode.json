@@ -1,0 +1,11 @@
+{
+  "$schema": "../modules-schema.json",
+  "name": "vscode",
+  "type": "tool",
+  "commands": [
+    {
+      "type": "apt",
+      "url": "https://go.microsoft.com/fwlink/?LinkID=760868"
+    }
+  ]
+}

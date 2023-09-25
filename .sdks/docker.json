@@ -1,0 +1,11 @@
+{
+  "$schema": "../modules-schema.json",
+  "name": "docker",
+  "type": "sdk",
+  "commands": [
+    {
+      "type": "bash",
+      "url": "https://gist.githubusercontent.com/freitzzz/180dc45ad110fac3f12124abffd16fdf/raw/docker_install.bash"
+    }
+  ]
+}
