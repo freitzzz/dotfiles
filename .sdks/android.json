@@ -20,6 +20,7 @@
         "shopt -s extglob",
         "cd ~/Documents/SDK/android",
         "cmdline_tools_root=\"$PWD/cmdline-tools/latest\"",
+        "rm -rf $cmdline_tools_root",
         "mkdir -p $cmdline_tools_root",
         "mv cmdline-tools/!(latest) $cmdline_tools_root",
         "sdkmanager=\"$cmdline_tools_root/bin/sdkmanager\"",
