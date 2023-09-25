@@ -11,7 +11,7 @@ Every tool, alias, script, configuration, drivers, you name it I use in my Linux
 Want to go ahead and try my launch-box? 🧰
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/freitzzz/ponto-ficheiros/master/INSTALL | bash
+wget -qO- https://raw.githubusercontent.com/freitzzz/dotfiles/master/INSTALL | bash
 ```
 
 <p align="center">

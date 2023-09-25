@@ -6,6 +6,7 @@
     "user.name": "freitzzz",
     "user.email": "1160907@isep.ipp.pt",
     "credential.helper": "store",
-    "core.editor": "nano"
+    "core.editor": "nano",
+    "pull.rebase": false
   }
 }
