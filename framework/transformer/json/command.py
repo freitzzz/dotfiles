@@ -5,9 +5,9 @@ from framework.core.func import first
 from framework.core.types import JSON
 from framework.schema.command import \
     CommandAPT, CommandType, CommandBash, CommandNPM, \
-    CommandCopy, CommandRemove, CommandUnZip, CommandGunZip, CommandDartPub, CommandSDKMan
+    CommandCopy, CommandRemove, CommandUnZip, CommandGunZip, CommandDartPub, CommandSDKMan, CommandWget, CommandTar
 from framework.schema.command import CommandModule, VPNModule, DriverModule, ToolModule, SDKModule, Command
-from framework.schema.module import ModuleType
+from framework.schema.module import ModuleType, ModuleName
 from framework.transformer.json.module import ModuleConverter, ModuleDependencyConverter
 from framework.transformer.json.transformer import JsonConverter
 
@@ -45,8 +45,9 @@ class CommandAPTConverter(CommandConverter[CommandAPT]):
             package=_input.get('package'),
             url=_input.get('url'),
             repositories=_input.get('repositories'),
+            sudo=_input.get('sudo'),
             export=_input.get('export'),
-            export_folder=_input.get('export_folder'),
+            export_folder=_input.get('exportFolder'),
         )
 
 
@@ -62,8 +63,10 @@ class CommandBashConverter(CommandConverter[CommandBash]):
         return CommandBash(
             url=_input.get('url'),
             source=_input.get('source'),
+            arguments=_input.get('arguments'),
+            sudo=_input.get('sudo'),
             export=_input.get('export'),
-            export_folder=_input.get('export_folder'),
+            export_folder=_input.get('exportFolder'),
         )
 
 
@@ -77,10 +80,11 @@ class CommandCopyConverter(CommandConverter[CommandCopy]):
 
     def convert(self, _input: JSON) -> CommandCopy:
         return CommandCopy(
-            url=_input.get('url'),
+            source=_input.get('source'),
             target=_input.get('target'),
+            sudo=_input.get('sudo'),
             export=_input.get('export'),
-            export_folder=_input.get('export_folder'),
+            export_folder=_input.get('exportFolder'),
         )
 
 
@@ -95,8 +99,9 @@ class CommandDartPubConverter(CommandConverter[CommandDartPub]):
     def convert(self, _input: JSON) -> CommandDartPub:
         return CommandDartPub(
             package=_input.get('package'),
+            sudo=_input.get('sudo'),
             export=_input.get('export'),
-            export_folder=_input.get('export_folder'),
+            export_folder=_input.get('exportFolder'),
         )
 
 
@@ -110,9 +115,12 @@ class CommandGunZipConverter(CommandConverter[CommandGunZip]):
 
     def convert(self, _input: JSON) -> CommandGunZip:
         return CommandGunZip(
-            url=_input.get('url'),
+            source=_input.get('source'),
+            target=_input.get('target'),
+            tar=_input.get('tar'),
+            sudo=_input.get('sudo'),
             export=_input.get('export'),
-            export_folder=_input.get('export_folder'),
+            export_folder=_input.get('exportFolder'),
         )
 
 
@@ -127,8 +135,9 @@ class CommandNPMConverter(CommandConverter[CommandNPM]):
     def convert(self, _input: JSON) -> CommandNPM:
         return CommandNPM(
             package=_input.get('package'),
+            sudo=_input.get('sudo'),
             export=_input.get('export'),
-            export_folder=_input.get('export_folder'),
+            export_folder=_input.get('exportFolder'),
         )
 
 
@@ -143,8 +152,9 @@ class CommandRemoveConverter(CommandConverter[CommandRemove]):
     def convert(self, _input: JSON) -> CommandRemove:
         return CommandRemove(
             target=_input.get('target'),
+            sudo=_input.get('sudo'),
             export=_input.get('export'),
-            export_folder=_input.get('export_folder'),
+            export_folder=_input.get('exportFolder'),
         )
 
 
@@ -159,8 +169,29 @@ class CommandSDKManConverter(CommandConverter[CommandSDKMan]):
     def convert(self, _input: JSON) -> CommandSDKMan:
         return CommandSDKMan(
             package=_input.get('package'),
+            version=_input.get('version'),
+            sudo=_input.get('sudo'),
             export=_input.get('export'),
-            export_folder=_input.get('export_folder'),
+            export_folder=_input.get('exportFolder'),
+        )
+
+
+class CommandTarConverter(CommandConverter[CommandTar]):
+    """
+    A :class:`CommandConverter` for :class:`CommandTar`.
+    """
+
+    def command_type(self) -> CommandType:
+        return CommandType.tar
+
+    def convert(self, _input: JSON) -> CommandTar:
+        return CommandTar(
+            extract=_input.get('extract'),
+            source=_input.get('source'),
+            target=_input.get('target'),
+            sudo=_input.get('sudo'),
+            export=_input.get('export'),
+            export_folder=_input.get('exportFolder'),
         )
 
 
@@ -174,11 +205,30 @@ class CommandUnZipConverter(CommandConverter[CommandUnZip]):
 
     def convert(self, _input: JSON) -> CommandUnZip:
         return CommandUnZip(
+            extract=_input.get('extract'),
+            source=_input.get('source'),
+            target=_input.get('target'),
+            sudo=_input.get('sudo'),
+            export=_input.get('export'),
+            export_folder=_input.get('exportFolder'),
+        )
+
+
+class CommandWgetConverter(CommandConverter[CommandWget]):
+    """
+    A :class:`CommandConverter` for :class:`CommandWget`.
+    """
+
+    def command_type(self) -> CommandType:
+        return CommandType.wget
+
+    def convert(self, _input: JSON) -> CommandWget:
+        return CommandWget(
             url=_input.get('url'),
             target=_input.get('target'),
-            extract=_input.get('extract'),
+            sudo=_input.get('sudo'),
             export=_input.get('export'),
-            export_folder=_input.get('export_folder'),
+            export_folder=_input.get('exportFolder'),
         )
 
 
@@ -188,13 +238,13 @@ class CommandModuleConverter(ModuleConverter[CommandModule], ABC):
     """
 
     def accepts(self, _input: JSON) -> bool:
-        return super().accepts(_input) and (_input.get('command') or _input.get('commands')) is not None
+        return super().accepts(_input) and _input.get('commands') is not None
 
-    def convert_commands(self, _input: JSON) -> set[Command]:
-        return set(
+    def convert_commands(self, _input: JSON) -> list[Command]:
+        return list(
             map(
                 lambda c: first(self.command_converters, lambda cc: cc.accepts(c)).convert(c),
-                _input.get('commands', [_input.get('command')])
+                _input.get('commands', [])
             ),
         )
 
@@ -218,7 +268,7 @@ class DriverModuleConverter(CommandModuleConverter):
 
     def convert(self, _input: JSON) -> DriverModule:
         return DriverModule(
-            name=_input.get('name'),
+            name=ModuleName(_input.get('name')),
             commands=self.convert_commands(_input),
             dependencies=self.dependency_converter.convert_multiple(
                 _input.get('dependencies')
@@ -243,7 +293,7 @@ class SDKModuleConverter(CommandModuleConverter):
 
     def convert(self, _input: JSON) -> SDKModule:
         return SDKModule(
-            name=_input.get('name'),
+            name=ModuleName(_input.get('name')),
             commands=self.convert_commands(_input),
             dependencies=self.dependency_converter.convert_multiple(
                 _input.get('dependencies')
@@ -268,7 +318,7 @@ class ToolModuleConverter(CommandModuleConverter):
 
     def convert(self, _input: JSON) -> ToolModule:
         return ToolModule(
-            name=_input.get('name'),
+            name=ModuleName(_input.get('name')),
             commands=self.convert_commands(_input),
             dependencies=self.dependency_converter.convert_multiple(
                 _input.get('dependencies')
@@ -293,7 +343,7 @@ class VPNModuleConverter(CommandModuleConverter):
 
     def convert(self, _input: JSON) -> VPNModule:
         return VPNModule(
-            name=_input.get('name'),
+            name=ModuleName(_input.get('name')),
             commands=self.convert_commands(_input),
             dependencies=self.dependency_converter.convert_multiple(
                 _input.get('dependencies')

@@ -34,7 +34,12 @@ class AliasModule(ConfigurationModule):
     Represents a :class:`Module` to configure a session alias.
     """
 
-    def __init__(self, entries: Entries, name: ModuleName, dependencies: set[ModuleDependency]):
+    def __init__(
+            self,
+            entries: Entries,
+            name: ModuleName,
+            dependencies: set[ModuleDependency]
+    ):
         super().__init__(entries, ModuleType.alias, name, dependencies)
 
 
@@ -43,5 +48,10 @@ class GitConfigModule(ConfigurationModule):
     Represents a :class:`Module` to configure Git tool.
     """
 
-    def __init__(self, entries: Entries, name: ModuleName, dependencies: set[ModuleDependency]):
+    def __init__(
+            self,
+            entries: Entries,
+            name: ModuleName,
+            dependencies: set[ModuleDependency],
+    ):
         super().__init__(entries, ModuleType.git_config, name, dependencies)

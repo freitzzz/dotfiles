@@ -1,17 +1,79 @@
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic
 
-from framework.core.func import first, join_lines
+from framework.core.const import exported_paths_path
+from framework.core.func import first, join_lines, safe_string, get_or_else, join, last
 from framework.core.types import Bash
 from framework.schema.command import \
     CommandAPT, CommandBash, CommandNPM, \
-    CommandCopy, CommandRemove, CommandUnZip, CommandGunZip, CommandDartPub, CommandSDKMan, CommandType
+    CommandCopy, CommandRemove, CommandUnZip, CommandGunZip, CommandDartPub, CommandSDKMan, CommandType, CommandWget, \
+    CommandTar
 from framework.schema.command import CommandModule, Command
 from framework.schema.module import ModuleType
 from framework.transformer.bash.module import ModuleConverter
 from framework.transformer.bash.transformer import BashConverter
 
 C = TypeVar('C', Command, Command)
+
+
+def export(_input: Command, _output: Bash) -> Bash:
+    """
+    Exports a folder in PATH variable if required.
+
+    :param _input: the command that may be required to be exported.
+    :param _output: the output bash script, converted from the command
+    :return: the bash script that will be exported if required.
+    """
+    return join_lines(
+        [
+            _output,
+            f'echo \'export PATH="$PATH:{_input.export_folder}"\' >> {exported_paths_path}'
+        ]
+    ) if _input.export else _output
+
+
+def sudo(_input: Command, _output: Bash) -> Bash:
+    """
+    Applies sudo prefix to a command bash output if needed.
+
+    :param _input: the command that may be required to run in sudo.
+    :param _output: the output bash script, converted from the command
+    :return: the bash script that runs in sudo if required.
+    """
+    return f"sudo {_output}" if _input.sudo else _output
+
+
+def execution_environment(_input: Bash, directory: str) -> Bash:
+    """
+    Scopes a bash script execution environment to a specific directory.
+
+    :param _input: the command to run in the requested execution environment.
+    :param directory: the environment directory path where the script will be run.
+    :return: the bash script that runs in the requested execution environment.
+    """
+    return f"(cd {directory}; {_input})"
+
+
+def or_result(_input: str | None) -> Bash:
+    """
+    Returns either the input or the latest command result value if the input is None.
+
+    :param _input: the input in comparison
+    :return: the input or the latest command result value.
+    """
+
+    return get_or_else(_input, lambda: '"$result"')
+
+
+def mkdir(directory: str) -> Bash:
+    """
+    Returns a command to create a directory.
+
+    :param directory: the directory to create path
+    :return: the command to create the directory.
+    """
+
+    return f"mkdir -p {directory}"
 
 
 class CommandConverter(BashConverter[C], Generic[C], ABC):
@@ -34,24 +96,23 @@ class CommandAPTConverter(CommandConverter[CommandAPT]):
 
     def convert(self, _input: CommandAPT) -> Bash:
         install_commands = [
-            *map(lambda r: f"sudo add-apt-repository {r}", _input.repositories),
+            *map(lambda r: f"sudo add-apt-repository {r} -y", _input.repositories),
         ]
 
         if _input.package is not None:
             install_commands.append(
-                f"sudo apt-get install {_input.package}"
+                f"sudo apt-get install -y {_input.package}"
             )
         else:
-            temp_deb_fp = f"/tmp/{hash(_input.url)}.deb"
-
             install_commands.extend(
                 [
-                    f"wget {_input.url} -o {temp_deb_fp}",
-                    f"sudo apt-get install {temp_deb_fp}"
+                    "temp_deb=$(mktemp).deb",
+                    f"wget {_input.url} -O $temp_deb",
+                    "sudo apt-get install -y $temp_deb"
                 ]
             )
 
-        return join_lines(install_commands)
+        return export(_input, join_lines(install_commands))
 
     def command_type(self) -> CommandType:
         return CommandType.apt
@@ -63,10 +124,14 @@ class CommandBashConverter(CommandConverter[CommandBash]):
     """
 
     def convert(self, _input: CommandBash) -> Bash:
-        if len(_input.source) > 0:
-            return join_lines(_input.source)
-
-        return f"wget -qO- {_input.url} | bash"
+        return export(
+            _input,
+            sudo(
+                _input,
+                join_lines(_input.source) if len(
+                    _input.source) > 0 else f"wget -qO- {_input.url} | {sudo(_input, f'bash {join(_input.arguments)}')}"
+            )
+        )
 
     def command_type(self) -> CommandType:
         return CommandType.bash
@@ -78,7 +143,17 @@ class CommandCopyConverter(CommandConverter[CommandCopy]):
     """
 
     def convert(self, _input: CommandCopy) -> Bash:
-        return f"wget {_input.url} -O {_input.target}"
+        target = _input.target
+
+        return export(
+            _input,
+            join_lines(
+                [
+                    mkdir(target),
+                    sudo(_input, f"cp {_input.source} {target}")
+                ]
+            )
+        )
 
     def command_type(self) -> CommandType:
         return CommandType.copy
@@ -90,7 +165,13 @@ class CommandDartPubConverter(CommandConverter[CommandDartPub]):
     """
 
     def convert(self, _input: CommandDartPub) -> Bash:
-        return f"dart pub global activate {_input.package}"
+        return export(
+            _input,
+            sudo(
+                _input,
+                f"dart pub global activate {_input.package}"
+            )
+        )
 
     def command_type(self) -> CommandType:
         return CommandType.dart_pub
@@ -102,17 +183,20 @@ class CommandGunZipConverter(CommandConverter[CommandGunZip]):
     """
 
     def convert(self, _input: CommandGunZip) -> Bash:
-        url_hash = hash(_input.url)
+        source = or_result(_input.source)
+        target = _input.target
 
-        temp_gz_fp = f"/tmp/{url_hash}.gz"
-        temp_tar_fp = f"/tmp/{url_hash}.tar"
-
-        return join_lines(
-            [
-                f"wget {_input.url} -O {temp_gz_fp}",
-                f"gunzip {temp_gz_fp}",
-                f"tar -xf {temp_tar_fp} -C {_input.export_folder}",
-            ]
+        return export(
+            _input,
+            join_lines(
+                [
+                    mkdir(target),
+                    execution_environment(
+                        sudo(_input, f"tar -xvf {source}") if _input.tar else sudo(_input, f"gunzip {source}"),
+                        target
+                    ),
+                ]
+            )
         )
 
     def command_type(self) -> CommandType:
@@ -125,7 +209,13 @@ class CommandNPMConverter(CommandConverter[CommandNPM]):
     """
 
     def convert(self, _input: CommandNPM) -> Bash:
-        return f"sudo npm install -g {_input.package}"
+        return export(
+            _input,
+            sudo(
+                _input,
+                f"sudo npm install -g {_input.package}"
+            )
+        )
 
     def command_type(self) -> CommandType:
         return CommandType.npm
@@ -137,7 +227,13 @@ class CommandRemoveConverter(CommandConverter[CommandRemove]):
     """
 
     def convert(self, _input: CommandRemove) -> Bash:
-        return f"rm -rf {_input.target}"
+        return export(
+            _input,
+            sudo(
+                _input,
+                f"rm -rf {_input.target}"
+            )
+        )
 
     def command_type(self) -> CommandType:
         return CommandType.rm
@@ -149,10 +245,42 @@ class CommandSDKManConverter(CommandConverter[CommandSDKMan]):
     """
 
     def convert(self, _input: CommandSDKMan) -> Bash:
-        return f"sdk install {_input.package} {_input.package} <version>"
+        return export(
+            _input,
+            sudo(
+                _input,
+                f"sdk install {_input.package} {safe_string(_input.version)}"
+            )
+        )
 
     def command_type(self) -> CommandType:
         return CommandType.sdkman
+
+
+class CommandTarConverter(CommandConverter[CommandTar]):
+    """
+    A :class:`CommandConverter` for :class:`CommandTar`.
+    """
+
+    def convert(self, _input: CommandTar) -> Bash:
+        source = or_result(_input.source)
+        target = _input.target
+
+        return export(
+            _input,
+            join_lines(
+                [
+                    mkdir(target),
+                    execution_environment(
+                        sudo(_input, f"tar xf {source} {join(_input.extract)}"),
+                        target
+                    )
+                ]
+            )
+        )
+
+    def command_type(self) -> CommandType:
+        return CommandType.tar
 
 
 class CommandUnZipConverter(CommandConverter[CommandUnZip]):
@@ -161,19 +289,42 @@ class CommandUnZipConverter(CommandConverter[CommandUnZip]):
     """
 
     def convert(self, _input: CommandUnZip) -> Bash:
-        url_hash = hash(_input.url)
+        source = or_result(_input.source)
+        target = _input.target
 
-        temp_zip_fp = f"/tmp/{url_hash}.zip"
-
-        return join_lines(
-            [
-                f"wget {_input.url} -O {temp_zip_fp}",
-                f"unzip -o {temp_zip_fp} -d {_input.export_folder}",
-            ]
+        return export(
+            _input,
+            join_lines(
+                [
+                    mkdir(target),
+                    sudo(_input, f"unzip -o {source} {join(_input.extract)} -d {target}"),
+                ]
+            )
         )
 
     def command_type(self) -> CommandType:
         return CommandType.unzip
+
+
+class CommandWgetConverter(CommandConverter[CommandWget]):
+    """
+    A :class:`CommandConverter` for :class:`CommandWget`.
+    """
+
+    def convert(self, _input: CommandWget) -> Bash:
+        result = last(_input.url.split("/"))
+        target = f"{_input.target}/{result}"
+
+        return export(
+            _input,
+            sudo(
+                _input,
+                f"wget {_input.url} -O {target}; result={target}"
+            )
+        )
+
+    def command_type(self) -> CommandType:
+        return CommandType.wget
 
 
 class CommandModuleConverter(ModuleConverter[CommandModule], ABC):
@@ -181,8 +332,8 @@ class CommandModuleConverter(ModuleConverter[CommandModule], ABC):
     Types a :class:`BashConverter` for :class:`CommandModule`.
     """
 
-    def convert_commands(self, _input: CommandModule) -> set[Bash]:
-        return set(
+    def convert_commands(self, _input: CommandModule) -> list[Bash]:
+        return list(
             map(
                 lambda c: first(self.command_converters, lambda cc: cc.accepts(c)).convert(c),
                 _input.commands

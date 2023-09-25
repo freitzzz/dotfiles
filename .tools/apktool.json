@@ -2,17 +2,18 @@
   "$schema": "../modules-schema.json",
   "name": "apktool",
   "type": "tool",
-  "version": "2.7.0",
   "commands": [
     {
-      "type": "cp",
+      "type": "wget",
       "url": "https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool",
-      "target": "/usr/local/bin"
+      "target": "/usr/local/bin",
+      "sudo": true
     },
     {
-      "type": "cp",
-      "url": "https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_$version.jar",
-      "target": "/usr/local/bin"
+      "type": "wget",
+      "url": "https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.7.0.jar",
+      "target": "/usr/local/bin",
+      "sudo": true
     }
   ]
 }

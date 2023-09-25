@@ -8,8 +8,10 @@
       "name": "node"
     }
   ],
-  "command": {
-    "type": "npm",
-    "package": "@web-pacotes/github-upsert"
-  }
+  "commands": [
+    {
+      "type": "npm",
+      "package": "@web-pacotes/github-upsert"
+    }
+  ]
 }

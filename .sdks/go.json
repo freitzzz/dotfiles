@@ -2,21 +2,23 @@
   "$schema": "../modules-schema.json",
   "name": "go",
   "type": "sdk",
-  "version": "1.19.3",
   "commands": [
     {
       "type": "rm",
-      "target": "/usr/local/go"
+      "target": "/usr/local/go",
+      "sudo": true
     },
     {
-      "type": "tar",
-      "url": "https://go.dev/dl/go$version.linux-amd64.tar.gz",
-      "target": "/usr/local"
+      "type": "wget",
+      "url": "https://go.dev/dl/go1.19.3.linux-amd64.tar.gz"
     },
     {
-      "type": "export",
-      "variable": "PATH",
-      "value": "/usr/local/go/bin"
+      "type": "gunzip",
+      "tar": true,
+      "export": true,
+      "sudo": true,
+      "target": "/usr/local",
+      "exportFolder": "/usr/local/go/bin"
     }
   ]
 }

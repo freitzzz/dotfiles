@@ -8,7 +8,7 @@
     "gbd": "git branch -D",
     "gc": "git commit",
     "gca": "git commit --amend",
-    "git": "LC_ALL:C git",
+    "git": "LC_ALL=C git",
     "gl": "git log",
     "gmu": "git submodule update --remote --merge",
     "gp": "git push",

@@ -1,0 +1,11 @@
+wget
+gzip
+curl
+git
+tar
+unzip
+net-tools
+software-properties-common
+autoconf
+make
+python3.10

@@ -2,7 +2,6 @@
   "$schema": "../modules-schema.json",
   "name": "global-config",
   "type": "git-config",
-  "global": true,
   "entries": {
     "user.name": "freitzzz",
     "user.email": "1160907@isep.ipp.pt",

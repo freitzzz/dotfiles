@@ -8,9 +8,11 @@
       "name": "sdkman"
     }
   ],
-  "version": "8.0",
-  "command": {
-    "type": "sdkman",
-    "package": "gradle"
-  }
+  "commands": [
+    {
+      "type": "sdkman",
+      "package": "gradle",
+      "version": "8.0"
+    }
+  ]
 }

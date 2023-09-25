@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from typing import TypeVar, Generic
 
-from framework.core.types import JSON, Factory
+from framework.core.types import JSON
 from framework.schema.module import ModuleDependency, ModuleName, ModuleType, Module
 from framework.transformer.json.transformer import JsonConverter, JsonFactory
 
@@ -18,7 +18,7 @@ class ModuleDependencyConverter(JsonConverter[ModuleDependency]):
 
     def convert(self, _input: JSON) -> ModuleDependency:
         return ModuleDependency(
-            ModuleType(_input.get('type')),
+            ModuleType.of(_input.get('type')),
             ModuleName(_input.get('name')),
         )
 

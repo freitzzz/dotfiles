@@ -1,4 +1,4 @@
-from framework.core.func import safe_set
+from framework.core.func import safe_set, safe_list
 from framework.core.types import EnumElement, ObjectElement
 from framework.schema.module import Module, ModuleType, ModuleName, ModuleDependency
 
@@ -19,7 +19,9 @@ class CommandType(CommandTypeEnum):
     npm = CommandTypeEnum("npm")
     rm = CommandTypeEnum("rm")
     sdkman = CommandTypeEnum("sdkman")
+    tar = CommandTypeEnum("tar")
     unzip = CommandTypeEnum("unzip")
+    wget = CommandTypeEnum("wget")
     pass
 
 
@@ -29,14 +31,22 @@ class Command(ObjectElement):
 
     Attributes:
         type: the command to use.
+        sudo: if the command should run in sudo mode.
         export: if the command exports new variables to be exported in local sessions (**PATH** variable).
         export_folder: an optional file path to a folder that contains binaries to export.
     """
 
-    def __init__(self, _type: CommandTypeEnum, export: bool = False, export_folder: str = None) -> None:
+    def __init__(
+            self,
+            _type: CommandTypeEnum,
+            sudo: bool = False,
+            export: bool = False,
+            export_folder: str = None
+    ) -> None:
         super().__init__()
 
         self.type = _type
+        self.sudo = sudo
         self.export = export
         self.export_folder = export_folder
 
@@ -53,6 +63,7 @@ class CommandAPT(Command):
 
     def __init__(
             self,
+            sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
             package: str = None,
@@ -61,6 +72,7 @@ class CommandAPT(Command):
     ) -> None:
         super().__init__(
             CommandType.apt,
+            sudo,
             export,
             export_folder
         )
@@ -81,19 +93,23 @@ class CommandBash(Command):
 
     def __init__(
             self,
+            sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
             url: str = None,
-            source: set[str] = None
+            source: list[str] = None,
+            arguments: list[str] = None
     ) -> None:
         super().__init__(
             CommandType.bash,
+            sudo,
             export,
             export_folder
         )
 
         self.url = url
-        self.source = safe_set(source)
+        self.source = safe_list(source)
+        self.arguments = safe_list(arguments)
 
 
 class CommandCopy(Command):
@@ -101,24 +117,27 @@ class CommandCopy(Command):
     Represents the configuration to copy a file/folder to a target using copy (cp).
 
     Attributes:
-        url: the link to a file that will be downloaded with wget and copied to the target destination.
+        source: the source file/folder to copy.
         target: the target destination where the file will be copied to. Defaults to /usr/local/bin.
     """
 
     def __init__(
             self,
-            url: str,
-            target: str = "/usr/local/bin",
+            sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
+            source: str = None,
+            target: str = None,
     ) -> None:
         super().__init__(
             CommandType.copy,
+            sudo,
             export,
             export_folder
         )
-        self.url = url
-        self.target = target
+
+        self.source = source
+        self.target = target or "/usr/local/bin"
 
 
 class CommandDartPub(Command):
@@ -132,11 +151,13 @@ class CommandDartPub(Command):
     def __init__(
             self,
             package: str,
+            sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
     ) -> None:
         super().__init__(
             CommandType.dart_pub,
+            sudo,
             export,
             export_folder
         )
@@ -146,25 +167,32 @@ class CommandDartPub(Command):
 
 class CommandGunZip(Command):
     """
-    Represents the configuration to extract files and folders using gunzip (gz).
+    Represents the configuration to uncompress files and folders using gunzip (gz).
 
     Attributes:
-        url: the link to a .gz file which files will be extracted.
+        source: the file path that locates the .gz file to uncompress.
+        target: directory where files will be uncompressed to. Defaults to /tmp
     """
 
     def __init__(
             self,
-            url: str,
+            source: str = None,
+            target: str = None,
+            tar: bool = True,
+            sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
     ) -> None:
         super().__init__(
             CommandType.gunzip,
+            sudo,
             export,
             export_folder
         )
 
-        self.url = url
+        self.source = source
+        self.target = target or "/tmp"
+        self.tar = tar
 
 
 class CommandNPM(Command):
@@ -178,11 +206,13 @@ class CommandNPM(Command):
     def __init__(
             self,
             package: str,
+            sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
     ) -> None:
         super().__init__(
             CommandType.npm,
+            sudo,
             export,
             export_folder
         )
@@ -195,28 +225,30 @@ class CommandUnZip(Command):
     Represents the configuration to extract files and folders using unzip (zip).
 
     Attributes:
-        url: the link to a .zip file which files will be extracted.
         extract: a set of files to extract from the zip file. Defaults to every file.
-        target: the target destination to copy the extracted files. Defaults to /usr/local.
+        source: the file path that locates the .zip file to extract.
+        target: the target destination to copy the extracted files. Defaults to /tmp.
     """
 
     def __init__(
             self,
-            url: str,
+            sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
             extract: set[str] = None,
-            target: str = "/usr/local",
+            source: str = None,
+            target: str = None,
     ) -> None:
         super().__init__(
             CommandType.unzip,
+            sudo,
             export,
             export_folder
         )
 
-        self.url = url
         self.extract = safe_set(extract)
-        self.target = target
+        self.source = source
+        self.target = target or "/tmp"
 
 
 class CommandRemove(Command):
@@ -230,11 +262,13 @@ class CommandRemove(Command):
     def __init__(
             self,
             target: str,
+            sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
     ) -> None:
         super().__init__(
             CommandType.rm,
+            sudo,
             export,
             export_folder
         )
@@ -253,16 +287,78 @@ class CommandSDKMan(Command):
     def __init__(
             self,
             package: str,
+            version: str = None,
+            sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
     ) -> None:
         super().__init__(
             CommandType.sdkman,
+            sudo,
             export,
             export_folder
         )
 
         self.package = package
+        self.version = version
+
+
+class CommandTar(Command):
+    """
+    Represents the configuration to extract files and folders using tar.
+
+    Attributes:
+        extract: a set of files to extract from the .tar file. Defaults to every file.
+        source: the file path that locates the .tar file to extract.
+        target: the target destination to copy the extracted files. Defaults to /tmp.
+    """
+
+    def __init__(
+            self,
+            sudo: bool = False,
+            export: bool = False,
+            export_folder: str = None,
+            extract: set[str] = None,
+            source: str = None,
+            target: str = None,
+    ) -> None:
+        super().__init__(
+            CommandType.tar,
+            sudo,
+            export,
+            export_folder
+        )
+
+        self.extract = safe_set(extract)
+        self.source = source
+        self.target = target or "/tmp"
+
+
+class CommandWget(Command):
+    """
+    Represents the configuration to download a file using wget.
+
+    Attributes:
+        url: the link to a file that will be downloaded with wget.
+        target: the target destination where the file will be downloaded to. Defaults to /tmp.
+    """
+
+    def __init__(
+            self,
+            url: str,
+            target: str = None,
+            sudo: bool = False,
+            export: bool = False,
+            export_folder: str = None,
+    ) -> None:
+        super().__init__(
+            CommandType.wget,
+            sudo,
+            export,
+            export_folder
+        )
+        self.url = url
+        self.target = target or "/tmp"
 
 
 class CommandModule(Module):
@@ -270,12 +366,12 @@ class CommandModule(Module):
     Represents a module that instructs how to execute commands.
 
     Attributes:
-        commands: a set of :class:`Command` with instruction on how to execute a command.
+        commands: a list of :class:`Command` with instruction on how to execute a command.
     """
 
     def __init__(
             self,
-            commands: set[Command],
+            commands: list[Command],
             _type: ModuleType,
             name: ModuleName,
             dependencies: set[ModuleDependency] = None
@@ -290,7 +386,7 @@ class DriverModule(CommandModule):
     Represents a :class:`Module` that instructs how to install a driver.
     """
 
-    def __init__(self, commands: set[Command], name: ModuleName, dependencies: set[ModuleDependency]):
+    def __init__(self, commands: list[Command], name: ModuleName, dependencies: set[ModuleDependency]):
         super().__init__(commands, ModuleType.driver, name, dependencies)
 
 
@@ -299,7 +395,7 @@ class ToolModule(CommandModule):
     Represents a :class:`Module` that instructs how to install a tool.
     """
 
-    def __init__(self, commands: set[Command], name: ModuleName, dependencies: set[ModuleDependency]):
+    def __init__(self, commands: list[Command], name: ModuleName, dependencies: set[ModuleDependency]):
         super().__init__(commands, ModuleType.tool, name, dependencies)
 
 
@@ -308,7 +404,7 @@ class SDKModule(CommandModule):
     Represents a :class:`Module` that instructs how to install an SDK.
     """
 
-    def __init__(self, commands: set[Command], name: ModuleName, dependencies: set[ModuleDependency]):
+    def __init__(self, commands: list[Command], name: ModuleName, dependencies: set[ModuleDependency]):
         super().__init__(commands, ModuleType.sdk, name, dependencies)
 
 
@@ -317,5 +413,5 @@ class VPNModule(CommandModule):
     Represents a :class:`Module` that instructs how to install a VPN.
     """
 
-    def __init__(self, commands: set[Command], name: ModuleName, dependencies: set[ModuleDependency]):
+    def __init__(self, commands: list[Command], name: ModuleName, dependencies: set[ModuleDependency]):
         super().__init__(commands, ModuleType.vpn, name, dependencies)

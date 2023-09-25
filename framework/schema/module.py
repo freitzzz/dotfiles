@@ -6,10 +6,30 @@ class ModuleName(StringElement):
     """
     Describes the module name.
     """
+
+    def __hash__(self):
+        return super().__hash__()
+
+    def __eq__(self, other):
+        return super().__eq__(other)
+
+    def __str__(self):
+        return self.value
+
     pass
 
 
 class ModuleTypeEnum(EnumElement):
+
+    def __hash__(self):
+        return super().__hash__()
+
+    def __eq__(self, other):
+        return super().__eq__(other)
+
+    def __str__(self):
+        return self.value
+
     pass
 
 
@@ -23,6 +43,11 @@ class ModuleType(StringElement):
     sdk = ModuleTypeEnum("sdk")
     tool = ModuleTypeEnum("tool")
     vpn = ModuleTypeEnum("vpn")
+
+    @staticmethod
+    def of(value: str):
+        return ModuleTypeEnum(value)
+
     pass
 
 
@@ -35,11 +60,20 @@ class ModuleDependency(ObjectElement):
         name: dependency module name.
     """
 
-    def __init__(self, _type: ModuleType, name: ModuleName) -> None:
+    def __init__(self, _type: ModuleTypeEnum, name: ModuleName) -> None:
         super().__init__()
 
         self.type = _type
         self.name = name
+
+    def __hash__(self):
+        return hash(self.name) + hash(self.type)
+
+    def __eq__(self, other):
+        return self.__hash__() == hash(other)
+
+    def __str__(self):
+        return f"{self.type}({self.name})"
 
 
 class Module(ObjectElement):
@@ -64,3 +98,12 @@ class Module(ObjectElement):
         self.type = _type
         self.name = name
         self.dependencies = safe_set(dependencies)
+
+    def __hash__(self):
+        return hash(self.name) & hash(self.type)
+
+    def __eq__(self, other):
+        return self.__hash__() == hash(other)
+
+    def __str__(self):
+        return f"{self.type}({self.name})"

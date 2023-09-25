@@ -2,13 +2,19 @@
   "$schema": "../modules-schema.json",
   "name": "node",
   "type": "sdk",
-  "version": "20.0.0",
-  "command": {
-    "type": "bash",
-    "url": "https://raw.githubusercontent.com/tj/n/master/bin/n",
-    "arguments": [
-      "-s",
-      "$version"
-    ]
-  }
+  "commands": [
+    {
+      "type": "bash",
+      "url": "https://raw.githubusercontent.com/tj/n/master/bin/n",
+      "arguments": [
+        "-s",
+        "20.0.0"
+      ],
+      "sudo": true
+    },
+    {
+      "type": "npm",
+      "package": "n"
+    }
+  ]
 }

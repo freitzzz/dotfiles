@@ -8,10 +8,16 @@
       "name": "fuse"
     }
   ],
-  "version": "2.0.2.16660",
-  "command": {
-    "type": "gunzip",
-    "url": "https://download-cdn.jetbrains.com/toolbox/jetbrains-toolbox-$version.tar.gz",
-    "export": true
-  }
+  "commands": [
+    {
+      "type": "wget",
+      "url": "https://download-cdn.jetbrains.com/toolbox/jetbrains-toolbox-2.0.2.16660.tar.gz"
+    },
+    {
+      "type": "gunzip",
+      "tar": true,
+      "export": true,
+      "exportFolder": "~/Documents/Tools/jetbrains-toolbox"
+    }
+  ]
 }
