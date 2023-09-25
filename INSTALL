@@ -38,7 +38,7 @@ echo "~~~~~~~~"
 
 while read -r dependency;
 do
-    if [ -z "$(apt-cache show "$package")" ];
+    if [ -z "$(apt-cache show "$dependency")" ];
     then
       echo "> Installing $dependency"
       sudo apt-get install -y $dependency
