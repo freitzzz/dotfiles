@@ -38,8 +38,11 @@ echo "~~~~~~~~"
 
 while read -r dependency;
 do
-    echo "> Installing $dependency"
-    sudo apt-get install -y $dependency
+    if [ -z "$(apt-cache show "$package")" ];
+    then
+      echo "> Installing $dependency"
+      sudo apt-get install -y $dependency
+    fi
 done < <( cat "$dependencies_source" )
 
 echo "~~~~~~~~"
