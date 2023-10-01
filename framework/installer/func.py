@@ -22,17 +22,6 @@ def write_file(file_path: str, content: str | Iterable[str], mode="w") -> None:
     with(open(file_path, mode) as file):
         file.write(content if isinstance(content, str) else join_lines(content))
         file.close()
-
-def file_contains_value(file_path: str, value: str, mode="r") -> bool:
-    """
-    Validates whether a specific file constains a specific value using Python builtins.
-
-    :param file_path: path that locates the file in the filesystem.
-    :param value: the value to be searched in the file, as a string (plaintext)
-    :param mode: the file read/write mode. defaults to "r" (read)
-    """
-    with(open(file_path, mode) as file):
-        return file.read().find(value)
  
 def element_to_primitive(element: Element) -> object:
     """
