@@ -29,12 +29,19 @@ def export(_input: Command, _output: Bash) -> Bash:
     log_info(f'content_to_add -> {content_to_add}')
     file_contains_content = file_contains_value(exported_paths_path, content_to_add)
     log_info(f'file_contains_content -> {file_contains_content}')
-    return join_lines(
+    log_info(f'_input.export -> {_input.export}')
+    if _input.export and not file_contains_content:
+        log_info('export and does not contains')
+        _output = join_lines(
         [
             _output,
             f'echo \'{content_to_add}\' >> {exported_paths_path}'
-        ]
-    ) if _input.export and not file_contains_content else _output
+        ])
+    else:
+        log_info('no export or contains')
+        _output
+
+    return _output
 
 
 def sudo(_input: Command, _output: Bash) -> Bash:
