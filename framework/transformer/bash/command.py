@@ -26,15 +26,15 @@ def export(_input: Command, _output: Bash) -> Bash:
     :return: the bash script that will be exported if required.
     """
     content_to_add = 'export PATH="$PATH:{_input.export_folder}"'
-    log_info('content_to_add -> {content_to_add}')
+    log_info(f'content_to_add -> {content_to_add}')
     file_contains_content = file_contains_value(exported_paths_path, content_to_add)
-    log_info('file_contains_content -> {file_contains_content}')
+    log_info(f'file_contains_content -> {file_contains_content}')
     return join_lines(
         [
             _output,
             f'echo \'{content_to_add}\' >> {exported_paths_path}'
         ]
-    ) if _input.export & file_contains_content else _output
+    ) if _input.export and file_contains_content else _output
 
 
 def sudo(_input: Command, _output: Bash) -> Bash:
