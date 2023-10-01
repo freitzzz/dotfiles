@@ -25,7 +25,7 @@ def export(_input: Command, _output: Bash) -> Bash:
     :param _output: the output bash script, converted from the command
     :return: the bash script that will be exported if required.
     """
-    content_to_add = 'export PATH="$PATH:{_input.export_folder}"'
+    content_to_add = f'export PATH="$PATH:{_input.export_folder}"'
     log_info(f'content_to_add -> {content_to_add}')
     file_contains_content = file_contains_value(exported_paths_path, content_to_add)
     log_info(f'file_contains_content -> {file_contains_content}')
