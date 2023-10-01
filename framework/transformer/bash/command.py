@@ -31,7 +31,7 @@ def export(_input: Command, _output: Bash) -> Bash:
     return join_lines(
         [
             _output,
-            f'echo \'{content_to_add}\' >> {exported_paths_path}'
+            f'echo \'export PATH="$PATH:{_input.export_folder}"\' >> {exported_paths_path}'
         ]
     ) if _input.export and not file_contains_content else _output
 
