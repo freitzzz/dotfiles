@@ -104,4 +104,4 @@ def file_contains_value(file_path: str, value: str, mode="r") -> bool:
     :param mode: the file read/write mode. defaults to "r" (read)
     """
     with(open(file_path, mode) as file):
-        return file.read().find(value)
+        return True if value in file.read() else False
