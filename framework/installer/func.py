@@ -61,8 +61,8 @@ def eval_bash(script: Bash) -> int:
         ],
         mode="x"
     )
-    return 0
-    # return os.system(f"cd /tmp; bash {temp_file}")
+    
+    return os.system(f"cd /tmp; bash {temp_file}")
 
 
 def load_modules(
