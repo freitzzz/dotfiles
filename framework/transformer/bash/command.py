@@ -34,7 +34,7 @@ def export(_input: Command, _output: Bash) -> Bash:
             _output,
             f'echo \'{content_to_add}\' >> {exported_paths_path}'
         ]
-    ) if _input.export and file_contains_content else _output
+    ) if _input.export and not file_contains_content else _output
 
 
 def sudo(_input: Command, _output: Bash) -> Bash:
