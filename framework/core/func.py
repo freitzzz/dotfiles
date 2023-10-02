@@ -93,15 +93,3 @@ def safe_list(x: list[X] | None) -> list[X]:
     :return: the received list or an empty list
     """
     return get_or_else(x, lambda: list[X]())
-
-
-def file_contains_value(file_path: str, value: str, mode="r") -> bool:
-    """
-    Validates whether a specific file constains a specific value using Python builtins.
-
-    :param file_path: path that locates the file in the filesystem.
-    :param value: the value to be searched in the file, as a string (plaintext)
-    :param mode: the file read/write mode. defaults to "r" (read)
-    """
-    with(open(file_path, mode) as file):
-        return True if value in file.read() else False

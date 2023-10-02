@@ -2,9 +2,8 @@ from abc import ABC, abstractmethod
 from typing import TypeVar, Generic
 
 from framework.core.const import exported_paths_path
-from framework.core.func import first, join_lines, safe_string, get_or_else, join, last, file_contains_value
+from framework.core.func import first, join_lines, safe_string, get_or_else, join, last
 from framework.core.types import Bash
-from framework.core.log import log_info
 from framework.schema.command import \
     CommandAPT, CommandBash, CommandNPM, \
     CommandCopy, CommandRemove, CommandUnZip, CommandGunZip, CommandDartPub, CommandSDKMan, CommandType, CommandWget, \
@@ -24,16 +23,13 @@ def export(_input: Command, _output: Bash) -> Bash:
     :param _input: the command that may be required to be exported.
     :param _output: the output bash script, converted from the command
     :return: the bash script that will be exported if required.
-    """
-    content_to_add = f'export PATH="$PATH:{_input.export_folder}"'
-    file_contains_content = file_contains_value(exported_paths_path, content_to_add)
-    
+    """    
     return join_lines(
         [
             _output,
             f'echo \'export PATH="$PATH:{_input.export_folder}"\' >> {exported_paths_path}'
         ]
-    ) if _input.export and not file_contains_content else _output
+    ) if _input.export else _output
 
 
 def sudo(_input: Command, _output: Bash) -> Bash:
