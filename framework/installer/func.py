@@ -23,6 +23,7 @@ def write_file(file_path: str, content: str | Iterable[str], mode="w") -> None:
         file.write(content if isinstance(content, str) else join_lines(content))
         file.close()
 
+
 def remove_duplicate_file(file_path: str) -> None:
     """
     Removes duplicate lines of a specific file using Python builtins.
@@ -30,9 +31,13 @@ def remove_duplicate_file(file_path: str) -> None:
     :param file_path: path that locates the file in the filesystem.
     """
 
-    lines = open(file_path, 'r').readlines()
-    lines_set = set(lines)
-    write_file(file_path, lines_set)
+    with(open(file_path, "w+") as file):
+            lines = file.readlines()
+            lines_set = set(lines)
+            for line in lines_set:
+                file.write(line)
+            file.close()
+
 
 def element_to_primitive(element: Element) -> object:
     """
