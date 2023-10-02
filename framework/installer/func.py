@@ -5,7 +5,7 @@ from typing import Iterable
 
 from framework.core.const import configuration_directory_path, dotfiles_init_path, user_session_environment_path, \
     exported_paths_path
-from framework.core.func import join_lines
+from framework.core.func import join_lines, join
 from framework.core.types import StringElement, MapElement, ObjectElement, Element, Bash, JSON, Factory
 from framework.schema.module import Module
 from framework.core.log import log_info
@@ -31,13 +31,9 @@ def remove_duplicate_file(file_path: str) -> None:
     :param file_path: path that locates the file in the filesystem.
     """
 
-    with(open(file_path, "w+") as file):
-            lines = file.readlines()
-            lines_set = set(lines)
-            for line in lines_set:
-                log_info(f'line: {line}')
-                file.write(line)
-            file.close()
+    lines = open(file_path, 'r').readlines()
+    lines_set = set(lines)
+    open(file_path, 'w').write(join(lines_set, ''))
 
 
 def element_to_primitive(element: Element) -> object:
