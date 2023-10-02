@@ -31,7 +31,7 @@ def remove_duplicate_file(file_path: str) -> None:
     :param file_path: path that locates the file in the filesystem.
     """
 
-    with(open(file_path, "r+") as file):
+    with(open(file_path, "w+") as file):
             lines = file.readlines()
             lines_set = set(lines)
             for line in lines_set:
