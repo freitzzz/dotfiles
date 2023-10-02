@@ -22,7 +22,18 @@ def write_file(file_path: str, content: str | Iterable[str], mode="w") -> None:
     with(open(file_path, mode) as file):
         file.write(content if isinstance(content, str) else join_lines(content))
         file.close()
- 
+
+def remove_duplicate_file(file_path: str) -> None:
+    """
+    Removes duplicate lines of a specific file using Python builtins.
+
+    :param file_path: path that locates the file in the filesystem.
+    """
+
+    lines = open(file_path, 'r').readlines()
+    lines_set = set(lines)
+    write_file(file_path, lines_set)
+
 def element_to_primitive(element: Element) -> object:
     """
     Converts the structure of an element in a primitive representation (string, int, float, object, dict, list, bool).
@@ -140,6 +151,13 @@ def init_internals() -> None:
             mode="a"
         )
 
+def clean_internals() -> None:
+    """
+    Cleans (removes duplicate lines) the internal files created and used by the framework.
+    """
+
+    remove_duplicate_file(exported_paths_path)
+    remove_duplicate_file(dotfiles_init_path)
 
 def __find_modules_json__(modules_directory: str) -> list[JSON]:
     """

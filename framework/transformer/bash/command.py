@@ -23,7 +23,7 @@ def export(_input: Command, _output: Bash) -> Bash:
     :param _input: the command that may be required to be exported.
     :param _output: the output bash script, converted from the command
     :return: the bash script that will be exported if required.
-    """    
+    """
     return join_lines(
         [
             _output,
