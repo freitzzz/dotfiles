@@ -1,7 +1,7 @@
 from framework.core.func import first
 from framework.core.log import log_info, log_error, log_warning
 from framework.installer.func import init_internals, eval_bash, \
-    load_modules, save_modules
+    load_modules, save_modules, clean_internals
 from framework.schema.module import Module
 from framework.transformer.bash import ModuleFactory as BashModuleFactory
 from framework.transformer.json import ModuleFactory as JsonModuleFactory
@@ -44,6 +44,8 @@ class Installer:
             self.installed_modules,
         )
 
+        clean_internals()
+        
     def _install_module(self, module: Module):
         if module in self.installed_modules:
             log_info(f"Module {module} already installed, skipping")
