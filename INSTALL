@@ -38,6 +38,7 @@ echo "~~~~~~~~"
 
 while read -r dependency;
 do
+    echo "$dependency"
     if [ -z "$(apt-cache show "$dependency")" ];
     then
       echo "> Installing $dependency"
