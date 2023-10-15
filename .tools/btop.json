@@ -1,0 +1,11 @@
+{
+  "$schema": "../modules-schema.json",
+  "name": "btop",
+  "type": "tool",
+  "commands": [
+    {
+      "type": "apt",
+      "package": "btop"
+    }
+  ]
+}
