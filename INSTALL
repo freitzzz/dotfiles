@@ -29,9 +29,18 @@ then
     cd dotfiles
 fi
 
+# 1. Create mandatory files
+
+alias_source=~/.bash_aliases
+
+if [ ! -e "$alias_source" ] ; then
+    touch "$alias_source"
+fi
+
+
 dependencies_source="DEPENDENCIES"
 
-# 1. Install required dependencies
+# 2. Install required dependencies
 
 echo "º Installing required dependencies..."
 echo "~~~~~~~~"
@@ -56,7 +65,7 @@ export LC_ALL=$src_lang
 echo "º All dependencies installed!"
 echo "~~~~~~~~"
 
-# 2. Run install script targeting repository modules
+# 3. Run install script targeting repository modules
 
 echo "º Installing modules using dotfiles framework..."
 echo "~~~~~~~~"
