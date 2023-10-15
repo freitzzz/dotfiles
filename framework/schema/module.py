@@ -67,7 +67,7 @@ class ModuleDependency(ObjectElement):
         self.name = name
 
     def __hash__(self):
-        return hash(self.name) + hash(self.type)
+        return hash(self.name) & hash(self.type)
 
     def __eq__(self, other):
         return self.__hash__() == hash(other)
