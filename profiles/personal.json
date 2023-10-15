@@ -149,6 +149,30 @@
     {
       "name": "sdkman",
       "type": "tool"
+    },
+    {
+      "name": "sqlite-browser",
+      "type": "tool"
+    },
+    {
+      "name": "tree",
+      "type": "tool"
+    },
+    {
+      "name": "vscode",
+      "type": "tool"
+    },
+    {
+      "name": "webp",
+      "type": "tool"
+    },
+    {
+      "name": "wireshark",
+      "type": "tool"
+    },
+    {
+      "name": "clear-pass",
+      "type": "vpn"
     }
   ]
 }
