@@ -36,14 +36,22 @@ dependencies_source="DEPENDENCIES"
 echo "º Installing required dependencies..."
 echo "~~~~~~~~"
 
+# set default english locale since that's required in the grep condition
+src_lang=$LC_ALL
+export LC_ALL=C
+
 while read -r dependency;
 do
-    if [ -z "$(apt-cache show "$dependency")" ];
-    then
+    if apt-cache policy $dependency | grep 'Installed: (none)'; then
       echo "> Installing $dependency"
       sudo apt-get install -y $dependency
+    else
+      echo "> $dependency is already installed"
     fi
 done < <( cat "$dependencies_source" )
+
+# restore source language
+export LC_ALL=$src_lang
 
 echo "º All dependencies installed!"
 echo "~~~~~~~~"
