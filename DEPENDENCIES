@@ -4,6 +4,7 @@ curl
 git
 tar
 unzip
+zip
 net-tools
 software-properties-common
 autoconf
