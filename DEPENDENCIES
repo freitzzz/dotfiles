@@ -10,4 +10,3 @@ software-properties-common
 autoconf
 make
 python3.10
-btop
