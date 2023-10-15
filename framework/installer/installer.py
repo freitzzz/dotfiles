@@ -39,7 +39,6 @@ class Installer:
         init_internals()
 
     def run(self):
-        print(self.modules_to_install)
         abc = self.modules_to_install.difference(self.installed_modules)
 
         if len(abc) == 0:
