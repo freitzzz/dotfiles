@@ -28,7 +28,7 @@ argument_parser.add_argument(
 
 args = argument_parser.parse_args()
 
-print(args.directoryd)
+print(args.profile)
 
 put_snakes_to_work(
     [
