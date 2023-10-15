@@ -38,11 +38,11 @@ echo "~~~~~~~~"
 
 while read -r dependency;
 do
-    if command -v $dependency; then
-      echo "> $dependency is already installed"
-    else
+    if apt-cache policy $dependency | grep 'Installed: (none)'; then
       echo "> Installing $dependency"
       sudo apt-get install -y $dependency
+    else
+      echo "> $dependency is already installed"
     fi
 done < <( cat "$dependencies_source" )
 
