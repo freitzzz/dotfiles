@@ -28,8 +28,6 @@ argument_parser.add_argument(
 
 args = argument_parser.parse_args()
 
-print(args.profile)
-
 put_snakes_to_work(
     [
         ConsoleLumberSnakeClient()
@@ -38,8 +36,8 @@ put_snakes_to_work(
 
 installer = Installer(
     installed_modules_directory=installed_modules_path,
-    modules_directory=args,
-    profile_path="profiles/personal.json",
+    modules_directory=args.directory,
+    profile_path=args.profile,
     _json_module_factory=json_module_factory,
     _bash_module_factory=bash_module_factory,
     _json_profile_factory=json_profile_factory,
