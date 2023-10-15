@@ -38,7 +38,7 @@ echo "~~~~~~~~"
 
 # set default english locale since that's required in the grep condition
 src_lang=$LC_ALL
-LC_ALL=C
+export LC_ALL=C
 
 while read -r dependency;
 do
@@ -51,7 +51,7 @@ do
 done < <( cat "$dependencies_source" )
 
 # restore source language
-LC_ALL=$src_lang
+export LC_ALL=$src_lang
 
 echo "º All dependencies installed!"
 echo "~~~~~~~~"
