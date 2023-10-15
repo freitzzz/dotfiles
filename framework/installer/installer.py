@@ -1,10 +1,12 @@
 from framework.core.func import first
 from framework.core.log import log_info, log_error, log_warning
 from framework.installer.func import init_internals, eval_bash, \
-    load_modules, save_modules, clean_internals
+    load_modules, save_modules, clean_internals, load_profile
 from framework.schema.module import Module
+from framework.schema.profile import Profile, ModuleDefinition
 from framework.transformer.bash import ModuleFactory as BashModuleFactory
 from framework.transformer.json import ModuleFactory as JsonModuleFactory
+from framework.transformer.json import ProfileFactory as JsonProfileFactory
 
 
 class Installer:
@@ -13,15 +15,26 @@ class Installer:
             installed_modules_directory: str,
             modules_directory: str,
             _json_module_factory: JsonModuleFactory,
-            _bash_module_factory: BashModuleFactory
+            _bash_module_factory: BashModuleFactory,
+            _json_profile_factory: JsonProfileFactory,
+            profile_path: str = None,
     ):
         self.installed_modules_directory = installed_modules_directory
         self.modules_directory = modules_directory
         self.json_module_factory = _json_module_factory
         self.bash_module_factory = _bash_module_factory
+        self.json_profile_factory = _json_profile_factory
 
         self.installed_modules = load_modules(self.json_module_factory, self.installed_modules_directory)
         self.modules_to_install = load_modules(self.json_module_factory, self.modules_directory)
+        self.loaded_profile = load_profile(
+            self.json_profile_factory,
+            profile_path
+        ) if profile_path is not None else Profile.default(
+            set(map(lambda m: ModuleDefinition(m.type, m.name), self.modules_to_install))
+        )
+
+        self.modules_to_install = self.modules_to_install.intersection(self.loaded_profile.modules)
 
         init_internals()
 
@@ -45,7 +58,7 @@ class Installer:
         )
 
         clean_internals()
-        
+
     def _install_module(self, module: Module):
         if module in self.installed_modules:
             log_info(f"Module {module} already installed, skipping")
