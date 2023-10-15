@@ -34,7 +34,7 @@ class Installer:
             set(map(lambda m: ModuleDefinition(m.type, m.name), self.modules_to_install))
         )
 
-        self.modules_to_install = filter(lambda m: m in self.loaded_profile.modules, self.modules_to_install)
+        self.modules_to_install = set(filter(lambda m: m in self.loaded_profile.modules, self.modules_to_install))
 
         print(self.modules_to_install)
 
