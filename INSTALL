@@ -38,8 +38,9 @@ echo "~~~~~~~~"
 
 while read -r dependency;
 do
-    if [ -z "$(apt-cache show "$dependency")" ];
-    then
+    if command -v $dependency; then
+      echo "> $dependency is already installed"
+    else
       echo "> Installing $dependency"
       sudo apt-get install -y $dependency
     fi
