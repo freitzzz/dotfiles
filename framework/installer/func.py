@@ -8,6 +8,8 @@ from framework.core.const import configuration_directory_path, dotfiles_init_pat
 from framework.core.func import join_lines, join
 from framework.core.types import StringElement, MapElement, ObjectElement, Element, Bash, JSON, Factory
 from framework.schema.module import Module
+from framework.schema.profile import Profile
+
 
 def write_file(file_path: str, content: str | Iterable[str], mode="w") -> None:
     """
@@ -73,7 +75,7 @@ def eval_bash(script: Bash) -> int:
         ],
         mode="x"
     )
-    
+
     return os.system(f"cd /tmp; bash {temp_file}")
 
 
@@ -124,6 +126,23 @@ def save_modules(
             write_file(module_file_path, json.dumps(element_to_primitive(module)))
 
 
+def load_profile(
+        json_profile_factory: Factory[JSON, Profile],
+        path: str,
+) -> Profile:
+    """
+    Loads the profile at a given file path.
+
+    :param json_profile_factory: the factory instance to use for converting JSON to :class:`Profile`.
+    :param path: the file location to load profile configuration.
+    :return: an instance of :class:`Profile` based on the file path provided.
+    """
+
+    return json_profile_factory.create(
+        json.load(open(path))
+    )
+
+
 def init_internals() -> None:
     """
     Initializes the internal files created and used by the framework.
@@ -152,6 +171,7 @@ def init_internals() -> None:
             mode="a"
         )
 
+
 def clean_internals() -> None:
     """
     Cleans (removes duplicate lines) the internal files created and used by the framework.
@@ -159,6 +179,7 @@ def clean_internals() -> None:
 
     remove_duplicate_file(exported_paths_path)
     remove_duplicate_file(dotfiles_init_path)
+
 
 def __find_modules_json__(modules_directory: str) -> list[JSON]:
     """
