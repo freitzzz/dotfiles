@@ -4,6 +4,7 @@ from framework.transformer.json.command import CommandAPTConverter, CommandBashC
     VPNModuleConverter, CommandWgetConverter, CommandTarConverter
 from framework.transformer.json.configuration import AliasModuleConverter, GitConfigModuleConverter
 from framework.transformer.json.module import ModuleDependencyConverter, ModuleFactory
+from framework.transformer.json.profile import ProfileFactory, ProfileConverter
 
 command_converters = {
     CommandAPTConverter(),
@@ -29,5 +30,11 @@ json_module_factory = ModuleFactory(
         SDKModuleConverter(dependency_converter, command_converters),
         ToolModuleConverter(dependency_converter, command_converters),
         VPNModuleConverter(dependency_converter, command_converters),
+    }
+)
+
+json_profile_factory = ProfileFactory(
+    {
+        ProfileConverter(dependency_converter)
     }
 )
