@@ -34,6 +34,8 @@ class Installer:
             set(map(lambda m: ModuleDefinition(m.type, m.name), self.modules_to_install))
         )
 
+        print(self.loaded_profile.modules)
+
         self.modules_to_install = self.modules_to_install.intersection(self.loaded_profile.modules)
 
         init_internals()
