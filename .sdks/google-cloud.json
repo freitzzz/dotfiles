@@ -8,17 +8,17 @@
       "url": "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-451.0.1-linux-x86_64.tar.gz"
     },
     {
+      "type": "tar",
+      "target": "~/Documents/SDK/google-cloud-sdk",
+      "export": true,
+      "exportFolder": "~/Documents/SDK/google-cloud-sdk/bin"
+    },
+    {
       "type": "bash",
       "source": [
         "~/Documents/SDK/google-cloud-sdk/install.sh",
         "~/Documents/SDK/google-cloud-sdk/bin/gcloud init"
       ]
-    },
-    {
-      "type": "tar",
-      "target": "~/Documents/SDK/google-cloud-sdk",
-      "export": true,
-      "exportFolder": "~/Documents/SDK/google-cloud-sdk/bin"
     }
   ]
 }
