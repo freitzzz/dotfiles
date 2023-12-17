@@ -39,6 +39,10 @@ class Installer:
         init_internals()
 
     def run(self):
+        if len(self.modules_to_install) == 0:
+            log_warning("No modules to install have been loaded.")
+            return
+
         abc = self.modules_to_install.difference(self.installed_modules)
 
         if len(abc) == 0:
