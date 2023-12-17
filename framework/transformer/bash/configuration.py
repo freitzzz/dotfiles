@@ -14,6 +14,7 @@ class AliasModuleConverter(ModuleConverter[AliasModule]):
         return join_lines(
             [
                 "alias_source=~/.bash_aliases",
+                "touch $alias_source",
                 "source $alias_source",
                 *map(lambda e: f"alias {e[0]}='{e[1]}'", _input.entries.value.items()),
                 "alias > $alias_source"
