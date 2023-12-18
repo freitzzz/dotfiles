@@ -157,7 +157,6 @@ def init_internals() -> None:
             dotfiles_init_path,
             content=[
                 "# THIS FILE IS AUTOMATICALLY UPDATED BY THE FRAMEWORK. DO NOT DELETE",
-                "",
                 f"source {exported_paths_path}",
             ]
         )
