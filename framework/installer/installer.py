@@ -45,7 +45,7 @@ class Installer:
 
         abc = self.modules_to_install.difference(self.installed_modules)
 
-        if len(abc) == 0:
+        if len(abc) != 0:
             log_info("All modules are already installed.")
             return
 
