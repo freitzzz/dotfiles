@@ -33,7 +33,7 @@ def remove_duplicate_file(file_path: str) -> None:
     """
 
     lines = open(file_path, 'r').readlines()
-    lines_set = set(lines)
+    lines_set = list(dict.fromkeys(lines))
     open(file_path, 'w').write(join(lines_set, ''))
 
 
