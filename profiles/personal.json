@@ -25,6 +25,14 @@
     {
       "name": "network",
       "type": "alias"
+    },
+    {
+      "name": "global-config",
+      "type": "git-config"
+    },
+    {
+      "name": "bat-cat",
+      "type": "tool"
     }
   ]
 }
