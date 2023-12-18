@@ -33,9 +33,8 @@ def remove_duplicate_file(file_path: str) -> None:
     """
 
     lines = open(file_path, 'r').readlines()
-    lines_set = list(dict.fromkeys(lines))
-    print("pash")
-    open(file_path, 'w').write(join(lines_set, ''))
+    lines_without_duplicates = list(dict.fromkeys(lines))
+    open(file_path, 'w').write(join(lines_without_duplicates, ''))
 
 
 def element_to_primitive(element: Element) -> object:
