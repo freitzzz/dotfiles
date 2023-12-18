@@ -31,6 +31,42 @@
       "type": "git-config"
     },
     {
+      "name": "android",
+      "type": "sdk"
+    },
+    {
+      "name": "docker",
+      "type": "sdk"
+    },
+    {
+      "name": "flutter",
+      "type": "sdk"
+    },
+    {
+      "name": "fuse",
+      "type": "sdk"
+    },
+    {
+      "name": "go",
+      "type": "sdk"
+    },
+    {
+      "name": "gradle",
+      "type": "sdk"
+    },
+    {
+      "name": "node",
+      "type": "sdk"
+    },
+    {
+      "name": "open-jdk",
+      "type": "sdk"
+    },
+    {
+      "name": "apktool",
+      "type": "tool"
+    },
+    {
       "name": "bat-cat",
       "type": "tool"
     }
