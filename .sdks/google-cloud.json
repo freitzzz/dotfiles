@@ -10,6 +10,9 @@
     {
       "type": "tar",
       "target": "~/Documents/SDK/google-cloud-sdk",
+      "extract": [
+        "google-cloud-sdk"
+      ],
       "export": true,
       "exportFolder": "~/Documents/SDK/google-cloud-sdk/bin"
     },
