@@ -139,10 +139,6 @@ class Factory(Generic[TI, TO]):
     def __init__(self, converters: set[Converter[TI, TO]]):
         self.converters = converters
 
-    def a(self):
-        Opt
-        raise Exception("????")
-
     def create(self, _input: TI) -> TO:
         """
         Creates a value of type :class:`TO` based on an input of type :class:`TI`.

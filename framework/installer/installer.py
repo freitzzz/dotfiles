@@ -70,6 +70,7 @@ class Installer:
 
         self._install_dependencies(module)
 
+        print(module)
         bash_script = self.bash_module_factory.create(module)
         _exit_code = eval_bash(bash_script)
 
