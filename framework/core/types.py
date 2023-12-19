@@ -140,6 +140,7 @@ class Factory(Generic[TI, TO]):
         self.converters = converters
 
     def a(self):
+        Opt
         raise Exception("????")
 
     def create(self, _input: TI) -> TO:
@@ -149,7 +150,7 @@ class Factory(Generic[TI, TO]):
         :param _input: the input to create the output.
         :return: the output created using the input.
         """
-        return first(self.converters, lambda c: c.accepts(_input), or_else=lambda: print(dict(_input))).convert(_input)
+        return first(self.converters, lambda c: c.accepts(_input), or_else=None).convert(_input)
 
     def create_multiple(self, _input: list[TI]) -> set[TO]:
         """
