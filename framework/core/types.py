@@ -139,6 +139,9 @@ class Factory(Generic[TI, TO]):
     def __init__(self, converters: set[Converter[TI, TO]]):
         self.converters = converters
 
+    def a(self):
+        raise Exception("????")
+
     def create(self, _input: TI) -> TO:
         """
         Creates a value of type :class:`TO` based on an input of type :class:`TI`.
@@ -146,7 +149,7 @@ class Factory(Generic[TI, TO]):
         :param _input: the input to create the output.
         :return: the output created using the input.
         """
-        return first(self.converters, lambda c: c.accepts(_input)).convert(_input)
+        return first(self.converters, lambda c: c.accepts(_input), or_else=self.a).convert(_input)
 
     def create_multiple(self, _input: list[TI]) -> set[TO]:
         """
