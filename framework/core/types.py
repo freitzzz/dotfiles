@@ -149,7 +149,7 @@ class Factory(Generic[TI, TO]):
         print(type(_input))
         a = first(self.converters, lambda c: c.accepts(_input), or_else=None)
         print(a)
-        if _input is not dict:
+        if type(_input) is not dict:
             raise Exception("!")
         return a.convert(_input)
 
