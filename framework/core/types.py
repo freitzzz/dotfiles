@@ -3,6 +3,7 @@ from abc import abstractmethod
 from typing import Generic, TypeVar
 
 from framework.core.func import first
+from framework.schema.configuration import AliasModule
 
 ElementType = str | int | float | bool | object | list
 
@@ -149,7 +150,7 @@ class Factory(Generic[TI, TO]):
         print(type(_input))
         a = first(self.converters, lambda c: c.accepts(_input), or_else=None)
         print(a)
-        if type(_input) is not dict:
+        if _input is AliasModule:
             raise Exception("!")
         return a.convert(_input)
 
