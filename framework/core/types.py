@@ -149,8 +149,6 @@ class Factory(Generic[TI, TO]):
         print(type(_input))
         a = first(self.converters, lambda c: c.accepts(_input), or_else=None)
         print(a)
-        if dict(_input).get("name") == "personal" and dict(_input).get("type") == "alias":
-            raise Exception("!")
         return a.convert(_input)
 
     def create_multiple(self, _input: list[TI]) -> set[TO]:
