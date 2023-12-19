@@ -1,3 +1,5 @@
+import traceback
+
 from framework.core.func import first
 from framework.core.log import log_info, log_error, log_warning
 from framework.installer.func import init_internals, eval_bash, \
@@ -54,6 +56,7 @@ class Installer:
                 log_info(f"installing {module}")
                 self._install_module(module)
             except BaseException as exception:
+                print(traceback.format_exc())
                 log_error("something went wrong during module installation.", exception)
 
         save_modules(
