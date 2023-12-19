@@ -152,7 +152,7 @@ class Factory(Generic[TI, TO]):
         """
         a = first(self.converters, lambda c: c.accepts(_input), or_else=None)
         print(a)
-        print(dict(_input))
+        print(type(_input))
         return a.convert(_input)
 
     def create_multiple(self, _input: list[TI]) -> set[TO]:
