@@ -149,6 +149,8 @@ class Factory(Generic[TI, TO]):
         print(type(_input))
         a = first(self.converters, lambda c: c.accepts(_input), or_else=None)
         print(a)
+        if type(_input) != dict:
+            raise Exception("!")
         return a.convert(_input)
 
     def create_multiple(self, _input: list[TI]) -> set[TO]:
