@@ -150,7 +150,9 @@ class Factory(Generic[TI, TO]):
         :param _input: the input to create the output.
         :return: the output created using the input.
         """
-        return first(self.converters, lambda c: c.accepts(_input), or_else=None).convert(_input)
+        a = first(self.converters, lambda c: c.accepts(_input), or_else=None)
+        print(a)
+        return a.convert(_input)
 
     def create_multiple(self, _input: list[TI]) -> set[TO]:
         """
