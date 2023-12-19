@@ -9,7 +9,7 @@
     },
     {
       "type": "tar",
-      "target": "~/Documents/SDK/google-cloud-sdk",
+      "target": "~/Documents/SDK/",
       "extract": [
         "google-cloud-sdk"
       ],
