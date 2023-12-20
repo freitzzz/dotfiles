@@ -14,6 +14,7 @@ class ModuleConverter(BashConverter[M], Generic[M], ABC):
 
     def accepts(self, _input: M) -> bool:
         print(f"??? ({_input.name}) -> {_input.type}")
+        print(dict(_input))
         return _input.type == self.module_type()
 
     @abstractmethod
