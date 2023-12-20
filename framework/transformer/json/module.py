@@ -29,18 +29,6 @@ class ModuleConverter(JsonConverter[M], Generic[M]):
     """
 
     def accepts(self, _input: JSON) -> bool:
-        # print(f"yo {_input.get('type')} and ${_input.get('name')} == ({(_input.get('type') and _input.get('name'))})")
-        # if (_input.get('name') == "personal"):
-        # print(
-        #   f"yo ({_input.get('name')}): {_input.get('type')} and {self.module_type().value} == {_input.get('type') == self.module_type().value}")
-        # print(dict(_input))
-        if _input.get('name') == 'personal':
-            print(dict(_input))
-            print(_input.get('type'))
-            print(_input.get('name'))
-            print(_input.keys())
-            # raise Exception("")
-
         return _input.get('type') == self.module_type().value and _input.get('name') is not None
 
     @abstractmethod

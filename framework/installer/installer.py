@@ -56,7 +56,6 @@ class Installer:
                 log_info(f"installing {module}")
                 self._install_module(module)
             except BaseException as exception:
-                print(traceback.format_exc())
                 log_error("something went wrong during module installation.", exception)
 
         save_modules(
@@ -73,17 +72,14 @@ class Installer:
 
         self._install_dependencies(module)
 
-        print(module)
         bash_script = self.bash_module_factory.create(module)
         _exit_code = eval_bash(bash_script)
-
-        print(_exit_code)
 
         if _exit_code == 0:
             log_info(f"installed {module}")
             self.installed_modules.add(module)
         else:
-            log_warning(f"failed to install {module}")
+            log_warning(f"failed to install {module} (status = {_exit_code})")
 
     def _install_dependencies(self, module: Module):
         module_dependencies = self._module_dependencies(module)
