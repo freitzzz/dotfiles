@@ -15,7 +15,7 @@ def first(iterable: set[X] | list[X], where: Callable[[X], bool] = None, or_else
     :return: the first value found that matches the predicate or the first index element.
     """
     first_index_item = next(iter(iterable)) if or_else is None else or_else()
-    print(first_index_item)
+    print(f">>>>>> {first_index_item}")
     return first_index_item if (where is None) else next(filter(where, iterable), first_index_item)
 
 
