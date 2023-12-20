@@ -10,7 +10,7 @@
     {
       "type": "unzip",
       "target": "~/Documents/Tools/ghidra",
-      "exportFolder": "~/Documents/Tools/ghidra/ghidra_10.3.3PUBLIC",
+      "exportFolder": "~/Documents/Tools/ghidra/ghidra_10.3.3_PUBLIC",
       "export": true
     }
   ]
