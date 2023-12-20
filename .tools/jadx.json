@@ -9,8 +9,8 @@
     },
     {
       "type": "unzip",
-      "target": "~/Documents/Tools/jadx",
-      "exportFolder": "~/Documents/Tools/jadx/bin",
+      "target": "~/Workspace/Tools/jadx",
+      "exportFolder": "~/Workspace/Tools/jadx/bin",
       "export": true
     }
   ]

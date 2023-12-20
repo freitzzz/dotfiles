@@ -12,13 +12,13 @@
       "extract": [
         "cmdline-tools/*"
       ],
-      "target": "~/Documents/SDK/android"
+      "target": "~/Workspace/SDK/android"
     },
     {
       "type": "bash",
       "source": [
         "shopt -s extglob",
-        "cd ~/Documents/SDK/android",
+        "cd ~/Workspace/SDK/android",
         "cmdline_tools_root=\"$PWD/cmdline-tools/latest\"",
         "rm -rf $cmdline_tools_root",
         "mkdir -p $cmdline_tools_root",

@@ -17,14 +17,14 @@
       "type": "gunzip",
       "tar": true,
       "export": true,
-      "target": "~/Documents/Tools/jetbrains-toolbox",
-      "exportFolder": "~/Documents/Tools/jetbrains-toolbox"
+      "target": "~/Workspace/Tools/jetbrains-toolbox",
+      "exportFolder": "~/Workspace/Tools/jetbrains-toolbox"
     },
     {
       "type": "bash",
       "source": [
-        "mv ~/Documents/Tools/jetbrains-toolbox/jetbrains-toolbox-2.0.2.16660/jetbrains-toolbox ~/Documents/Tools/jetbrains-toolbox",
-        "rm -rf ~/Documents/Tools/jetbrains-toolbox/jetbrains-toolbox-2.0.2.16660"
+        "mv ~/Workspace/Tools/jetbrains-toolbox/jetbrains-toolbox-2.0.2.16660/jetbrains-toolbox ~/Workspace/Tools/jetbrains-toolbox",
+        "rm -rf ~/Workspace/Tools/jetbrains-toolbox/jetbrains-toolbox-2.0.2.16660"
       ]
     }
   ]
