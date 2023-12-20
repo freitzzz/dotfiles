@@ -36,6 +36,9 @@ class ModuleConverter(JsonConverter[M], Generic[M]):
         # print(dict(_input))
         if _input.get('name') == 'personal':
             print(dict(_input))
+            print(_input.get('type'))
+            print(_input.get('name'))
+            print(_input.keys())
 
         return _input.get('type') == self.module_type().value and _input.get('name') is not None
 
