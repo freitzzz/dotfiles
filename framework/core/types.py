@@ -147,8 +147,8 @@ class Factory(Generic[TI, TO]):
         :param _input: the input to create the output.
         :return: the output created using the input.
         """
-        a = first(self.converters, lambda c: c.accepts(_input), or_else=lambda: None)
-        return a.convert(_input) if a is not None else a
+        converter = first(self.converters, lambda c: c.accepts(_input), or_else=lambda: None)
+        return converter.convert(_input) if converter is not None else converter
 
     def create_multiple(self, _input: list[TI]) -> set[TO]:
         """
@@ -157,4 +157,4 @@ class Factory(Generic[TI, TO]):
         :param _input: the input desired to create.
         :return: the created output.
         """
-        return set(map(lambda json: self.create(json), _input))
+        return set(filter(lambda output: output is not None, map(lambda json: self.create(json), _input)))
