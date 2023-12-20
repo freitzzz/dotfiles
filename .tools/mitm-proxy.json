@@ -11,7 +11,7 @@
       "type": "gunzip",
       "tar": true,
       "export": true,
-      "target": "~/Documents/Tools/",
+      "target": "~/Documents/Tools/mitm-proxy",
       "exportFolder": "~/Documents/Tools/mitm-proxy"
     }
   ]

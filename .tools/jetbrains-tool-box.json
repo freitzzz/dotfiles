@@ -17,6 +17,7 @@
       "type": "gunzip",
       "tar": true,
       "export": true,
+      "target": "~/Documents/Tools/jetbrains-toolbox",
       "exportFolder": "~/Documents/Tools/jetbrains-toolbox"
     }
   ]
