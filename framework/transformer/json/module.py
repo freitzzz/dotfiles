@@ -39,7 +39,7 @@ class ModuleConverter(JsonConverter[M], Generic[M]):
             print(_input.get('type'))
             print(_input.get('name'))
             print(_input.keys())
-            raise Exception("")
+            # raise Exception("")
 
         return _input.get('type') == self.module_type().value and _input.get('name') is not None
 
