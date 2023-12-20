@@ -23,7 +23,8 @@
     {
       "type": "bash",
       "source": [
-        "mv ~/Documents/Tools/jetbrains-toolbox/jetbrains-toolbox-2.0.2.16660/jetbrains-toolbox ~/Documents/Tools/jetbrains-toolbox"
+        "mv ~/Documents/Tools/jetbrains-toolbox/jetbrains-toolbox-2.0.2.16660/jetbrains-toolbox ~/Documents/Tools/jetbrains-toolbox",
+        "rm -rf ~/Documents/Tools/jetbrains-toolbox/jetbrains-toolbox-2.0.2.16660"
       ]
     }
   ]
