@@ -147,7 +147,7 @@ class Factory(Generic[TI, TO]):
         :return: the output created using the input.
         """
         print(type(_input))
-        a = first(self.converters, lambda c: c.accepts(_input), or_else=None)
+        a = first(self.converters, lambda c: c.accepts(_input), or_else=lambda: None)
         print(a)
         return a.convert(_input)
 
