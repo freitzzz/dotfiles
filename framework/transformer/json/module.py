@@ -1,3 +1,4 @@
+import traceback
 from abc import abstractmethod
 from typing import TypeVar, Generic
 
@@ -39,6 +40,7 @@ class ModuleConverter(JsonConverter[M], Generic[M]):
             print(_input.get('type'))
             print(_input.get('name'))
             print(_input.keys())
+            print(traceback.format_exc())
 
         return _input.get('type') == self.module_type().value and _input.get('name') is not None
 
