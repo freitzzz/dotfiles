@@ -17,6 +17,9 @@
       "type": "gunzip",
       "tar": true,
       "export": true,
+      "extract": [
+        "jetbrains-toolbox-2.0.2.16660"
+      ],
       "target": "~/Documents/Tools/jetbrains-toolbox",
       "exportFolder": "~/Documents/Tools/jetbrains-toolbox"
     }
