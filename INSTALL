@@ -29,31 +29,48 @@ then
     cd dotfiles
 fi
 
+# 1. Create mandatory files
+
+alias_source=~/.bash_aliases
+
+if [ ! -e "$alias_source" ] ; then
+    touch "$alias_source"
+fi
+
+
 dependencies_source="DEPENDENCIES"
 
-# 1. Install required dependencies
+# 2. Install required dependencies
 
 echo "º Installing required dependencies..."
 echo "~~~~~~~~"
 
+# set default english locale since that's required in the grep condition
+src_lang=$LC_ALL
+export LC_ALL=C
+
 while read -r dependency;
 do
-    if [ -z "$(apt-cache show "$dependency")" ];
-    then
+    if apt-cache policy $dependency | grep 'Installed: (none)'; then
       echo "> Installing $dependency"
       sudo apt-get install -y $dependency
+    else
+      echo "> $dependency is already installed"
     fi
 done < <( cat "$dependencies_source" )
+
+# restore source language
+export LC_ALL=$src_lang
 
 echo "º All dependencies installed!"
 echo "~~~~~~~~"
 
-# 2. Run install script targeting repository modules
+# 3. Run install script targeting repository modules
 
 echo "º Installing modules using dotfiles framework..."
 echo "~~~~~~~~"
 
-python3.10 run.py
+python3 run.py
 
 echo "~~~~~~~~"
 echo "º All done! Your work environment is now tuned."

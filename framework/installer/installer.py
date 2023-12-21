@@ -1,3 +1,5 @@
+import traceback
+
 from framework.core.func import first
 from framework.core.log import log_info, log_error, log_warning
 from framework.installer.func import init_internals, eval_bash, \
@@ -34,11 +36,15 @@ class Installer:
             set(map(lambda m: ModuleDefinition(m.type, m.name), self.modules_to_install))
         )
 
-        self.modules_to_install = self.modules_to_install.intersection(self.loaded_profile.modules)
+        self.modules_to_install = set(filter(lambda m: m in self.loaded_profile.modules, self.modules_to_install))
 
         init_internals()
 
     def run(self):
+        if len(self.modules_to_install) == 0:
+            log_warning("No modules to install have been loaded.")
+            return
+
         abc = self.modules_to_install.difference(self.installed_modules)
 
         if len(abc) == 0:
@@ -69,13 +75,11 @@ class Installer:
         bash_script = self.bash_module_factory.create(module)
         _exit_code = eval_bash(bash_script)
 
-        print(_exit_code)
-
         if _exit_code == 0:
             log_info(f"installed {module}")
             self.installed_modules.add(module)
         else:
-            log_warning(f"failed to install {module}")
+            log_warning(f"failed to install {module} (status = {_exit_code})")
 
     def _install_dependencies(self, module: Module):
         module_dependencies = self._module_dependencies(module)

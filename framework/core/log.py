@@ -1,4 +1,5 @@
 import logging
+import traceback
 from abc import ABC, abstractmethod
 
 
@@ -53,7 +54,7 @@ class ConsoleLumberSnakeClient(LumberSnakeClient):
         print(f"[warning]: {message}")
 
     def log_error(self, message: str, error: BaseException) -> None:
-        print(f"[error]: {message} | {error}")
+        print(f"[error]: {message} | {error}\n{traceback.format_exc()}")
 
     def log_fatal(self, message: str) -> None:
         print(f"[fatal]: {message}")

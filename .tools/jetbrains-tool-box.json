@@ -17,7 +17,15 @@
       "type": "gunzip",
       "tar": true,
       "export": true,
-      "exportFolder": "~/Documents/Tools/jetbrains-toolbox"
+      "target": "~/Workspace/Tools/jetbrains-toolbox",
+      "exportFolder": "~/Workspace/Tools/jetbrains-toolbox"
+    },
+    {
+      "type": "bash",
+      "source": [
+        "mv ~/Workspace/Tools/jetbrains-toolbox/jetbrains-toolbox-2.0.2.16660/jetbrains-toolbox ~/Workspace/Tools/jetbrains-toolbox",
+        "rm -rf ~/Workspace/Tools/jetbrains-toolbox/jetbrains-toolbox-2.0.2.16660"
+      ]
     }
   ]
 }

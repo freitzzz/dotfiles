@@ -121,6 +121,7 @@ class CommandGunZipConverter(CommandConverter[CommandGunZip]):
             sudo=_input.get('sudo'),
             export=_input.get('export'),
             export_folder=_input.get('exportFolder'),
+            extract=_input.get('extract')
         )
 
 
