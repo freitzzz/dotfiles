@@ -11,7 +11,7 @@
       "type": "bash",
       "source": [
         "sed -i 's/OSH_THEME.*/OSH_THEME=\"rr\"/g' ~/.bashrc",
-        "sed -i 's/if \\[ -f \"$HOME\\/\\.bash_rc\" \\]/if [[ -f \"$HOME\\/.bash_rc\" \\&\\& -z \"$OSH\" ]]/g' ~/.profile",
+        "sed -i 's/if \\[ -f \"$HOME\\/\\.bashrc\" \\]/if [[ -f \"$HOME\\/.bashrc\" \\&\\& -z \"$OSH\" ]]/g' ~/.profile",
         "echo 'export EDITOR=\"nano\"' >> ~/.bashrc",
         "echo \"source ~/.bash_aliases\" >> ~/.bashrc",
         "echo \"source ~/.profile\" >> ~/.bashrc"
