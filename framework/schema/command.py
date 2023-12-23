@@ -172,6 +172,7 @@ class CommandGunZip(Command):
     Attributes:
         source: the file path that locates the .gz file to uncompress.
         target: directory where files will be uncompressed to. Defaults to /tmp
+        extract: a set of files to extract from the zip file. Defaults to every file.
     """
 
     def __init__(
@@ -182,6 +183,7 @@ class CommandGunZip(Command):
             sudo: bool = False,
             export: bool = False,
             export_folder: str = None,
+            extract: set[str] = None,
     ) -> None:
         super().__init__(
             CommandType.gunzip,
@@ -193,6 +195,7 @@ class CommandGunZip(Command):
         self.source = source
         self.target = target or "/tmp"
         self.tar = tar
+        self.extract = safe_set(extract)
 
 
 class CommandNPM(Command):

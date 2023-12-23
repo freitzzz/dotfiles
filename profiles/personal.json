@@ -1,0 +1,142 @@
+{
+  "$schema": "../profile-schema.json",
+  "name": "personal",
+  "modules": [
+    {
+      "name": "android",
+      "type": "alias"
+    },
+    {
+      "name": "bash",
+      "type": "alias"
+    },
+    {
+      "name": "bricks",
+      "type": "alias"
+    },
+    {
+      "name": "cobrinhas",
+      "type": "alias"
+    },
+    {
+      "name": "git",
+      "type": "alias"
+    },
+    {
+      "name": "network",
+      "type": "alias"
+    },
+    {
+      "name": "global-config",
+      "type": "git-config"
+    },
+    {
+      "name": "android",
+      "type": "sdk"
+    },
+    {
+      "name": "docker",
+      "type": "sdk"
+    },
+    {
+      "name": "go",
+      "type": "sdk"
+    },
+    {
+      "name": "gradle",
+      "type": "sdk"
+    },
+    {
+      "name": "node",
+      "type": "sdk"
+    },
+    {
+      "name": "open-jdk",
+      "type": "sdk"
+    },
+    {
+      "name": "btop",
+      "type": "tool"
+    },
+    {
+      "name": "compress-images",
+      "type": "tool"
+    },
+    {
+      "name": "github-upsert",
+      "type": "tool"
+    },
+    {
+      "name": "google-chrome",
+      "type": "tool"
+    },
+    {
+      "name": "hugo",
+      "type": "tool"
+    },
+    {
+      "name": "jadx",
+      "type": "tool"
+    },
+    {
+      "name": "jetbrains-tool-box",
+      "type": "tool"
+    },
+    {
+      "name": "jq",
+      "type": "tool"
+    },
+    {
+      "name": "keepass",
+      "type": "tool"
+    },
+    {
+      "name": "krita",
+      "type": "tool"
+    },
+    {
+      "name": "mason",
+      "type": "tool"
+    },
+    {
+      "name": "mitm-proxy",
+      "type": "tool"
+    },
+    {
+      "name": "neofetch",
+      "type": "tool"
+    },
+    {
+      "name": "obs-studio",
+      "type": "tool"
+    },
+    {
+      "name": "oh-my-bash",
+      "type": "tool"
+    },
+    {
+      "name": "scrcpy",
+      "type": "tool"
+    },
+    {
+      "name": "sdkman",
+      "type": "tool"
+    },
+    {
+      "name": "sqlitebrowser",
+      "type": "tool"
+    },
+    {
+      "name": "tree",
+      "type": "tool"
+    },
+    {
+      "name": "vscode",
+      "type": "tool"
+    },
+    {
+      "name": "webp",
+      "type": "tool"
+    }
+  ]
+}

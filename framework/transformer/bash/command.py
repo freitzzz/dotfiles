@@ -192,7 +192,8 @@ class CommandGunZipConverter(CommandConverter[CommandGunZip]):
                 [
                     mkdir(target),
                     execution_environment(
-                        sudo(_input, f"tar -xvf {source}") if _input.tar else sudo(_input, f"gunzip {source}"),
+                        sudo(_input, f"tar xf {source} {join(_input.extract)}") if _input.tar else sudo(_input,
+                                                                                                        f"gunzip {source}"),
                         target
                     ),
                 ]

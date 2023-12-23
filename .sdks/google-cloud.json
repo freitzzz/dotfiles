@@ -9,15 +9,18 @@
     },
     {
       "type": "tar",
-      "target": "~/Documents/SDK/google-cloud-sdk",
+      "target": "~/Workspace/SDK/",
+      "extract": [
+        "google-cloud-sdk"
+      ],
       "export": true,
-      "exportFolder": "~/Documents/SDK/google-cloud-sdk/bin"
+      "exportFolder": "~/Workspace/SDK/google-cloud-sdk/bin"
     },
     {
       "type": "bash",
       "source": [
-        "~/Documents/SDK/google-cloud-sdk/install.sh",
-        "~/Documents/SDK/google-cloud-sdk/bin/gcloud init"
+        "~/Workspace/SDK/google-cloud-sdk/install.sh",
+        "~/Workspace/SDK/google-cloud-sdk/bin/gcloud init"
       ]
     }
   ]

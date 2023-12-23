@@ -1,6 +1,6 @@
 {
   "$schema": "../modules-schema.json",
-  "name": "vscode",
+  "name": "sqlitebrowser",
   "type": "tool",
   "commands": [
     {

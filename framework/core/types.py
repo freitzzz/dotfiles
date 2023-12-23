@@ -1,6 +1,6 @@
 # All possible element types
 from abc import abstractmethod
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, Optional
 
 from framework.core.func import first
 
@@ -139,14 +139,16 @@ class Factory(Generic[TI, TO]):
     def __init__(self, converters: set[Converter[TI, TO]]):
         self.converters = converters
 
-    def create(self, _input: TI) -> TO:
+    def create(self, _input: TI) -> Optional[TO]:
         """
         Creates a value of type :class:`TO` based on an input of type :class:`TI`.
+        Output will be empty if no converter accepts the value.
 
         :param _input: the input to create the output.
         :return: the output created using the input.
         """
-        return first(self.converters, lambda c: c.accepts(_input)).convert(_input)
+        converter = first(self.converters, lambda c: c.accepts(_input), or_else=lambda: None)
+        return converter.convert(_input) if converter is not None else converter
 
     def create_multiple(self, _input: list[TI]) -> set[TO]:
         """
@@ -155,4 +157,4 @@ class Factory(Generic[TI, TO]):
         :param _input: the input desired to create.
         :return: the created output.
         """
-        return set(map(lambda json: self.create(json), _input))
+        return set(filter(lambda output: output is not None, map(lambda json: self.create(json), _input)))

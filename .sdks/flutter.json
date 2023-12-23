@@ -15,7 +15,7 @@
   "commands": [
     {
       "type": "rm",
-      "target": "~/Documents/SDK/flutter"
+      "target": "~/Workspace/SDK/flutter"
     },
     {
       "type": "wget",
@@ -26,8 +26,8 @@
       "extract": [
         "flutter"
       ],
-      "target": "~/Documents/SDK/",
-      "exportFolder": "~/Documents/SDK/flutter/bin",
+      "target": "~/Workspace/SDK/",
+      "exportFolder": "~/Workspace/SDK/flutter/bin",
       "export": true
     },
     {
