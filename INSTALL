@@ -70,7 +70,7 @@ echo "~~~~~~~~"
 echo "º Installing modules using dotfiles framework..."
 echo "~~~~~~~~"
 
-python3 run.py
+python3 run.py -p profiles/personal.json
 
 echo "~~~~~~~~"
 echo "º All done! Your work environment is now tuned."
