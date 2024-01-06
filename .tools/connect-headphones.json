@@ -1,0 +1,60 @@
+{
+  "$schema": "../modules-schema.json",
+  "name": "connect-headphones",
+  "type": "tool",
+  "commands": [
+    {
+      "type": "bash",
+      "source": [
+        "connect_headphones_script=$( cat << EOF",
+        "#!/usr/bin/env bash",
+        "",
+        "device_mac=\"60:AB:D2:3C:DC:D6\"",
+        "",
+        "bluetoothctl remove \\$device_mac",
+        "bluetoothctl scan on&",
+        "",
+        "sleep 3.5",
+        "",
+        "kill -Kill \\$!",
+        "",
+        "ops=( \"pair\" \"connect\")",
+        "",
+        "for op in \"\\${ops[@]}\"",
+        "do",
+        "bluetoothctl \\$op \\$device_mac",
+        "done",
+        "EOF",
+        ")",
+        "connect_headphones_bin_dir=~/Workspace/Tools/connect-headphones",
+        "mkdir -p $connect_headphones_bin_dir",
+        "echo \"$connect_headphones_script\" > $connect_headphones_bin_dir/connect-headphones",
+        "chmod +x $connect_headphones_bin_dir/connect-headphones"
+      ],
+      "export": true,
+      "exportFolder": "~/Workspace/Tools/connect-headphones"
+    },
+    {
+      "type": "bash",
+      "source": [
+        "home_dir=$(echo $HOME)",
+        "connect_headphones_desktop_entry=$( cat << EOF",
+        "[Desktop Entry]",
+        "Name=Connect Headphones",
+        "Comment=Connect bluetooth headphones",
+        "Exec=\"$home_dir/Workspace/Tools/connect-headphones/connect-headphones\"",
+        "Icon=audio-headset-symbolic",
+        "Terminal=false",
+        "Type=Application",
+        "Categories=Unknown",
+        "MimeType=",
+        "EOF",
+        ")",
+        "connect_headphones_desktop_entry_path=~/.local/share/applications/connect_headphones.desktop",
+        "echo \"$connect_headphones_desktop_entry\" > \"$connect_headphones_desktop_entry_path\"",
+        "chmod +x $connect_headphones_desktop_entry_path",
+        "cp $connect_headphones_desktop_entry_path ~/Desktop"
+      ]
+    }
+  ]
+}
