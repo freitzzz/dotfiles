@@ -87,7 +87,7 @@
       "type": "tool"
     },
     {
-      "name": "keepass",
+      "name": "keepass2",
       "type": "tool"
     },
     {
@@ -136,6 +136,18 @@
     },
     {
       "name": "webp",
+      "type": "tool"
+    },
+    {
+      "name": "flutter",
+      "type": "sdk"
+    },
+    {
+      "name": "fuse",
+      "type": "sdk"
+    },
+    {
+      "name": "connect-headphones",
       "type": "tool"
     }
   ]
