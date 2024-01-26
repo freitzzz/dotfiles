@@ -1,0 +1,10 @@
+@startuml dotfiles_flow
+start
+title How does the framework work?
+
+:Read modules JSON;
+:Transfrom JSON to Python models;
+:Transform Python models to Bash files;
+:Execute Bash files;
+end
+@enduml
