@@ -2,6 +2,10 @@
 start
 title How does the framework work?
 
+skinparam {
+    BackgroundColor #00000000
+}
+
 :Read modules JSON;
 :Transfrom JSON to Python models;
 :Transform Python models to Bash files;
