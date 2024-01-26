@@ -1,4 +1,4 @@
-@startuml dotfiles_flow
+@startuml framework_flow
 start
 title How does the framework work?
 
@@ -7,8 +7,8 @@ skinparam {
 }
 
 :Read modules JSON;
-:Transfrom JSON to Python models;
-:Transform Python models to Bash files;
+:Convert JSON to Python models;
+:Convert Python models to Bash files;
 :Execute Bash files;
 end
 @enduml
