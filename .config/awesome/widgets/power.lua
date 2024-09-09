@@ -1,12 +1,12 @@
 -- Power widget
 
-local awful = require 'awful'
 local button = require 'widgets.button'
+local commands = require 'commands'
 
 local self = {}
 
 local function onClick(_)
-    return awful.spawn("/home/freitas/.local/bin/rofi-poweroff-menu")
+    return commands.power_menu()
 end
 
 function self:new(args)

@@ -1,14 +1,12 @@
 -- Bluetooth widget
 
-local awful = require 'awful'
 local button = require 'widgets.button'
+local commands = require 'commands'
 
 local self = {}
 
 local function updateIcon(btn)
-    awful.spawn.easy_async_with_shell("/home/freitas/.local/bin/rofi-bluetooth-menu --query-power", function(out)
-        out = string.gsub(out, "%s+", "")
-
+    commands.bluetooth_connected(function(out)
         if out == '0' then
             button.update(btn, { icon = '/home/freitas/.config/awesome/assets/icons/bluetooth.svg', text = nil })
         elseif out == '1' then
@@ -18,7 +16,7 @@ local function updateIcon(btn)
 end
 
 local function onClick(btn)
-    awful.spawn.easy_async_with_shell("/home/freitas/.local/bin/rofi-bluetooth-menu", function()
+    commands.bluetooth_menu(function()
         updateIcon(btn)
     end)
 end
