@@ -5,26 +5,29 @@ local button = require 'widgets.button'
 
 local self = {}
 
-local function onClick(btn)
-    awful.spawn.easy_async_with_shell("/home/freitas/.local/bin/rofi-bluetooth-menu", function(out)
+local function updateIcon(btn)
+    awful.spawn.easy_async_with_shell("/home/freitas/.local/bin/rofi-bluetooth-menu --query-power", function(out)
+        out = string.gsub(out, "%s+", "")
+
         if out == '0' then
             button.update(btn, { icon = '/home/freitas/.config/awesome/assets/icons/bluetooth.svg', text = nil })
         elseif out == '1' then
             button.update(btn, { icon = '/home/freitas/.config/awesome/assets/icons/bluetooth-off.svg', text = nil })
-        else
-            button.update(btn, { icon = '/home/freitas/.config/awesome/assets/icons/bluetooth.svg', text = out })
         end
+    end)
+end
+
+local function onClick(btn)
+    awful.spawn.easy_async_with_shell("/home/freitas/.local/bin/rofi-bluetooth-menu", function()
+        updateIcon(btn)
     end)
 end
 
 function self:new()
     return button {
-        icon = "/home/freitas/.config/awesome/assets/icons/bluetooth.svg",
         color = '#9bcbf8',
-        onClick = function(_)
-            print('oi?')
-            onClick(btn)
-        end
+        onClick = onClick,
+        onInit = updateIcon
     }
 end
 
