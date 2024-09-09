@@ -13,8 +13,9 @@ function self:new(args)
     local color = args.color or '#f88'
     local icon = args.icon
     local text = args.text
-    local onHover = args.onHover
     local onClick = args.onClick
+    local onHover = args.onHover
+    local onInit = args.onInit
 
     local button = wibox.widget {
         {
@@ -44,38 +45,25 @@ function self:new(args)
     }
 
     if not (not onHover) then
-        button:connect_signal("mouse::enter", onHover)
+        button:connect_signal("mouse::enter", function()
+            onHover(button)
+        end)
     end
 
     if not (not onClick) then
-        button:connect_signal("button::press", onClick)
+        button:connect_signal("button::press", function()
+            onClick(button)
+        end)
+    end
+
+    if not (not onInit) then
+        onInit(button)
     end
 
     return button
 end
 
-function dump(o)
-    if type(o) == 'table' then
-        local s = '{ '
-        for k, v in pairs(o) do
-            if type(k) ~= 'number' then k = '"' .. k .. '"' end
-            s = s .. '[' .. k .. '] = ' .. dump(v) .. ','
-        end
-        return s .. '} '
-    else
-        return tostring(o)
-    end
-end
-
 function self:update(args)
-    print('1111')
-    print(args)
-    print('2222')
-    print(self)
-    print('3333')
-    print(self.new)
-
-    print('4444')
     if type(args.text) == 'string' then
         self:get_children_by_id('text')[1]:set_markup(args.text)
     end
