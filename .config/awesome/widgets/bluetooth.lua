@@ -1,5 +1,6 @@
 -- Bluetooth widget
 
+local assets = require 'assets'
 local button = require 'widgets.button'
 local commands = require 'commands'
 
@@ -8,9 +9,9 @@ local self = {}
 local function updateIcon(btn)
     commands.bluetooth_connected(function(out)
         if out == '0' then
-            button.update(btn, { icon = '/home/freitas/.config/awesome/assets/icons/bluetooth.svg', text = nil })
+            button.update(btn, { icon = assets.icons.bluetooth, text = nil })
         elseif out == '1' then
-            button.update(btn, { icon = '/home/freitas/.config/awesome/assets/icons/bluetooth-off.svg', text = nil })
+            button.update(btn, { icon = assets.icons.bluetooth_off, text = nil })
         end
     end)
 end

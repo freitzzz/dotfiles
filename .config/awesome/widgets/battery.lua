@@ -1,5 +1,6 @@
 -- Power widget
 
+local assets = require 'assets'
 local gears = require("gears")
 local button = require 'widgets.button'
 
@@ -30,7 +31,7 @@ function self:new()
     self:update()
 
     local btn = button {
-        icon = self.isCharging and "/home/freitas/.config/awesome/assets/icons/plug-charging.svg" or "/home/freitas/.config/awesome/assets/icons/plug.svg",
+        icon = self.isCharging and assets.icons.plug_charging or assets.icons.plug,
         color = "#b7e5dd",
         text = self.percentage,
     }
@@ -44,8 +45,7 @@ function self:new()
             button.update(btn, {
                 text = self.percentage,
                 -- prevent duplicate
-                icon = self.isCharging and "/home/freitas/.config/awesome/assets/icons/plug-charging.svg" or
-                    "/home/freitas/.config/awesome/assets/icons/plug.svg",
+                icon = self.isCharging and assets.icons.plug_charging or assets.icons.plug,
             })
         end
     }

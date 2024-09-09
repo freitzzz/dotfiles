@@ -1,5 +1,6 @@
 -- Power widget
 
+local assets = require 'assets'
 local button = require 'widgets.button'
 local commands = require 'commands'
 
@@ -9,9 +10,9 @@ local function onClick(_)
     return commands.power_menu()
 end
 
-function self:new(args)
+function self:new()
     return button {
-        icon = "/home/freitas/.config/awesome/assets/icons/power.svg",
+        icon = assets.icons.power,
         onClick = onClick
     }
 end
