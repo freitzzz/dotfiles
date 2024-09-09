@@ -1,4 +1,4 @@
--- Power widget
+-- Battery widget
 
 local assets = require 'assets'
 local gears = require("gears")

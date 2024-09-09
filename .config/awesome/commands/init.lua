@@ -36,9 +36,33 @@ local function power_menu(cb)
     return command("/home/freitas/.local/bin/rofi-poweroff-menu", cb)
 end
 
+--- Launches wifi menu.
+---@param cb? function
+---@return string
+local function wifi_menu(cb)
+    return command("/home/freitas/.local/bin/rofi-wifi-menu", cb)
+end
+
+--- Queries WiFi enabled status.
+---@param cb? function
+---@return string
+local function wifi_enabled(cb)
+    return command("/home/freitas/.local/bin/wifi-enabled", cb)
+end
+
+--- Queries connected WiFi network SSID.
+---@param cb? function
+---@return string
+local function wifi_ssid(cb)
+    return command("/home/freitas/.local/bin/wifi-ssid", cb)
+end
+
 return {
     command = command,
     bluetooth_menu = bluetooth_menu,
     bluetooth_connected = bluetooth_connected,
     power_menu = power_menu,
+    wifi_enabled = wifi_enabled,
+    wifi_menu = wifi_menu,
+    wifi_ssid = wifi_ssid,
 }
