@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+connections=$(nmcli connection show --active | tr '/' '\n')
+
+while IFS= read -r con; do
+	parts=($con)
+	if [ "${parts[2]}" = "wifi" ]; then
+		echo "${parts[0]}"
+		exit 0
+	fi
+done <<<"$connections"
