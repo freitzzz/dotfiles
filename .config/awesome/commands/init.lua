@@ -1,7 +1,8 @@
 local awful = require 'awful'
+local watch = awful.spawn and awful.spawn.with_line_callback
 
 --- Executes a command as an OS call. If [cb] is passed, command is launched a in a coroutine.
----@param cmd string
+---@param cmd string|table
 ---@param cb? function
 ---@return string
 local function command(cmd, cb)
@@ -14,54 +15,100 @@ local function command(cmd, cb)
     end
 end
 
+--- Executes a command as an OS call and streams the output in a line manner.
+--- Returns a callback that once called kills the stream. Stream is automatically
+--- killed if awesome exits.
+---@param cmd string
+---@param cb function
+---@return function
+local function stream(cmd, cb)
+    local cmd_args = { "stdbuf", "-oL" }
+    for arg in string.gmatch(cmd, "[^%s]+") do table.insert(cmd_args, arg) end
+
+    local listener = watch(cmd_args, {
+        stdout = cb
+    })
+
+    local kill_cb = function()
+        awesome.kill(listener, awesome.unix_signal.SIGTERM)
+    end
+
+    awesome.connect_signal("exit", kill_cb)
+
+    return kill_cb
+end
+
+--- Callls [command] returning full output if [opt.watch] parameter is false.
+--- Otherwise calls [stream].
+---@param cmd string
+---@param cb? function
+---@param opt? table
+---@return string | function
+local function command_or_stream(cmd, cb, opt)
+    if not opt or not opt.watch or not cb then
+        return command(cmd, cb)
+    else
+        return stream(cmd, cb)
+    end
+end
+
 --- Launches bluetooth menu.
 ---@param cb? function
----@return string
-local function bluetooth_menu(cb)
-    return command("/home/freitas/.local/bin/rofi-bluetooth-menu", cb)
+local function bluetooth_menu(cb, opt)
+    return command_or_stream("/home/freitas/.local/bin/rofi-bluetooth-menu", cb, opt)
 end
 
 --- Queries bluetooth connected status. Returns 0 if connected, 1 otherwise.
 ---@param cb? function
----@return "0" | "1"
-local function bluetooth_connected(cb)
-    return command("/home/freitas/.local/bin/rofi-bluetooth-menu --query-power", cb)
+local function bluetooth_connected(cb, opt)
+    return command_or_stream("/home/freitas/.local/bin/rofi-bluetooth-menu --query-power", cb, opt)
 end
 
 
 --- Launches power menu.
 ---@param cb? function
----@return string
-local function power_menu(cb)
-    return command("/home/freitas/.local/bin/rofi-poweroff-menu", cb)
+local function power_menu(cb, opt)
+    return command_or_stream("/home/freitas/.local/bin/rofi-poweroff-menu", cb, opt)
+end
+
+--- Takes a screenshot.
+---@param cb? function
+local function screenshot(cb, opt)
+    return command_or_stream("/home/freitas/.local/bin/screenshot", cb, opt)
+end
+
+--- Queries master channel volume.
+---@param cb? function
+local function volume(cb, opt)
+    return command_or_stream("/home/freitas/.local/bin/volume-level --monitor", cb, opt)
 end
 
 --- Launches wifi menu.
 ---@param cb? function
----@return string
-local function wifi_menu(cb)
-    return command("/home/freitas/.local/bin/rofi-wifi-menu", cb)
+local function wifi_menu(cb, opt)
+    return command_or_stream("/home/freitas/.local/bin/rofi-wifi-menu", cb, opt)
 end
 
 --- Queries WiFi enabled status.
 ---@param cb? function
----@return string
-local function wifi_enabled(cb)
-    return command("/home/freitas/.local/bin/wifi-enabled", cb)
+local function wifi_enabled(cb, opt)
+    return command_or_stream("/home/freitas/.local/bin/wifi-enabled", cb, opt)
 end
 
 --- Queries connected WiFi network SSID.
 ---@param cb? function
----@return string
-local function wifi_ssid(cb)
-    return command("/home/freitas/.local/bin/wifi-ssid", cb)
+local function wifi_ssid(cb, opt)
+    return command_or_stream("/home/freitas/.local/bin/wifi-ssid", cb, opt)
 end
 
 return {
     command = command,
+    stream = stream,
     bluetooth_menu = bluetooth_menu,
     bluetooth_connected = bluetooth_connected,
     power_menu = power_menu,
+    screenshot = screenshot,
+    volume = volume,
     wifi_enabled = wifi_enabled,
     wifi_menu = wifi_menu,
     wifi_ssid = wifi_ssid,
