@@ -10,7 +10,7 @@ local margin = 4
 local self = {}
 
 function self:new(args)
-    local color = args.color or '#f88'
+    local color = args.color or '#f38ba8'
     local icon = args.icon
     local text = args.text
     local onClick = args.onClick
@@ -25,22 +25,31 @@ function self:new(args)
                     image = icon,
                     widget = wibox.widget.imagebox
                 },
-                margins = not icon and 0 or margin,
+                margins = margin,
                 widget = wibox.container.margin
             },
             {
                 {
-                    id = 'text',
                     markup = text,
                     widget = wibox.widget.textbox
                 },
+                id = 'text',
+                update = function(_self, value)
+                    _self:get_all_children()[1]:set_markup(value)
+
+                    if not value then
+                        _self:set_margins(0)
+                    else
+                        _self:set_margins(margin)
+                    end
+                end,
                 margins = not text and 0 or margin,
                 widget = wibox.container.margin
             },
             layout = wibox.layout.fixed.horizontal
         },
         bg = color,
-        shape = function(cr, width, height) gears.shape.rounded_rect(cr, width, height, margin) end,
+        shape = function(cr, width, height) gears.shape.rounded_rect(cr, width, height, 8) end,
         widget = wibox.container.background
     }
 
@@ -65,7 +74,7 @@ end
 
 function self:update(args)
     if type(args.text) == 'string' then
-        self:get_children_by_id('text')[1]:set_markup(args.text)
+        self:get_children_by_id('text')[1]:update(args.text)
     end
 
     if type(args.icon) == 'string' then
