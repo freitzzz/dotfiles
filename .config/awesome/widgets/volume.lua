@@ -7,7 +7,6 @@ local commands = require 'commands'
 local self = {}
 
 local function onClick(_)
-    return commands.power_menu()
 end
 
 function self:new()
