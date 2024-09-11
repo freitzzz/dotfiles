@@ -22,6 +22,8 @@ require("awful.hotkeys_popup.keys")
 local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
 
+local commands = require 'commands'
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -57,16 +59,16 @@ end
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "x-terminal-emulator"
-editor = os.getenv("EDITOR") or "editor"
-editor_cmd = terminal .. " -e " .. editor
+local terminal = "x-terminal-emulator"
+local editor = os.getenv("EDITOR") or "editor"
+local editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
 -- I suggest you to remap Mod4 to another key using xmodmap or other tools.
 -- However, you can use another modifier like Mod1, but it may interact with others.
-modkey = "Mod4"
+local modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
@@ -83,15 +85,12 @@ awful.layout.layouts = {
     awful.layout.suit.max.fullscreen,
     awful.layout.suit.magnifier,
     awful.layout.suit.corner.nw,
-    -- awful.layout.suit.corner.ne,
-    -- awful.layout.suit.corner.sw,
-    -- awful.layout.suit.corner.se,
 }
 -- }}}
 
 -- {{{ Menu
 -- Create a launcher widget and a main menu
-myawesomemenu = {
+local myawesomemenu = {
     { "hotkeys",     function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
     { "manual",      terminal .. " -e man awesome" },
     { "edit config", editor_cmd .. " " .. awesome.conffile },
@@ -118,11 +117,6 @@ else
 end
 
 
-mylauncher = awful.widget.launcher({
-    image = beautiful.awesome_icon,
-    menu = mymainmenu
-})
-
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
@@ -133,46 +127,6 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- {{{ Wibar
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
-
--- Create a wibox for each screen and add it
-local taglist_buttons = gears.table.join(
-    awful.button({}, 1, function(t) t:view_only() end),
-    awful.button({ modkey }, 1, function(t)
-        if client.focus then
-            client.focus:move_to_tag(t)
-        end
-    end),
-    awful.button({}, 3, awful.tag.viewtoggle),
-    awful.button({ modkey }, 3, function(t)
-        if client.focus then
-            client.focus:toggle_tag(t)
-        end
-    end),
-    awful.button({}, 4, function(t) awful.tag.viewnext(t.screen) end),
-    awful.button({}, 5, function(t) awful.tag.viewprev(t.screen) end)
-)
-
-local tasklist_buttons = gears.table.join(
-    awful.button({}, 1, function(c)
-        if c == client.focus then
-            c.minimized = true
-        else
-            c:emit_signal(
-                "request::activate",
-                "tasklist",
-                { raise = true }
-            )
-        end
-    end),
-    awful.button({}, 3, function()
-        awful.menu.client_list({ theme = { width = 250 } })
-    end),
-    awful.button({}, 4, function()
-        awful.client.focus.byidx(1)
-    end),
-    awful.button({}, 5, function()
-        awful.client.focus.byidx(-1)
-    end))
 
 local function set_wallpaper(s)
     -- Wallpaper
@@ -206,49 +160,51 @@ awful.screen.connect_for_each_screen(function(s)
         awful.button({}, 3, function() awful.layout.inc(-1) end),
         awful.button({}, 4, function() awful.layout.inc(1) end),
         awful.button({}, 5, function() awful.layout.inc(-1) end)))
-    -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist {
-        screen  = s,
-        filter  = awful.widget.taglist.filter.all,
-        buttons = taglist_buttons
-    }
-
-    -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist {
-        screen  = s,
-        filter  = awful.widget.tasklist.filter.currenttags,
-        buttons = tasklist_buttons
-    }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ height = 32, position = "top", screen = s })
+    s.mywibox = awful.wibar({ height = 36, position = "top", screen = s, opacity = 1, bg = "#00000000" })
 
     local widgets = require('widgets')
 
     -- Add widgets to the wibox
     s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
-        { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            mylauncher,
-            s.mypromptbox,
+        {
+            layout = wibox.layout.flex.horizontal,
+            {
+                layout = wibox.layout.fixed.horizontal,
+                size = 1,
+                spacing = 8,
+                widgets.home(),
+                widgets.cpu(),
+                widgets.ram(),
+                widgets.temp(),
+                s.mypromptbox,
+            },
+            {
+                layout = wibox.container.place,
+                s.mytaglist,
+            },
+            {
+                layout = wibox.container.place,
+                halign = "right",
+                {
+                    layout = wibox.layout.fixed.horizontal,
+                    size = 1,
+                    spacing = 8,
+                    widgets.wifi(),
+                    widgets.volume(),
+                    widgets.calendar(),
+                    widgets.bluetooth(),
+                    widgets.battery(),
+                    widgets.power(),
+                }
+            },
         },
-        s.mytaglist,
-
-        --s.mytasklist, -- Middle widget
-        { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
-            size = 1,
-            spacing = 8,
-            -- mykeyboardlayout,
-            wibox.widget.systray(),
-            mytextclock,
-            s.mylayoutbox,
-            widgets.wifi(),
-            widgets.bluetooth(),
-            widgets.battery(),
-            widgets.power(),
-        },
+        top = 4,
+        right = 6,
+        left = 6,
+        bottom = 4,
+        layout = wibox.container.margin,
     }
 end)
 -- }}}
@@ -368,7 +324,9 @@ globalkeys = gears.table.join(
 
     -- Lock Screen
     awful.key({ modkey }, "l", function() awful.spawn("slock") end,
-        { description = "lock screen", group = "power" })
+        { description = "lock screen", group = "power" }),
+    awful.key({}, "Print", commands.screenshot,
+        { description = "takes a screenshot", group = "utils" })
 )
 
 clientkeys = gears.table.join(
@@ -577,30 +535,9 @@ client.connect_signal("request::titlebars", function(c)
         end)
     )
 
-    awful.titlebar(c):setup {
-        { -- Left
-            awful.titlebar.widget.iconwidget(c),
-            buttons = buttons,
-            layout  = wibox.layout.fixed.horizontal
-        },
-        {     -- Middle
-            { -- Title
-                align  = "center",
-                widget = awful.titlebar.widget.titlewidget(c)
-            },
-            buttons = buttons,
-            layout  = wibox.layout.flex.horizontal
-        },
-        { -- Right
-            awful.titlebar.widget.floatingbutton(c),
-            awful.titlebar.widget.maximizedbutton(c),
-            awful.titlebar.widget.stickybutton(c),
-            awful.titlebar.widget.ontopbutton(c),
-            awful.titlebar.widget.closebutton(c),
-            layout = wibox.layout.fixed.horizontal()
-        },
-        layout = wibox.layout.align.horizontal
-    }
+    c.shape = function(cr, w, h)
+        gears.shape.rounded_rect(cr, w, h, 12)
+    end
 end)
 
 -- Enable sloppy focus, so that focus follows mouse.
@@ -611,3 +548,6 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+-- Autostart Applications
+commands.command("picom -b")
