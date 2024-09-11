@@ -37,13 +37,13 @@ function self:new(args)
                 update = function(_self, value)
                     _self:get_all_children()[1]:set_markup(value)
 
-                    if not value then
+                    if not value or #value == 0 then
                         _self:set_margins(0)
                     else
                         _self:set_margins(margin)
                     end
                 end,
-                margins = not text and 0 or margin,
+                margins = (not text or #text == 0) and 0 or margin,
                 widget = wibox.container.margin
             },
             layout = wibox.layout.fixed.horizontal
