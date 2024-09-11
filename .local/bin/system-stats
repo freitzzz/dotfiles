@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+cpu() {
+    awk '{u=$2+$4; t=$2+$4+$5; if (NR==1){u1=u; t1=t;} else print int(($2+$4-u1) * 100 / (t-t1) + 0.5) "%";  }' \
+        <(grep 'cpu ' /proc/stat) <(
+            sleep 1
+            grep 'cpu ' /proc/stat
+        )
+}
+
+ram() {
+    free -m | awk 'NR==2 {print int($3 / $2 * 100 + 0.5) "%"}'
+}
+
+temp() {
+    cat /sys/class/thermal/thermal_zone0/temp | awk '{print $1 / 1000 "ºC"}'
+}
+
+monitor_sleep() {
+    while true; do
+        sleep $1
+    done
+}
+
+monitor() {
+    while true; do
+        singleshot $1
+    done
+}
+
+singleshot() {
+    if [ -z "$1" ]; then
+        cpu_value=$(cpu)
+        ram_value=$(ram)
+        temp_value=$(temp)
+
+        echo "$cpu_value,$ram_value,$temp_value"
+    else
+        local values=()
+
+        IFS=',' read -ra split <<<"$1"
+        for key in "${split[@]}"; do
+            if [ $key = "cpu" ]; then
+                values+=($(cpu))
+            elif [ $key = "ram" ]; then
+                values+=($(ram))
+            elif [ $key = "temp" ]; then
+                values+=($(temp))
+            else
+                echo "Unrecognized param: $key"
+            fi
+        done
+
+        if [ ${#values[@]} -gt 0 ]; then
+            echo "${values[*]// /,}"
+        fi
+    fi
+}
+
+case "$1" in
+"--monitor") monitor "$2" || exit ;;
+*) singleshot "$1" || exit ;;
+esac
