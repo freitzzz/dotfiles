@@ -13,7 +13,9 @@ local function schedule(args)
     }
 
     awesome.connect_signal("exit", function()
-        ref:stop()
+        if ref.started then
+            ref:stop()
+        end
     end)
 end
 
