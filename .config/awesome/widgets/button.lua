@@ -4,13 +4,14 @@
 
 local wibox = require("wibox")
 local gears = require("gears")
+local palettes = require("widgets.palettes")
 
 local margin = 4
 
 local self = {}
 
 function self:new(args)
-    local color = args.color or '#f38ba8'
+    local color = args.color or palettes.default
     local icon = args.icon
     local text = args.text
     local onClick = args.onClick

@@ -3,6 +3,7 @@
 local assets = require 'assets'
 local gears = require("gears")
 local button = require 'widgets.button'
+local palettes = require 'widgets.palettes'
 
 local tolower = string.lower
 
@@ -32,7 +33,7 @@ function self:new()
 
     local btn = button {
         icon = self.isCharging and assets.icons.plug_charging or assets.icons.plug,
-        color = "#a6e3a1",
+        color = palettes.battery,
         text = self.percentage,
     }
 

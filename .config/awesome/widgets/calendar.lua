@@ -1,11 +1,11 @@
 -- Calendar widget
 
-local assets = require 'assets'
-local button = require 'widgets.button'
-local gears = require 'gears'
+local assets     = require 'assets'
+local button     = require 'widgets.button'
 local foundation = require 'foundation'
+local palettes   = require 'widgets.palettes'
 
-local self = {}
+local self       = {}
 
 local function date_time()
     return os.date("%H:%M (%d/%m/%Y)")
@@ -32,7 +32,7 @@ end
 
 function self:new()
     return button {
-        color = "#94e2d5",
+        color = palettes.calendar,
         icon = assets.icons.calendar,
         text = date_time(),
         onInit = onInit

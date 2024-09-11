@@ -3,6 +3,7 @@
 local assets = require 'assets'
 local button = require 'widgets.button'
 local commands = require 'commands'
+local palettes = require 'widgets.palettes'
 
 local self = {}
 
@@ -24,7 +25,7 @@ end
 
 function self:new()
     return button {
-        color = '#9bcbf8',
+        color = palettes.bluetooth,
         onClick = onClick,
         onInit = updateIcon
     }

@@ -1,13 +1,14 @@
 -- CPU widget
 
-local assets = require 'assets'
-local button = require 'widgets.button'
+local assets   = require 'assets'
+local button   = require 'widgets.button'
+local palettes = require 'widgets.palettes'
 
-local self = {}
+local self     = {}
 
 function self:new()
     return button {
-        color = "#FFFFFF",
+        color = palettes.home,
         icon = assets.icons.home
     }
 end

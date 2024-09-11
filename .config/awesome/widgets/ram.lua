@@ -4,12 +4,13 @@ local assets     = require 'assets'
 local button     = require 'widgets.button'
 local commands   = require 'commands'
 local foundation = require 'foundation'
+local palettes   = require 'widgets.palettes'
 
 local self       = {}
 
 function self:new()
     return button {
-        color = "#f5c2e7",
+        color = palettes.ram,
         icon = assets.icons.ram,
         onInit = function(btn)
             foundation.schedule {

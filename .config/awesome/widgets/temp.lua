@@ -1,15 +1,16 @@
 -- Temperature widget
 
-local assets = require 'assets'
-local button = require 'widgets.button'
-local commands = require 'commands'
+local assets     = require 'assets'
+local button     = require 'widgets.button'
+local commands   = require 'commands'
 local foundation = require 'foundation'
+local palettes   = require 'widgets.palettes'
 
-local self = {}
+local self       = {}
 
 function self:new()
     return button {
-        color = "#f5e0dc",
+        color = palettes.temp,
         icon = assets.icons.thermometer,
         onInit = function(btn)
             foundation.schedule {

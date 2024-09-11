@@ -1,11 +1,12 @@
 -- Wifi widget
 
-local assets = require 'assets'
-local button = require 'widgets.button'
-local commands = require 'commands'
+local assets     = require 'assets'
+local button     = require 'widgets.button'
+local commands   = require 'commands'
 local foundation = require 'foundation'
+local palettes   = require 'widgets.palettes'
 
-local self = {}
+local self       = {}
 
 local function updateButton(btn)
     commands.wifi_enabled(function(out)
@@ -42,7 +43,7 @@ end
 
 function self:new()
     return button {
-        color = '#bc96f4',
+        color = palettes.wifi,
         onClick = onClick,
         onInit = updateButton,
         icon = assets.icons.wifi
