@@ -25,12 +25,12 @@ local function stream(cmd, cb)
     local cmd_args = { "stdbuf", "-oL" }
     for arg in string.gmatch(cmd, "[^%s]+") do table.insert(cmd_args, arg) end
 
-    local listener = watch(cmd_args, {
+    local pid = watch(cmd_args, {
         stdout = cb
     })
 
     local kill_cb = function()
-        awesome.kill(listener, awesome.unix_signal.SIGTERM)
+        awesome.kill(-pid, awesome.unix_signal.SIGTERM)
     end
 
     awesome.connect_signal("exit", kill_cb)
@@ -64,6 +64,17 @@ local function bluetooth_connected(cb, opt)
     return command_or_stream("/home/freitas/.local/bin/rofi-bluetooth-menu --query-power", cb, opt)
 end
 
+--- Queries CPU temperature.
+---@param cb? function
+local function cpu_temp(cb, opt)
+    return command_or_stream("/home/freitas/.local/bin/system-stats temp", cb, opt)
+end
+
+--- Queries CPU usage.
+---@param cb? function
+local function cpu_usage(cb, opt)
+    return command_or_stream("/home/freitas/.local/bin/system-stats cpu", cb, opt)
+end
 
 --- Launches power menu.
 ---@param cb? function
@@ -71,10 +82,16 @@ local function power_menu(cb, opt)
     return command_or_stream("/home/freitas/.local/bin/rofi-poweroff-menu", cb, opt)
 end
 
+--- Queries RAM usage.
+---@param cb? function
+local function ram_usage(cb, opt)
+    return command_or_stream("/home/freitas/.local/bin/system-stats ram", cb, opt)
+end
+
 --- Takes a screenshot.
 ---@param cb? function
 local function screenshot(cb, opt)
-    return command_or_stream("/home/freitas/.local/bin/screenshot", cb, opt)
+    return command_or_stream("/home/freitas/.local/bin/screenshot select", cb, opt)
 end
 
 --- Queries master channel volume.
@@ -106,7 +123,10 @@ return {
     stream = stream,
     bluetooth_menu = bluetooth_menu,
     bluetooth_connected = bluetooth_connected,
+    cpu_temp = cpu_temp,
+    cpu_usage = cpu_usage,
     power_menu = power_menu,
+    ram_usage = ram_usage,
     screenshot = screenshot,
     volume = volume,
     wifi_enabled = wifi_enabled,
