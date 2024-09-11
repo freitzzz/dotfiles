@@ -32,7 +32,7 @@ function self:new()
 
     local btn = button {
         icon = self.isCharging and assets.icons.plug_charging or assets.icons.plug,
-        color = "#b7e5dd",
+        color = "#a6e3a1",
         text = self.percentage,
     }
 
