@@ -1,5 +1,6 @@
 local theme_assets             = require("beautiful.theme_assets")
 local xresources               = require("beautiful.xresources")
+local gears                    = require("gears")
 local dpi                      = xresources.apply_dpi
 
 local gfs                      = require("gears.filesystem")
@@ -38,13 +39,15 @@ theme.taglist_squares_unsel    = theme_assets.taglist_squares_unsel(
     taglist_square_size, theme.fg_normal
 )
 
+theme.notification_font        = "JetBrains Mono Nerd Font"
+theme.notification_shape       = gears.shape.rounded_rect
 
-theme.menu_height   = dpi(36)
-theme.menu_width    = dpi(300)
+theme.menu_height              = dpi(36)
+theme.menu_width               = dpi(300)
 
-theme.titlebar_size = dpi(10)
+theme.titlebar_size            = dpi(10)
 
-theme.awesome_icon  = config_path .. "assets/icons/icon.svg"
-theme.wallpaper     = config_path .. "assets/background.jpg"
+theme.awesome_icon             = config_path .. "assets/icons/icon.svg"
+theme.wallpaper                = config_path .. "assets/background.jpg"
 
 return theme
