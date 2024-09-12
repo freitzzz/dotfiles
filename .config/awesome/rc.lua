@@ -23,6 +23,8 @@ local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
 
 local commands = require 'commands'
+local notifications = require("widgets.notifications")
+
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -386,6 +388,16 @@ for i = 1, 9 do
                 if tag then
                     tag:view_only()
                 end
+
+                notifications.show {
+                    center = true,
+                    fontSize = 32,
+                    id = "workspace shift",
+                    size = 128,
+                    text = "" .. i,
+                    timeout = 0.8,
+                    position = "bottom_right"
+                }
             end,
             { description = "view tag #" .. i, group = "tag" }),
         -- Toggle tag display.
