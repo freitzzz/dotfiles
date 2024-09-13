@@ -2,13 +2,7 @@
 
 # Mutes/unmutes master volume.
 mute_master() {
-    state=$(amixer get Master | egrep 'Playback.*?\[o' | egrep -o '\[o.+\]')
-
-    if [[ "$state" == *"[on]"* ]]; then
-        amixer -q sset Master mute
-    else
-        amixer -q sset Master unmute
-    fi
+    amixer -q sset Master toggle
 }
 
 # Increases master volume.
