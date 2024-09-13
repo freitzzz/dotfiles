@@ -2,9 +2,13 @@
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
 
+local widgets = require 'widgets'
+local menus   = require("widgets.menus")
+local globals = require 'globals'
+
 -- Standard awesome library
-local gears = require("gears")
-local awful = require("awful")
+local gears   = require("gears")
+local awful   = require("awful")
 require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
@@ -13,18 +17,11 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
-local hotkeys_popup = require("awful.hotkeys_popup")
--- Enable hotkeys help widget for VIM and other apps
--- when client with a matching name is opened:
-require("awful.hotkeys_popup.keys")
-
--- Load Debian menu entries
-local debian = require("debian.menu")
-local has_fdo, freedesktop = pcall(require, "freedesktop")
 
 local commands = require 'commands'
 local notifications = require("widgets.notifications")
 
+local hotkeys_popup = require 'awful.hotkeys_popup'
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -60,10 +57,8 @@ end
 --beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
 
--- This is used later as the default terminal and editor to run.
-local terminal = "x-terminal-emulator"
-local editor = os.getenv("EDITOR") or "editor"
-local editor_cmd = terminal .. " -e " .. editor
+-- Initialize awesome menu after theme is applied.
+menus.awesome.init()
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -90,37 +85,8 @@ awful.layout.layouts = {
 }
 -- }}}
 
--- {{{ Menu
--- Create a launcher widget and a main menu
-local myawesomemenu = {
-    { "hotkeys",     function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-    { "manual",      terminal .. " -e man awesome" },
-    { "edit config", editor_cmd .. " " .. awesome.conffile },
-    { "restart",     awesome.restart },
-    { "quit",        function() awesome.quit() end },
-}
-
-local menu_awesome = { "awesome", myawesomemenu, beautiful.awesome_icon }
-local menu_terminal = { "open terminal", terminal }
-
-if has_fdo then
-    mymainmenu = freedesktop.menu.build({
-        before = { menu_awesome },
-        after = { menu_terminal }
-    })
-else
-    mymainmenu = awful.menu({
-        items = {
-            menu_awesome,
-            { "Debian", debian.menu.Debian_menu.Debian },
-            menu_terminal,
-        }
-    })
-end
-
-
 -- Menubar configuration
-menubar.utils.terminal = terminal -- Set the terminal for applications that require it
+menubar.utils.terminal = globals.terminal -- Set the terminal for applications that require it
 -- }}}
 
 -- Keyboard map indicator and switcher
@@ -165,8 +131,6 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Create the wibox
     s.mywibox = awful.wibar({ height = 36, position = "top", screen = s, opacity = 1, bg = "#00000000" })
-
-    local widgets = require('widgets')
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -213,14 +177,14 @@ end)
 
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
-    awful.button({}, 3, function() mymainmenu:toggle() end),
+    awful.button({}, 3, menus.awesome),
     awful.button({}, 4, awful.tag.viewnext),
     awful.button({}, 5, awful.tag.viewprev)
 ))
 -- }}}
 
 -- {{{ Key bindings
-globalkeys = gears.table.join(
+local globalkeys = gears.table.join(
     awful.key({ modkey, }, "s", hotkeys_popup.show_help,
         { description = "show help", group = "awesome" }),
     awful.key({ modkey, }, "Left", awful.tag.viewprev,
@@ -264,7 +228,7 @@ globalkeys = gears.table.join(
         { description = "go back", group = "client" }),
 
     -- Standard program
-    awful.key({ modkey, }, "Return", function() awful.spawn(terminal) end,
+    awful.key({ modkey, }, "Return", function() awful.spawn(globals.terminal) end,
         { description = "open a terminal", group = "launcher" }),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
         { description = "reload awesome", group = "awesome" }),
@@ -328,7 +292,21 @@ globalkeys = gears.table.join(
     awful.key({ modkey }, "l", function() awful.spawn("slock") end,
         { description = "lock screen", group = "power" }),
     awful.key({}, "Print", commands.screenshot,
-        { description = "takes a screenshot", group = "utils" })
+        { description = "takes a screenshot", group = "utils" }),
+
+    -- Volume Control
+    awful.key(
+        {}, "#121", commands.volume_mute,
+        { description = "mute/unmute volume", group = "volume control" }
+    ),
+    awful.key(
+        {}, "#122", commands.volume_decrease,
+        { description = "lower volume", group = "volume control" }
+    ),
+    awful.key(
+        {}, "#123", commands.volume_increase,
+        { description = "increase volume", group = "volume control" }
+    )
 )
 
 clientkeys = gears.table.join(
@@ -388,6 +366,14 @@ for i = 1, 9 do
                 if tag then
                     tag:view_only()
                 end
+
+                print(screen)
+                print(tag)
+                local cls = tag:clients()
+                for k, v in pairs(cls) do
+                    print(k, v.icon)
+                end
+                print(tag:clients())
 
                 notifications.show {
                     center = true,
