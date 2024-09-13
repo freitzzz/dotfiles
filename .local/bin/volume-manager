@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+# Mutes/unmutes master volume.
+mute_master() {
+    state=$(amixer get Master | egrep 'Playback.*?\[o' | egrep -o '\[o.+\]')
+
+    if [[ "$state" == *"[on]"* ]]; then
+        amixer -q sset Master mute
+    else
+        amixer -q sset Master unmute
+    fi
+}
+
+# Increases master volume.
+increase_master() {
+    amixer -q sset Master 3%+
+}
+
+# Decreases master volume.
+decrease_master() {
+    amixer -q sset Master 3%-
+}
+
+case "$1" in
+"--mute") mute_master || exit ;;
+"--increase") increase_master || exit ;;
+"--decrease") decrease_master || exit ;;
+*) exit ;;
+esac

@@ -100,6 +100,24 @@ local function volume(cb, opt)
     return command_or_stream("/home/freitas/.local/bin/volume-level --monitor", cb, opt)
 end
 
+--- Increases master channel volume.
+---@param cb? function
+local function volume_increase(cb, opt)
+    return command_or_stream("/home/freitas/.local/bin/volume-manager --increase", cb, opt)
+end
+
+--- Decreases master channel volume.
+---@param cb? function
+local function volume_decrease(cb, opt)
+    return command_or_stream("/home/freitas/.local/bin/volume-manager --decrease", cb, opt)
+end
+
+--- Mutes/Unmutes master channel volume.
+---@param cb? function
+local function volume_mute(cb, opt)
+    return command_or_stream("/home/freitas/.local/bin/volume-manager --mute", cb, opt)
+end
+
 --- Launches wifi menu.
 ---@param cb? function
 local function wifi_menu(cb, opt)
@@ -129,6 +147,9 @@ return {
     ram_usage = ram_usage,
     screenshot = screenshot,
     volume = volume,
+    volume_decrease = volume_decrease,
+    volume_increase = volume_increase,
+    volume_mute = volume_mute,
     wifi_enabled = wifi_enabled,
     wifi_menu = wifi_menu,
     wifi_ssid = wifi_ssid,
