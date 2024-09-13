@@ -108,6 +108,18 @@ local function set_wallpaper(s)
     end
 end
 
+local function show_workspace_tab(tab_id)
+    notifications.show {
+        center = true,
+        fontSize = 32,
+        id = "workspace tab",
+        size = 128,
+        text = "" .. tab_id,
+        timeout = 0.8,
+        position = "bottom_right"
+    }
+end
+
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
@@ -172,6 +184,10 @@ awful.screen.connect_for_each_screen(function(s)
         bottom = 4,
         layout = wibox.container.margin,
     }
+
+    s:connect_signal("tag::history::update", function()
+        show_workspace_tab(s.selected_tag.name)
+    end)
 end)
 -- }}}
 
@@ -187,9 +203,15 @@ root.buttons(gears.table.join(
 local globalkeys = gears.table.join(
     awful.key({ modkey, }, "s", hotkeys_popup.show_help,
         { description = "show help", group = "awesome" }),
-    awful.key({ modkey, }, "Left", awful.tag.viewprev,
+    awful.key({ modkey, }, "Left", function(s)
+            awful.tag.viewprev()
+            --show_workspace_tab(awful.tag.selected().name)
+        end,
         { description = "view previous", group = "tag" }),
-    awful.key({ modkey, }, "Right", awful.tag.viewnext,
+    awful.key({ modkey, }, "Right", function()
+            awful.tag.viewnext()
+            --show_workspace_tab(awful.tag.selected().name)
+        end,
         { description = "view next", group = "tag" }),
     awful.key({ modkey, }, "Escape", awful.tag.history.restore,
         { description = "go back", group = "tag" }),
@@ -366,24 +388,6 @@ for i = 1, 9 do
                 if tag then
                     tag:view_only()
                 end
-
-                print(screen)
-                print(tag)
-                local cls = tag:clients()
-                for k, v in pairs(cls) do
-                    print(k, v.icon)
-                end
-                print(tag:clients())
-
-                notifications.show {
-                    center = true,
-                    fontSize = 32,
-                    id = "workspace shift",
-                    size = 128,
-                    text = "" .. i,
-                    timeout = 0.8,
-                    position = "bottom_right"
-                }
             end,
             { description = "view tag #" .. i, group = "tag" }),
         -- Toggle tag display.
