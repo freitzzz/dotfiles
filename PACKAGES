@@ -18,3 +18,4 @@ linux-headers-$(uname  -r); complementary to nvidia-driver
 awesome; window manager
 btop; better version of htop, see tasks/processes
 xserver-xorg-input-synaptics; control touchpad
+rofi; create graphical menus from text.
