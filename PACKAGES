@@ -1,0 +1,20 @@
+# A list of all packages that I'm using
+
+xclip; copy screenshot images to clipboard
+scrot; make screenshots happen
+fastfetch; better version of neofetch, showcase in terminal
+nvidia-driver; graphic drivers
+firmarware-misc-nonfree; complementary to nvidia-driver
+picom; compositor, used achieve transparency in windows
+alacritty; fast render terminal
+slock; lock screen
+libnotify-bin; send notifications
+xdotool; automatically fill forms, used with keepass
+keepass2; passwords and other secrets management;http://ftp.de.debian.org/debian/pool/main/k/keepass2/keepass2_2.57+dfsg-1_all.deb
+code; development editor;https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
+git; version management
+lightdm; display/login manager
+linux-headers-$(uname  -r); complementary to nvidia-driver
+awesome; window manager
+btop; better version of htop, see tasks/processes
+xserver-xorg-input-synaptics; control touchpad
