@@ -3,16 +3,15 @@
 local assets   = require 'assets'
 local button   = require 'widgets.button'
 local palettes = require 'widgets.palettes'
+local menus    = require 'widgets.menus'
 
 local self     = {}
 
----Creates the home widget.
----@param args {menu: function}
 function self:new(args)
     return button {
         color = palettes.home,
         icon = assets.icons.home,
-        onClick = args.menu,
+        onClick = menus.awesome,
     }
 end
 

@@ -22,10 +22,8 @@ return {
     cpu = function()
         return _cpu {}
     end,
-    home = function(menu)
-        return _home {
-            menu = menu
-        }
+    home = function()
+        return _home {}
     end,
     power = function()
         return _power {}
