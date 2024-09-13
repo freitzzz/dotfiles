@@ -17,7 +17,11 @@ function self:new()
         onClick = onClick,
         onInit = function(btn)
             commands.volume(function(vol)
-                button.update(btn, { text = vol })
+                if vol == 'mute' then
+                    button.update(btn, { text = '', icon = assets.icons.speaker_off })
+                else
+                    button.update(btn, { text = vol, icon = assets.icons.speaker })
+                end
             end, { watch = true })
         end,
     }
