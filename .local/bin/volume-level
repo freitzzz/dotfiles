@@ -2,7 +2,13 @@
 
 # Queries master volume.
 master_volume() {
-    awk -F"[][]" '/Left:/ { print $2 }' <(amixer sget Master)
+    out=($(awk -F"[][]" '/Left:/ { print $2 " " $4 }' <(amixer sget Master)))
+
+    if [ ${out[1]} == 'on' ]; then
+        echo ${out[0]}
+    else
+        echo 'mute'
+    fi
 }
 
 # Monitors master volume using stdbuf.
