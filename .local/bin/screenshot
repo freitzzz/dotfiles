@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+home="$HOME"
+output="$home/Pictures/Screenshots/%Y-%m-%d-%T.png"
+
+screenshot() {
+    args=$1
+
+    scrot "$output" "$args" -e 'xclip -selection clipboard -t image/png -i $f'
+}
+
+case "$1" in
+"select") screenshot --select --line mode=edge || exit ;;
+"window") screenshot --focused --border || exit ;;
+*) scrot "$output" || exit ;;
+esac
+
+notify-send "Screenshot taken."

@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# Queries master volume.
+master_volume() {
+    out=($(awk -F"[][]" '/Left:/ { print $2 " " $4 }' <(amixer sget Master)))
+
+    if [ ${out[1]} == 'on' ]; then
+        echo ${out[0]}
+    else
+        echo 'mute'
+    fi
+}
+
+# Monitors master volume using stdbuf.
+# The [drop] value is used to filter the initial values from amixer stream.
+monitor_master_volume() {
+    drop=1
+    stdbuf -oL amixer sevents | while IFS= read -r line; do
+        if grep -q "event value: 'Master'" <<<"$line"; then
+            if [ $drop -gt 0 ]; then
+                drop=$((drop - 1))
+            else
+                master_volume
+            fi
+        fi
+    done
+}
+
+case "$1" in
+"--monitor") monitor_master_volume || exit ;;
+*) master_volume || exit ;;
+esac

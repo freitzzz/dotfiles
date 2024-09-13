@@ -1,0 +1,18 @@
+{
+    "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+    "workspace.library": [
+        "/usr/share/awesome/lib/"
+    ],
+    "hint.enable": false,
+    "diagnostics": {
+        "enable": true,
+        "globals": [
+            "awesome",
+            "awful",
+            "client",
+            "screen",
+            "tag"
+        ]
+    },
+    "telemetry.enable": false
+}
