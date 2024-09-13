@@ -10,6 +10,7 @@ My Linux configuration files :)
 
 I'm rocking on:
 
+- **OS**: Debian 13
 - **WM**: AwesomeWM
 - **Font**: Jetbrains Mono Nerd
 - **Terminal**: Alacritty
