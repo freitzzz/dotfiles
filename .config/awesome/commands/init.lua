@@ -1,6 +1,8 @@
 local awful = require 'awful'
 local watch = awful.spawn and awful.spawn.with_line_callback
 
+local home_path = require 'globals'.home_path
+
 --- Executes a command as an OS call. If [cb] is passed, command is launched a in a coroutine.
 ---@param cmd string|table
 ---@param cb? function
@@ -55,85 +57,85 @@ end
 --- Launches bluetooth menu.
 ---@param cb? function
 local function bluetooth_menu(cb, opt)
-    return command_or_stream("/home/freitas/.local/bin/rofi-bluetooth-menu", cb, opt)
+    return command_or_stream(home_path .. "/.local/bin/rofi-bluetooth-menu", cb, opt)
 end
 
 --- Queries bluetooth connected status. Returns 0 if connected, 1 otherwise.
 ---@param cb? function
 local function bluetooth_connected(cb, opt)
-    return command_or_stream("/home/freitas/.local/bin/rofi-bluetooth-menu --query-power", cb, opt)
+    return command_or_stream(home_path .. "/.local/bin/rofi-bluetooth-menu --query-power", cb, opt)
 end
 
 --- Queries CPU temperature.
 ---@param cb? function
 local function cpu_temp(cb, opt)
-    return command_or_stream("/home/freitas/.local/bin/system-stats temp", cb, opt)
+    return command_or_stream(home_path .. "/.local/bin/system-stats temp", cb, opt)
 end
 
 --- Queries CPU usage.
 ---@param cb? function
 local function cpu_usage(cb, opt)
-    return command_or_stream("/home/freitas/.local/bin/system-stats cpu", cb, opt)
+    return command_or_stream(home_path .. "/.local/bin/system-stats cpu", cb, opt)
 end
 
 --- Launches power menu.
 ---@param cb? function
 local function power_menu(cb, opt)
-    return command_or_stream("/home/freitas/.local/bin/rofi-poweroff-menu", cb, opt)
+    return command_or_stream(home_path .. "/.local/bin/rofi-poweroff-menu", cb, opt)
 end
 
 --- Queries RAM usage.
 ---@param cb? function
 local function ram_usage(cb, opt)
-    return command_or_stream("/home/freitas/.local/bin/system-stats ram", cb, opt)
+    return command_or_stream(home_path .. "/.local/bin/system-stats ram", cb, opt)
 end
 
 --- Takes a screenshot.
 ---@param cb? function
 local function screenshot(cb, opt)
-    return command_or_stream("/home/freitas/.local/bin/screenshot select", cb, opt)
+    return command_or_stream(home_path .. "/.local/bin/screenshot select", cb, opt)
 end
 
 --- Queries master channel volume.
 ---@param cb? function
 local function volume(cb, opt)
-    return command_or_stream("/home/freitas/.local/bin/volume-level --monitor", cb, opt)
+    return command_or_stream(home_path .. "/.local/bin/volume-level --monitor", cb, opt)
 end
 
 --- Increases master channel volume.
 ---@param cb? function
 local function volume_increase(cb, opt)
-    return command_or_stream("/home/freitas/.local/bin/volume-manager --increase", cb, opt)
+    return command_or_stream(home_path .. "/.local/bin/volume-manager --increase", cb, opt)
 end
 
 --- Decreases master channel volume.
 ---@param cb? function
 local function volume_decrease(cb, opt)
-    return command_or_stream("/home/freitas/.local/bin/volume-manager --decrease", cb, opt)
+    return command_or_stream(home_path .. "/.local/bin/volume-manager --decrease", cb, opt)
 end
 
 --- Mutes/Unmutes master channel volume.
 ---@param cb? function
 local function volume_mute(cb, opt)
-    return command_or_stream("/home/freitas/.local/bin/volume-manager --mute", cb, opt)
+    return command_or_stream(home_path .. "/.local/bin/volume-manager --mute", cb, opt)
 end
 
 --- Launches wifi menu.
 ---@param cb? function
 local function wifi_menu(cb, opt)
-    return command_or_stream("/home/freitas/.local/bin/rofi-wifi-menu", cb, opt)
+    return command_or_stream(home_path .. "/.local/bin/rofi-wifi-menu", cb, opt)
 end
 
 --- Queries WiFi enabled status.
 ---@param cb? function
 local function wifi_enabled(cb, opt)
-    return command_or_stream("/home/freitas/.local/bin/wifi-enabled", cb, opt)
+    return command_or_stream(home_path .. "/.local/bin/wifi-enabled", cb, opt)
 end
 
 --- Queries connected WiFi network SSID.
 ---@param cb? function
 local function wifi_ssid(cb, opt)
-    return command_or_stream("/home/freitas/.local/bin/wifi-ssid", cb, opt)
+    return command_or_stream(home_path .. "/.local/bin/wifi-ssid", cb, opt)
 end
 
 return {

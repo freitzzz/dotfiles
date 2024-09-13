@@ -1,4 +1,4 @@
-local home_path = os.getenv("HOME")
+local home_path = require 'globals'.home_path
 
 return {
     icons = {
