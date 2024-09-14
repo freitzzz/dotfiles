@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+# 1. Install missing packages
+cat PACKAGES | while IFS=";" read -r package description url; do
+    echo "Installing $package ($description)..."
+
+    if [ ! -z $url ]; then
+        tmp=$(mktemp).deb
+        wget $url -q -O $tmp
+        sudo apt-get install -y $tmp
+    else
+        sudo apt-get install -y $package
+    fi
+done
+
+# 2. Copy .config directory
+for dir in .config/*; do
+    src=".config/$dir"
+    dst="~/$src"
+
+    if [ -d $dst ]; then
+        mv $dst $dst.bkp
+    fi
+
+    echo "Copying $src to $dst..."
+    cp -r $src $dst
+done
+
+# 3. Copy .local/bin folder
+for file in .local/bin/*; do
+    src=".local/bin/$file"
+    dst="~/$src"
+
+    if [ -f $dst ]; then
+        mv $dst $dst.bkp
+    fi
+
+    echo "Copying $src to $dst..."
+    cp $src $dst
+done
+
+# 4. Install aliases
+aliases_file="~/.bash_aliases"
+if [ -f $aliases_file ]; then
+    mv $aliases_file $aliases_file.bkp
+fi
+
+echo "Installing aliases in $aliases_file..."
+echo 'for alias in .config/aliases/*; do source $alias; done' >$aliases_file
+
+echo "All done!"
