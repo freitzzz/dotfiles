@@ -23,7 +23,7 @@ fi
 
 for dir in .config/*; do
     src="$dir"
-    dst="~/$src"
+    dst=~/$src
 
     if [ -d $dst ]; then
         mv $dst $dst.bkp
@@ -40,7 +40,7 @@ fi
 
 for file in .local/bin/*; do
     src="$file"
-    dst="~/$src"
+    dst=~/$src
 
     if [ -f $dst ]; then
         mv $dst $dst.bkp
@@ -51,7 +51,7 @@ for file in .local/bin/*; do
 done
 
 # 4. Install aliases
-aliases_file="~/.bash_aliases"
+aliases_file=~/.bash_aliases
 if [ -f $aliases_file ]; then
     mv $aliases_file $aliases_file.bkp
 else
