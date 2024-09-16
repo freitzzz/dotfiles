@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 
+# 0. Update repositories (just in case)
+sudo apt-get update -y
+
 # 1. Install missing packages
 cat PACKAGES | while IFS=";" read -r package description url; do
     echo "Installing $package ($description)..."
 
     if [ ! -z $url ]; then
         tmp=$(mktemp).deb
-        wget $url -q -O $tmp
+        wget $url -O $tmp
         sudo apt-get install -y $tmp
     else
         sudo apt-get install -y $package
@@ -14,8 +17,12 @@ cat PACKAGES | while IFS=";" read -r package description url; do
 done
 
 # 2. Copy .config directory
+if [ ! -d ~/.config ]; then
+    mkdir ~/.config
+fi
+
 for dir in .config/*; do
-    src=".config/$dir"
+    src="$dir"
     dst="~/$src"
 
     if [ -d $dst ]; then
@@ -23,12 +30,16 @@ for dir in .config/*; do
     fi
 
     echo "Copying $src to $dst..."
-    cp -r $src $dst
+    cp -dir $src $dst
 done
 
 # 3. Copy .local/bin folder
+if [ ! -d ~/.local/bin ]; then
+    mkdir -p ~/.local/bin
+fi
+
 for file in .local/bin/*; do
-    src=".local/bin/$file"
+    src="$file"
     dst="~/$src"
 
     if [ -f $dst ]; then
@@ -43,6 +54,8 @@ done
 aliases_file="~/.bash_aliases"
 if [ -f $aliases_file ]; then
     mv $aliases_file $aliases_file.bkp
+else
+    touch $aliases_file
 fi
 
 echo "Installing aliases in $aliases_file..."
