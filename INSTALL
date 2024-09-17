@@ -59,6 +59,6 @@ else
 fi
 
 echo "Installing aliases in $aliases_file..."
-echo 'for alias in .config/aliases/*; do source $alias; done' >$aliases_file
+echo 'for alias in ~/.config/aliases/*; do source $alias; done' >$aliases_file
 
 echo "All done!"
