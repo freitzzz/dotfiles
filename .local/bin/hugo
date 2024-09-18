@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# This program acts as a middleware between multiple Hugo versions.
+path=~/Workspace/Tools/hugo
+
+if [ -f .hugo-version ]; then
+    path=$path/$(cat .hugo-version)
+fi
+
+$path/hugo $@
