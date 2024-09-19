@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+
+# janitor: watches downloads directory and moves files to folders defined in rules, based on the file mime-type.
+
+# Activate hidden files glob
+shopt -s dotglob
+
+# Define the domain or mime type of files to detect, followed by the directory to move them
+declare -A rules
+
+rules[audio]=~/Music
+rules[image]=~/Pictures
+rules[text]=~/Documents
+rules[video]=~/Videos
+
+# Define mime-type for fine-grain move calls
+rules["application/pdf"]=~/Documents/PDF
+rules["application/vnd.ms-excel"]=~/Documents/Spreadsheets
+rules["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"]=~/Documents/Spreadsheets
+rules["application/vnd.openxmlformats-officedocument.wordprocessingml.document"]=~/Documents/Word
+rules["application/msword"]=~/Documents/Word
+rules["application/vnd.ms-powerpoint"]=~/Documents/Presentations
+rules["text/html"]=~/Documents/Webpages
+rules["text/css"]=~/Documents/Webpages
+rules["text/javascript"]=~/Documents/Webpages
+rules["text/csv"]=~/Documents/Spreadsheets
+
+# Define a default directory for files that don't fit in any of the rules
+rules[default]=~/Documents/Quarantine
+
+# Define the directory to keep track of new files
+tracking_dir=~/Downloads
+
+# Define the break interval to track new files (seconds)
+break_time=30
+
+# Outputs the mime-type of a file received from input
+mime_type() {
+    out=$(file "$1" --mime-type)
+    split=(${out//: / })
+
+    echo ${split[-1]}
+}
+
+# Moves a file ($1) to a destination directory ($1), but if a file with the same name already exists at the destination
+# appends a numeric suffix (-N)
+move() {
+    local src="$1"
+    local dest="$2"
+    local file_name=$(basename "$src")
+    local src_name="${file_name%%.*}"
+    local src_ext=".${file_name##*.}"
+
+    local ctr_src_name="${src_name}"
+    local ctr=0
+
+    if [ "$file_name" = "$src_name" ]; then
+        src_ext=""
+    fi
+
+    if [ ! -d "$dest" ]; then
+        mkdir -p "$dest"
+    fi
+
+    while true; do
+        dir="$dest/${ctr_src_name}${src_ext}"
+
+        if [ ! -f "$dir" ]; then
+            mv "$src" "$dir"
+
+            echo "Moved $file_name to $dest under the name $(basename "$dir")"
+            break
+        else
+            ctr=$((ctr + 1))
+            ctr_src_name="$src_name-$ctr"
+        fi
+    done
+}
+
+# Cleans the tracking directory
+clean() {
+    for file in $tracking_dir/*; do
+        if [ ! -f "$file" ]; then
+            continue
+        fi
+
+        # 1. Test fine-grain lookup
+        mime=$(mime_type "$file")
+        dir=${rules["$mime"]}
+
+        if [ -z $dir ]; then
+            # 2. Test mime-type domain
+            domain=(${mime//\// })
+            dir=${rules["$domain"]}
+        fi
+
+        if [ -z $dir ]; then
+            # 3. Default directory
+            dir=${rules[default]}
+        fi
+
+        move "$file" "$dir"
+    done
+}
+
+# Put janitor to work
+while true; do
+    clean
+    sleep $break_time
+done
