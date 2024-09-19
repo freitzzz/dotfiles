@@ -553,3 +553,8 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 -- Autostart Applications
 commands.command("picom -b")
+commands.janitor(function(out)
+    notifications.show {
+        text = out
+    }
+end, { watch = true })

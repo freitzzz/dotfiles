@@ -78,6 +78,12 @@ local function cpu_usage(cb, opt)
     return command_or_stream(home_path .. "/.local/bin/system-stats cpu", cb, opt)
 end
 
+--- Calls janitor.
+---@param cb? function
+local function janitor(cb, opt)
+    return command_or_stream(home_path .. "/.local/bin/janitor", cb, opt)
+end
+
 --- Launches power menu.
 ---@param cb? function
 local function power_menu(cb, opt)
@@ -145,6 +151,7 @@ return {
     bluetooth_connected = bluetooth_connected,
     cpu_temp = cpu_temp,
     cpu_usage = cpu_usage,
+    janitor = janitor,
     power_menu = power_menu,
     ram_usage = ram_usage,
     screenshot = screenshot,
