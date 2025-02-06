@@ -2,6 +2,7 @@ local home_path = require 'globals'.home_path
 
 return {
     icons = {
+        app_placeholder = home_path .. "/.config/awesome/assets/icons/app_placeholder.svg",
         bluetooth_off = home_path .. "/.config/awesome/assets/icons/bluetooth-off.svg",
         bluetooth = home_path .. "/.config/awesome/assets/icons/bluetooth.svg",
         calendar = home_path .. "/.config/awesome/assets/icons/calendar.svg",

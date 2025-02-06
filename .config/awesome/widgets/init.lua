@@ -1,3 +1,4 @@
+local _apps = require 'widgets.apps'
 local _battery = require 'widgets.battery'
 local _bluetooth = require 'widgets.bluetooth'
 local _calendar = require 'widgets.calendar'
@@ -10,6 +11,9 @@ local _volume = require 'widgets.volume'
 local _wifi = require 'widgets.wifi'
 
 return {
+    apps = function()
+        return _apps {}
+    end,
     battery = function()
         return _battery {}
     end,
