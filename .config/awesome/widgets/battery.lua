@@ -1,11 +1,11 @@
 -- Battery widget
 
-local assets = require 'assets'
-local gears = require("gears")
-local button = require 'widgets.button'
+local assets   = require 'assets'
+local gears    = require("gears")
+local button   = require 'widgets.button'
 local palettes = require 'widgets.palettes'
 
-local tolower = string.lower
+local tolower  = string.lower
 
 local function readfile(command)
     local file = io.open(command)
@@ -24,18 +24,31 @@ local function read_trim(filename)
     return trim(readfile(filename)) or ""
 end
 
+local function folder_exists(filename)
+    local file = io.open(filename)
+    if not file then return false end
+
+    file:close()
+    return true
+end
+
 local self = {}
 
 function self:new()
     self.percentage = ''
     self.isCharging = false
-    self:update()
+    local battery_exists = folder_exists("/sys/class/power_supply/BAT0")
+    if battery_exists then self:update() else self.isCharging = true end
 
     local btn = button {
         icon = self.isCharging and assets.icons.plug_charging or assets.icons.plug,
         color = palettes.battery,
         text = self.percentage,
     }
+
+    if not battery_exists then
+        return btn
+    end
 
     gears.timer {
         timeout   = 10,
