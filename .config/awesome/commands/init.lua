@@ -126,6 +126,12 @@ local function volume_mute(cb, opt)
     return command_or_stream(home_path .. "/.local/bin/volume-manager --mute", cb, opt)
 end
 
+--- Launches volume menu.
+---@param cb? function
+local function volume_menu(cb, opt)
+    return command_or_stream(home_path .. "/.local/bin/rofi-volume-menu", cb, opt)
+end
+
 --- Launches wifi menu.
 ---@param cb? function
 local function wifi_menu(cb, opt)
@@ -159,6 +165,7 @@ return {
     volume_decrease = volume_decrease,
     volume_increase = volume_increase,
     volume_mute = volume_mute,
+    volume_menu = volume_menu,
     wifi_enabled = wifi_enabled,
     wifi_menu = wifi_menu,
     wifi_ssid = wifi_ssid,

@@ -8,6 +8,7 @@ local palettes = require 'widgets.palettes'
 local self     = {}
 
 local function onClick(_)
+    commands.volume_menu()
 end
 
 function self:new()

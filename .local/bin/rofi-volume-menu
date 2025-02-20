@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+root=$(dirname "$0")
+
+while true; do
+    chosen=$(printf "󱄠  Volume Up\n󰝞  Volume Down\n󰝟  Volume Mute/Unmute" | rofi -dmenu -window-title "Volume ($($root/volume-level))")
+
+    case "$chosen" in
+    "󱄠  Volume Up") $root/volume-manager --increase ;;
+    "󰝞  Volume Down") $root/volume-manager --decrease ;;
+    "󰝟  Volume Mute/Unmute") $root/volume-manager --mute ;;
+    "") exit 0 ;;
+    *) exit 1 ;;
+    esac
+done
