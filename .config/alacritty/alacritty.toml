@@ -1,4 +1,4 @@
-import = [
+general.import = [
     "~/.config/alacritty/catppuccin-mocha.toml"
 ]
 
@@ -15,7 +15,7 @@ background = "#000000"  # Default
 [font]
 normal = { family = "JetBrains Mono Nerd Font", style = "Regular" }
 
-[shell]
+[terminal.shell]
 program = "/bin/bash"
 args = ["-l"]
 
